@@ -1,16 +1,16 @@
-import flask
+from flask import *
 from sql import *
 from clients import *
 
 
-base = SQL_base("SUSSYBAKA\\SQLEXPRESS", "base") # base это БД
+base = SQL_base("ASUS", "base") # base это БД
 accounts = AccountsManager(base)
 clients = ClientManager()
-app = flask.Flask(__name__)
+app = Flask(__name__)
 
-# accounts.reset()
+#accounts.reset()
 if not accounts.check_login("admin"):
-	base["users"].add("admin", 1549191368, params=("login", "password"))
+	base["users"].add("admin", 1549191368, params=("login", "password")) #hash(admin)
 base.commit()
 
 
@@ -28,21 +28,21 @@ def LOG(*args):
 
 @app.route("/login")
 def login():
-	last_login = flask.request.cookies.get("last_login")
-	log = flask.request.cookies.get("log")
+	last_login = request.cookies.get("last_login")
+	log = request.cookies.get("log")
 	
 	if last_login == None:
 		last_login = ""
 	
 	if log != None:
-		return flask.render_template("login.html", show=True, log=log, last_login=last_login)
+		return render_template("login.html", show=True, log=log, last_login=last_login)
 	
-	return flask.render_template("login.html", show=False, log=log, last_login=last_login)
+	return render_template("login.html", show=False, log=log, last_login=last_login)
 
 @app.route("/signin")
 def signin():
-	last_login = flask.request.cookies.get("last_login")
-	log = flask.request.cookies.get("log")
+	last_login = request.cookies.get("last_login")
+	log = request.cookies.get("log")
 
 	if last_login == None:
 		last_login = ""
@@ -50,29 +50,29 @@ def signin():
 	if log != None:
 		log = eval(log)
 		if len(log) != 0:
-			return flask.render_template("signin.html", last_login=last_login, show=True, log=log)
+			return render_template("signin.html", last_login=last_login, show=True, log=log)
 	
-	return flask.render_template("signin.html")
+	return render_template("signin.html")
 
 @app.route("/home")
 def home():
-	ip = flask.request.remote_addr
+	ip = request.remote_addr
 	user = clients[ip]
 	
 	if user == None:
-		return flask.redirect("/login",code=302)
+		return redirect("/login",code=302)
 	
 	return str(user)
 
 @app.route("/admin")
 def admin():
-	ip = flask.request.remote_addr
+	ip = request.remote_addr
 	user = clients[ip]
 
 	if user == None:
-		return flask.redirect("/login",code=302)
+		return redirect("/login",code=302)
 	
-	return flask.render_template("admin.html")
+	return render_template("admin.html")
 
 
 
@@ -81,49 +81,49 @@ def admin():
 
 @app.route("/")
 def index():
-	resp = flask.make_response(flask.redirect("/login",code=302))
+	resp = make_response(redirect("/login",code=302))
 	resp.set_cookie("last_login", '', expires=0)
 	resp.set_cookie("log", '', expires=0)
 	return resp
 
 @app.route("/auth", methods=['GET', 'POST'])
 def auth():
-	if flask.request.method == "POST":
-		login = flask.request.form['login']
-		password = flask.request.form['password']
+	if request.method == "POST":
+		login = request.form['login']
+		password = request.form['password']
 		user = accounts.get(login, password)
 		
 		if isinstance(user, User):
-			clients.add(flask.request.remote_addr, user)
-			resp = flask.make_response(flask.redirect("/home",code=302))
+			clients.add(request.remote_addr, user)
+			resp = make_response(redirect("/home",code=302))
 			resp.set_cookie("last_login", '', expires=0)
 			resp.set_cookie("log", '', expires=0)
 			return resp
 		
 		elif user == UserNotFind:
-			resp = flask.make_response(flask.redirect("/login",code=302))
+			resp = make_response(redirect("/login",code=302))
 			resp.set_cookie("last_login", "")
 			resp.set_cookie("log", user)
 			return resp
 		
 		elif user == WrongPass:
-			resp = flask.make_response(flask.redirect("/login",code=302))
+			resp = make_response(redirect("/login",code=302))
 			resp.set_cookie("last_login", login)
 			resp.set_cookie("log", user)
 			return resp
 		
 		LOG("> unexpected", user)
-		resp = flask.make_response(flask.redirect("/",code=302))
+		resp = make_response(redirect("/",code=302))
 		return resp
 	
-	return flask.render_template(flask.redirect("/login",code=302))
+	return render_template(redirect("/login",code=302))
 
 @app.route("/new_auth", methods=['GET', 'POST'])
 def new_auth():
-	if flask.request.method == "POST":
-		login = flask.request.form['login']
-		password1 = flask.request.form['password1']
-		password2 = flask.request.form['password2']
+	if request.method == "POST":
+		login = request.form['login']
+		password1 = request.form['password1']
+		password2 = request.form['password2']
 		
 		log = []
 		
@@ -138,21 +138,22 @@ def new_auth():
 			log.append("Password minimum length is 4")
 		
 		if len(log) != 0:
-			resp = flask.make_response(flask.redirect("/signin",code=302))
+			resp = make_response(redirect("/signin",code=302))
 			resp.set_cookie("last_login", login)
 			resp.set_cookie("log", str(log))
 			return resp
 		
 		user = accounts.add(login, password1)
-		clients.add(flask.request.remote_addr, user)
+		clients.add(request.remote_addr, user)
 
-		resp = flask.make_response(flask.redirect("/home",code=302))
+		resp = make_response(redirect("/home",code=302))
 		resp.set_cookie("last_login", '', expires=0)
 		resp.set_cookie("log", '', expires=0)
 		return resp
 		
-	return flask.render_template(flask.redirect("/login",code=302))
+	return render_template(redirect("/login",code=302))
+
 
 
 if __name__ == "__main__":
-	app.run()
+	app.run(debug=True)
