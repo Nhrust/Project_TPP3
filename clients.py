@@ -20,26 +20,18 @@ class User:
 		self.age = 0
 		self.gender = 0
 		self.description = ''
-
-	def save(self):
-		try:
-			file = open(f"data/U{self.index}.dat", "w")
-		except:
-			print(f"!!! FAIL TO SAVE USER: {self.index}")
-			print(f"!!!   fail to open: data/U{self.index}.dat\n")
-			return
-		print(self.__dict__, file=file)
-		file.close()
-
-	def load(index):
-		try:
-			file = open(f"data/U{index}.dat", "r")
-		except:
-			print(f"!!! FAIL TO LOAD USER: {index}")
-			print(f"!!!   fail to open: data/U{index}.dat\n")
-			return None
+	
+	# not a method
+	def load(base, index):
 		new = User(None, None, None)
-		new.__dict__ = eval(file.readline())
+		user_data = UserData(base["users"].get("id", index)[0])
+		new.index = index
+		new.login = user_data.login
+		new.password = user_data.password
+		new.name = user_data.name
+		new.age = user_data.age
+		new.gender = user_data.gender
+		new.description = user_data.description
 		return new
 
 	def __repr__(self):
@@ -47,6 +39,7 @@ class User:
 	
 class UserData:
 	def __init__(self, response):
+		print(response)
 		self.id, self.login, self.password, self.name, self.age, self.gender, self.description = response
 
 class AccountsManager:
@@ -65,7 +58,7 @@ class AccountsManager:
 		for response in finded:
 			user_data = UserData(response)
 			if hash(password) == user_data.password:
-				return User.load(user_data.id)
+				return User.load(self.base, user_data.id)
 		return WrongPass
 
 	def check_login(self, login):
@@ -76,7 +69,6 @@ class AccountsManager:
 		self.base.commit()
 		index = self.base["users"].get("login", login)[0][0]
 		new_user = User(index, login, hash(password))
-		new_user.save()
 		return new_user
 
 	def delete(self, index):
