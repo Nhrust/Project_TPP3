@@ -3,7 +3,7 @@ from sql import *
 from clients import *
 
 
-base = SQL_base("ASUS", "base") # base это БД
+base = SQL_base("base") # base это БД
 accounts = AccountsManager(base)
 clients = ClientManager()
 app = Flask(__name__)
@@ -20,7 +20,6 @@ def LOG(*args):
 	f = open("logs.txt", "a")
 	print(*args, file=f)
 	f.close()
-
 
 
 

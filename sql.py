@@ -1,4 +1,5 @@
 import pyodbc
+import os
 
 TABLE = "_TAB_" # начало названия таблиц в базе
 
@@ -66,7 +67,8 @@ class Table_handler:
 		self.base.cursor.execute(f"DELETE FROM {self.table.name} WHERE {column_name} = {value}")
 
 class SQL_base:
-	def __init__(self, server, database, driver="Driver=ODBC Driver 17 for SQL Server") -> None:
+	def __init__(self, database, driver="Driver=ODBC Driver 17 for SQL Server") -> None:
+		server = os.getenv("SQL_SERVER")
 		self.base = pyodbc.connect(f"{driver};Server={server};Database={database};Trusted_Connection=yes;")
 		self.cursor = self.base.cursor()
 		self.tables = dict()
