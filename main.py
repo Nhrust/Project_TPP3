@@ -1,3 +1,4 @@
+from time import gmtime, strftime
 from flask import *
 from sql import *
 from clients import *
@@ -18,7 +19,7 @@ base.commit()
 
 def LOG(*args):
 	f = open("logs.txt", "a")
-	print(*args, file=f)
+	print(f"[{strftime('%H:%M:%S', gmtime())}]\n", *args, file=f)
 	f.close()
 
 
@@ -61,7 +62,7 @@ def home():
 	if user == None:
 		return redirect("/login",code=302)
 	
-	return str(user)
+	return render_template("home.html")
 
 @app.route("/profile")
 def profile():
@@ -193,3 +194,4 @@ def edit_profile():
 
 if __name__ == "__main__":
 	app.run(debug=True)
+	# app.run(debug=True, host="0.0.0.0")

@@ -1,7 +1,13 @@
+from time import gmtime, strftime
 import pyodbc
 import os
 
 TABLE = "_TAB_" # начало названия таблиц в базе
+
+def LOG(*args):
+	f = open("logs.txt", "a")
+	print(f"[{strftime('%H:%M:%S', gmtime())}]\n", *args, file=f)
+	f.close()
 
 class Param:
 	def __init__(self, name, type_name, buffer_length):
@@ -26,14 +32,14 @@ class Table_handler:
 	def add(self, *data, params=None) -> None:
 		if params == None:
 			if len(data) != len(self.table.params):
-				print(f"Fail to add values: [*{data}] to table '{self.table.name}'")
+				LOG(f"Fail to add values: [*{data}] to table '{self.table.name}'")
 				return
 			
 			for i, item in enumerate(data):
 				if self.table.params[i].type_name in ["char", "varchar"] and item.__class__.__name__ == "str":
 					if len(item) > self.table.params[i].buffer_length:
 						sliced = item[:self.params[i].buffer_length]
-						print(f"!!! WARNING: string too long. Column: {self.table.params[i]}\n!!! '{item}'\n!!! '{sliced}'\n")
+						LOG(f"!!! WARNING: string too long. Column: {self.table.params[i]}\n!!! '{item}'\n!!! '{sliced}'\n")
 
 			self.base.cursor.execute(f"INSERT INTO {self.table.name} VALUES {tuple(data)}")
 		else:
@@ -43,13 +49,13 @@ class Table_handler:
 		try:
 			i = [i.name for i in self.params].index(name)
 		except ValueError:
-			print(f"!!! ERROR: Column '{name}' is not defined in table '{self.table.name[len(TABLE):]}'")
+			LOG(f"!!! ERROR: Column '{name}' is not defined in table '{self.table.name[len(TABLE):]}'")
 			return
 
 		if self.params[i].type_name in ["char", "varchar"]:
 			if len(data) > self.params[i][2]:
 				sliced = data[:self.params[i].type_name]
-				print(f"!!! WARNING: string too long. Column: {self.params[i]}\n!!! '{data}'\n!!! '{sliced}'\n")
+				LOG(f"!!! WARNING: string too long. Column: {self.params[i]}\n!!! '{data}'\n!!! '{sliced}'\n")
 		self.base.cursor.execute(f"INSERT INTO {self.table.name}({name}) VALUES ({data})")
 
 	def get(self, column_name, value):

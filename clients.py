@@ -1,5 +1,6 @@
+from time import gmtime, strftime
 from random import randint
-from sql import SQL_base
+from classes import *
 
 int64_max = 2 ** 31
 HASH_KEY = 3920713911
@@ -7,43 +8,17 @@ HASH_KEY = 3920713911
 UserNotFind = "User not founded"
 WrongPass = "Wrong password"
 
+def LOG(*args):
+	f = open("logs.txt", "a")
+	print(f"[{strftime('%H:%M:%S', gmtime())}]\n", *args, file=f)
+	f.close()
+
 def hash(string: str):
 	integer = int( str(string).encode().hex(), 16 )
 	return (integer * HASH_KEY) % int64_max
 
-class User:
-	def __init__(self, index, login, password):
-		self.index = index
-		self.login = login
-		self.password = password
-		self.name = f"User-{self.index}"
-		self.age = 0
-		self.gender = 0
-		self.description = ''
-	
-	# not a method
-	def load(base, index):
-		new = User(None, None, None)
-		user_data = UserData(base["users"].get("id", index)[0])
-		new.index = index
-		new.login = user_data.login
-		new.password = user_data.password
-		new.name = user_data.name
-		new.age = user_data.age
-		new.gender = user_data.gender
-		new.description = user_data.description
-		return new
-
-	def __repr__(self):
-		return f"{self.index = }\n{self.login = }\n{self.password = }"
-	
-class UserData:
-	def __init__(self, response):
-		print(response)
-		self.id, self.login, self.password, self.name, self.age, self.gender, self.description = response
-
 class AccountsManager:
-	def __init__(self, base: SQL_base):
+	def __init__(self, base):
 		self.base = base
 		
 		if "users" not in self.base.tables:
@@ -56,7 +31,7 @@ class AccountsManager:
 		if len(finded) == 0:
 			return UserNotFind
 		for response in finded:
-			user_data = UserData(response)
+			user_data = User.unpack(response)
 			if hash(password) == user_data.password:
 				return User.load(self.base, user_data.id)
 		return WrongPass
