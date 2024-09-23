@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<title>Sign in</title>
+	</head>
+	<body>
+		<h1>Sign in</h1>
+		<form method="post" action="/new_auth">
+			<input type="text" name="login">
+			<input type="password" name="password1">
+			<input type="password" name="password2">
+			<input type="submit" value="Sign in">
+		</form>
+		{% if show %}
+			{% for i in log %}
+				<p class="log"> {{ i }} </p>
+			{% endfor %}
+		{% endif %}
+		<a href="/">Back to login</a>
+	</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<title>Login</title>
+		<style>
+			* {
+				padding: 0;
+				margin: 0;
+				font-family: "arial";
+			}
+
+			html, body {
+				width: 100%;
+				height: 100%;
+				background: #000;
+				color: #fff;
+			}
+
+			h1 {
+				font-size: 2vw;
+			}
+
+			form {
+				align-content: center;
+			}
+
+			.center {
+				width: 30vw;
+				padding: 5vw;
+				position: absolute;
+				left: 30vw;
+				top: 15vw;
+				text-align: center;
+				background: #222;
+				border-radius: 1vw;
+			}
+
+			.login, .password {
+				width: 24.5vw;
+				height: 1.5vw;
+				font-size: 1vw;
+				padding: 0.1vw 0.25vw 0.1vw 0.25vw;
+				margin: 0.25vw;
+				border-radius: 0.5vw;
+				border: 0;
+			}
+
+			.submit {
+				width: 25vw;
+				height: 1.75vw;
+				font-size: 1vw;
+				margin: 0.5vw;
+				border-radius: 0.5vw;	
+				background: #fac;
+				color: #321;
+				font-weight: bold;
+				border: 0;
+			}
+
+			.log {
+				width: 25vw;
+				height: 2vw;
+				margin-bottom: 0.5vw;
+				margin-top: 0.5vw;
+				margin-left: 2.5vw;
+				line-height: 2vw;
+				background: #faa;
+				color: #800;
+				border-radius: 0.5vw;
+				border: 0;
+			}
+
+			a {
+				font-size: 1vw;
+				color: #88f;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="center">
+			<h1>Log in</h1>
+			
+			<form method="post" action="/auth">
+				<input type="text" name="login" value="{{ last_login }}" class="login"><br>
+				<input type="password" name="password" class="password"><br>
+
+				<input type="submit" value="Submit" class="submit">
+			</form>
+
+				{% if show %}
+					<div class="log"> {{ log }} </div>
+				{% endif %}
+			
+			<a href="/signin">Sign in</a>
+		</div>
+	</body>
+</html>
