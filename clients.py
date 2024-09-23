@@ -16,6 +16,10 @@ class User:
 		self.index = index
 		self.login = login
 		self.password = password
+		self.name = f"User-{self.index}"
+		self.age = 0
+		self.gender = 0
+		self.description = ''
 
 	def save(self):
 		try:
@@ -40,13 +44,17 @@ class User:
 
 	def __repr__(self):
 		return f"{self.index = }\n{self.login = }\n{self.password = }"
+	
+class UserData:
+	def __init__(self, response):
+		self.id, self.login, self.password, self.name, self.age, self.gender, self.description = response
 
 class AccountsManager:
 	def __init__(self, base: SQL_base):
 		self.base = base
 		
 		if "users" not in self.base.tables:
-			self.base.create_table("users", "id int identity(0,1)", "login varchar(32)", "password int")
+			self.base.create_table("users", "id int identity(0,1)", "login varchar(32)", "password int", "name varchar(32)", "age tinyint default 0", "gender tinyint default 0", "description varchar(180) default ''")
 
 		self.base.commit()
 
@@ -54,9 +62,10 @@ class AccountsManager:
 		finded = self.base["users"].get("login", login)
 		if len(finded) == 0:
 			return UserNotFind
-		for U_id, U_login, U_password in finded:
-			if hash(password) == U_password:
-				return User.load(U_id)
+		for response in finded:
+			user_data = UserData(response)
+			if hash(password) == user_data.password:
+				return User.load(user_data.id)
 		return WrongPass
 
 	def check_login(self, login):
@@ -90,7 +99,10 @@ class ClientManager:
 		self.clients[ip] = user
 
 	def remove(self, ip):
-		del self.clients[ip]
+		try:
+			del self.clients[ip]
+		except:
+			return
 
 	def get(self, ip):
 		try:

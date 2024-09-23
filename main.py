@@ -4,16 +4,17 @@ from clients import *
 
 
 base = SQL_base("base") # base это БД
+# base.drop_table("useres")
 accounts = AccountsManager(base)
 clients = ClientManager()
 app = Flask(__name__)
-
-#accounts.reset()
-if not accounts.check_login("admin"):
-	base["users"].add("admin", 1549191368, params=("login", "password")) #hash(admin)
 base.commit()
 
 
+if not accounts.check_login("admin"):
+	base["users"].add("admin", 1549191368, "Admin", 0, 0, "", params=("login", "password", "name", "age", "description")) #hash(admin)
+User(0, "admin", 1549191368).save()
+base.commit()
 
 
 def LOG(*args):
@@ -63,16 +64,26 @@ def home():
 	
 	return str(user)
 
+@app.route("/profile")
+def profile():
+	LOG("hi")
+	ip = request.remote_addr
+	user = clients[ip]
+
+	if user == None:
+		return redirect("/")
+
+	return render_template("profile.html", user=user)
+
 @app.route("/admin")
 def admin():
 	ip = request.remote_addr
 	user = clients[ip]
 
 	if user == None:
-		return redirect("/login",code=302)
+		return redirect("/login", code=302)
 	
 	return render_template("admin.html")
-
 
 
 
@@ -115,7 +126,7 @@ def auth():
 		resp = make_response(redirect("/",code=302))
 		return resp
 	
-	return render_template(redirect("/login",code=302))
+	return redirect("/login",code=302)
 
 @app.route("/new_auth", methods=['GET', 'POST'])
 def new_auth():
@@ -152,6 +163,33 @@ def new_auth():
 		
 	return render_template(redirect("/login",code=302))
 
+@app.route("/logout")
+def logout():
+	ip = request.remote_addr
+	clients.remove(ip)
+	return redirect("/")
+
+@app.route("/edit_profile", methods=["POST"])
+def edit_profile():
+	if request.method == "POST":
+		new_name = request.form["name"]
+		new_age = int(request.form["age"])
+		new_gender = int(request.form["gender"])
+		new_description = request.form["description"]
+		ip = request.remote_addr
+		user = clients[ip]
+		if user == None:
+			return redirect("/home")
+		user.name = new_name
+		user.age = new_age
+		user.gender = new_gender
+		user.description = new_description
+		base["users"].set("id", user.index, "name", new_name)
+		base["users"].set("id", user.index, "age", new_age)
+		base["users"].set("id", user.index, "gender", new_gender)
+		base["users"].set("id", user.index, "description", new_description)
+		user.save()
+	return redirect("/profile")
 
 
 if __name__ == "__main__":

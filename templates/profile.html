@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<title>Profile</title>
+	</head>
+	<body>
+		<h1>Profile</h1>
+
+		<form method="post" action="/edit_profile">
+			<p>Имя:</p><input type="text" name="name" value="{{user.name}}">
+			<br>
+			<p>Возраст:</p><input type="number" name="age" value="{{user.age}}">
+			<br>
+			<p>Пол:</p>
+			<input type="radio" name="gender" value="0" {% if user.gender == 0 %} checked {% endif %}><g>Не указано</g>
+			<input type="radio" name="gender" value="1" {% if user.gender == 1 %} checked {% endif %}><g>Мужской</g>
+			<input type="radio" name="gender" value="2" {% if user.gender == 2 %} checked {% endif %}><g>Женский</g>
+			<br>
+			<p>О себе:</p><input type="text" name="description" value="{{user.description}}">
+			<br>
+			<input type="submit" value="Сохранить">
+		</form>
+		
+		<a href="/logout">Log out</a>
+	</body>
+</html>
