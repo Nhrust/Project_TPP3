@@ -1,6 +1,7 @@
 import pyodbc
 import os
 
+DEBUG = False
 TABLE = "_TAB_" # начало названия таблиц в базе
 
 class Param:
@@ -36,8 +37,10 @@ class Table_handler:
 						print(f"!!! WARNING: string too long. Column: {self.table.params[i]}\n!!! '{item}'\n!!! '{sliced}'\n")
 
 			self.base.cursor.execute(f"INSERT INTO {self.table.name} VALUES {tuple(data)}")
+			if DEBUG: print(f"INSERT INTO {self.table.name} VALUES {tuple(data)}")
 		else:
 			self.base.cursor.execute(f"INSERT INTO {self.table.name}({', '.join(params)}) VALUES {tuple(data)}")
+			if DEBUG: print(f"INSERT INTO {self.table.name}({', '.join(params)}) VALUES {tuple(data)}")
 
 	def write(self, name, data) -> None:
 		try:
@@ -72,7 +75,7 @@ class Table_handler:
 class SQL_base:
 	def __init__(self, database, driver="Driver=ODBC Driver 17 for SQL Server") -> None:
 		server = os.getenv("SQL_SERVER")
-		self.base = pyodbc.connect(f"{driver};Server={server};Database={database};Trusted_Connection=yes;")
+		self.base = pyodbc.connect(f"{driver};Server={server};Database={database};Trusted_Connection=yes;encoding=utf-8")
 		self.cursor = self.base.cursor()
 		self.tables = dict()
 		

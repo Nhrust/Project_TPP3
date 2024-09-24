@@ -1,7 +1,13 @@
 from random import randint
+from cryptography.fernet import Fernet
 
+DEBUG = False
 int64_max = 2 ** 31
 HASH_KEY = 3920713911
+
+KEY = Fernet(b'ja3SUk5zbKBMHy9IZZpogAysEX0O5g1UFLA_hgDmnnU=')
+def encrypt(string): return KEY.encrypt(str(string).encode()).decode()
+def decrypt(string): return KEY.decrypt(bytes(string, "utf-8")).decode()
 
 UserNotFind = "User not founded"
 WrongPass = "Wrong password"
@@ -19,14 +25,17 @@ class AccountsManager:
 				"id int identity(0,1)",
 				"login varchar(32)",
 				"password int",
-				"name varchar(32)",
+				"name varchar(256)",
 				"age tinyint default 0",
 				"gender tinyint default 0",
-				"description varchar(180) default ''")
+				"description varchar(1024) default ''")
 			self.base.commit()
 
 	def get(self, login, password):
 		finded = self.base["users"].get("login", login)
+		
+		if DEBUG: print(finded)
+
 		if len(finded) == 0:
 			return UserNotFind
 		for response in finded:
@@ -39,10 +48,9 @@ class AccountsManager:
 		return len(self.base["users"].get("login", login))
 
 	def add(self, login, password):
-		self.base["users"].add(login, hash(password), params=("login", "password"))
+		new_user = User("not init", login, hash(password))
+		new_user.create_on_base(self.base)
 		self.base.commit()
-		index = self.base["users"].get("login", login)[0][0]
-		new_user = User(index, login, hash(password))
 		return new_user
 
 	def delete(self, index):
@@ -58,10 +66,10 @@ class AccountsManager:
 			"id int identity(0,1)",
 			"login varchar(32)",
 			"password int",
-			"name varchar(32)",
+			"name varchar(256)",
 			"age tinyint default 0",
 			"gender tinyint default 0",
-			"description varchar(180) default ''")
+			"description varchar(1024) default ''")
 		self.base.commit()
 
 class ClientManager:
@@ -96,17 +104,34 @@ class User:
 		self.gender = 0
 		self.description = ''
 	
+	def create_on_base(self, base):
+		base["users"].add(
+			self.login, self.password, encrypt(self.name), self.age, self.gender, encrypt(self.description),
+			params=("login", "password", "name", "age", "gender", "description"))
+		self.index = base["users"].get("login", self.login)[0][0]
+		self.name = f"User-{self.index}"
+	
+	def update_on_base(self, base):
+		base["users"].set("id", self.index, "name", encrypt(self.name))
+		base["users"].set("id", self.index, "age", self.age)
+		base["users"].set("id", self.index, "gender", self.gender)
+		base["users"].set("id", self.index, "description", encrypt(self.description))
+	
 	# not a method
 	def load(base, index):
 		try:
 			return User.unpack( base["users"].get("id", index)[0] )
 		except Exception as e:
-			print(f"!!! Fail to load user {index}")
+			print(f"!!! Fail to load user {index}: {str(e)}")
+			raise e
 	
 	# not a method
 	def unpack(response):
 		new = User(None, None, None)
+		if DEBUG: print(response)
 		new.index, new.login, new.password, new.name, new.age, new.gender, new.description = response
+		new.name = decrypt(new.name)
+		new.description = decrypt(new.description)
 		return new
 
 	def __repr__(self):
@@ -125,7 +150,7 @@ class ChatManager:
 		if "chats" not in self.base.tables:
 			self.base.create_table("chats",
 				"id int identity(0,1)",
-				"name varchar(32)",
+				"name nvarchar(256)",
 				"user1 int",
 				"user2 int")
 			self.base.commit()
@@ -133,7 +158,7 @@ class ChatManager:
 		if "group_chats" not in self.base.tables:
 			self.base.create_table("group_chats",
 				"id int identity(0,1)",
-				"name varchar(32)",
+				"name nvarchar(256)",
 				"type tinyint")
 	
 	def get_view(self, chat_id, user_id):
