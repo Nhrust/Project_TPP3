@@ -1,13 +1,7 @@
-from time import gmtime, strftime
 import pyodbc
 import os
 
 TABLE = "_TAB_" # начало названия таблиц в базе
-
-def LOG(*args):
-	f = open("logs.txt", "a")
-	print(f"[{strftime('%H:%M:%S', gmtime())}]\n", *args, file=f)
-	f.close()
 
 class Param:
 	def __init__(self, name, type_name, buffer_length):
@@ -32,14 +26,14 @@ class Table_handler:
 	def add(self, *data, params=None) -> None:
 		if params == None:
 			if len(data) != len(self.table.params):
-				LOG(f"Fail to add values: [*{data}] to table '{self.table.name}'")
+				print(f"Fail to add values: [*{data}] to table '{self.table.name}'")
 				return
 			
 			for i, item in enumerate(data):
 				if self.table.params[i].type_name in ["char", "varchar"] and item.__class__.__name__ == "str":
 					if len(item) > self.table.params[i].buffer_length:
 						sliced = item[:self.params[i].buffer_length]
-						LOG(f"!!! WARNING: string too long. Column: {self.table.params[i]}\n!!! '{item}'\n!!! '{sliced}'\n")
+						print(f"!!! WARNING: string too long. Column: {self.table.params[i]}\n!!! '{item}'\n!!! '{sliced}'\n")
 
 			self.base.cursor.execute(f"INSERT INTO {self.table.name} VALUES {tuple(data)}")
 		else:
@@ -49,13 +43,13 @@ class Table_handler:
 		try:
 			i = [i.name for i in self.params].index(name)
 		except ValueError:
-			LOG(f"!!! ERROR: Column '{name}' is not defined in table '{self.table.name[len(TABLE):]}'")
+			print(f"!!! ERROR: Column '{name}' is not defined in table '{self.table.name[len(TABLE):]}'")
 			return
 
 		if self.params[i].type_name in ["char", "varchar"]:
 			if len(data) > self.params[i][2]:
 				sliced = data[:self.params[i].type_name]
-				LOG(f"!!! WARNING: string too long. Column: {self.params[i]}\n!!! '{data}'\n!!! '{sliced}'\n")
+				print(f"!!! WARNING: string too long. Column: {self.params[i]}\n!!! '{data}'\n!!! '{sliced}'\n")
 		self.base.cursor.execute(f"INSERT INTO {self.table.name}({name}) VALUES ({data})")
 
 	def get(self, column_name, value):
@@ -66,7 +60,10 @@ class Table_handler:
 
 	def set(self, column_name, value, new_column_name, new_value):
 		new_value = new_value if new_value.__class__.__name__ != "str" else "\'" + new_value + "\'"
-		self.base.cursor.execute(f"UPDATE {self.table.name} SET {new_column_name} = {new_value} WHERE {column_name} = {value}")
+		try:
+			self.base.cursor.execute(f"UPDATE {self.table.name} SET {new_column_name} = {new_value} WHERE {column_name} = {value}")
+		except Exception as e:
+			print("error in SQL request", f"\nUPDATE {self.table.name} SET {new_column_name} = {new_value} WHERE {column_name} = {value}")
 
 	def delete(self, column_name, value):
 		value = value if value.__class__.__name__ != "str" else "\'" + value + "\'"
@@ -78,10 +75,15 @@ class SQL_base:
 		self.base = pyodbc.connect(f"{driver};Server={server};Database={database};Trusted_Connection=yes;")
 		self.cursor = self.base.cursor()
 		self.tables = dict()
+		
+		for table in self.get_tables_by_key(TABLE):
+			self.tables[table[len(TABLE):]] = Table(self, table)
+		
+	def get_tables_by_key(self, key):
 		for table in self.cursor.tables():
-			if TABLE not in table.table_name:
+			if key not in table.table_name:
 				continue
-			self.tables[table.table_name[len(TABLE):]] = Table(self, table.table_name)
+			yield table.table_name
 
 	def show(self) -> None:
 		for table in self.cursor.tables():
@@ -99,9 +101,18 @@ class SQL_base:
 		self.cursor.execute(f"CREATE TABLE {TABLE}{name}({columns[0]}{''.join([', ' + i for i in columns[1:]])})")
 		self.tables[name] = Table(self, TABLE + name)
 
+	def create(self, name, *columns) -> None:
+		self.cursor.execute(f"CREATE TABLE {TABLE}{name}({columns[0]}{''.join([', ' + i for i in columns[1:]])})")
+		self.tables[name] = Table(self, TABLE + name)
+
 	def drop_table(self, name) -> None:
 		self.cursor.execute(f"DROP TABLE {TABLE}{name}")
 		del self.tables[name]
+	
+	def GET(self, table, column_name, value):
+		selector = f"SELECT * FROM {table} WHERE {column_name} = {value}"
+		self.cursor.execute(selector)
+		return self.cursor.fetchall()
 
 	def __getitem__(self, name) -> Table_handler:
 		return Table_handler(self, TABLE + name)

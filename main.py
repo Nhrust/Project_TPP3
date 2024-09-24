@@ -1,26 +1,22 @@
-from time import gmtime, strftime
 from flask import *
 from sql import *
-from clients import *
+from classes import *
+from flask_socketio import SocketIO, emit
 
 
-base = SQL_base("base") # base это БД
+base = SQL_base("base")
 # base.drop_table("useres")
 accounts = AccountsManager(base)
 clients = ClientManager()
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static")
+socketio = SocketIO(app, async_mode='threading')
 base.commit()
 
 
 if not accounts.check_login("admin"):
 	base["users"].add("admin", 1549191368, "Admin", 0, 0, "", params=("login", "password", "name", "age", "description")) #hash(admin)
+	clients.add("admin", User.load(base, 0))
 base.commit()
-
-
-def LOG(*args):
-	f = open("logs.txt", "a")
-	print(f"[{strftime('%H:%M:%S', gmtime())}]\n", *args, file=f)
-	f.close()
 
 
 
@@ -66,7 +62,6 @@ def home():
 
 @app.route("/profile")
 def profile():
-	LOG("hi")
 	ip = request.remote_addr
 	user = clients[ip]
 
@@ -122,7 +117,7 @@ def auth():
 			resp.set_cookie("log", user)
 			return resp
 		
-		LOG("> unexpected", user)
+		print("unexpected error")
 		resp = make_response(redirect("/",code=302))
 		return resp
 	
@@ -188,8 +183,15 @@ def edit_profile():
 		base["users"].set("id", user.index, "age", new_age)
 		base["users"].set("id", user.index, "gender", new_gender)
 		base["users"].set("id", user.index, "description", new_description)
-		user.save()
 	return redirect("/profile")
+
+
+
+
+@socketio.on('message')
+def handle_message(data):
+	print(data)
+	socketio.emit("message", "hi")
 
 
 if __name__ == "__main__":

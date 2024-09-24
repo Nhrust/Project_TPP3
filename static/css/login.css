@@ -1,0 +1,58 @@
+h1 {
+    font-size: 2vw;
+}
+
+form {
+    align-content: center;
+}
+
+.center {
+    width: 30vw;
+    padding: 5vw;
+    position: absolute;
+    left: 30vw;
+    top: 15vw;
+    text-align: center;
+    background: #222;
+    border-radius: 1vw;
+}
+
+.login, .password {
+    width: 24.5vw;
+    height: 1.5vw;
+    font-size: 1vw;
+    padding: 0.1vw 0.25vw 0.1vw 0.25vw;
+    margin: 0.25vw;
+    border-radius: 0.5vw;
+    border: 0;
+}
+
+.submit {
+    width: 25vw;
+    height: 1.75vw;
+    font-size: 1vw;
+    margin: 0.5vw;
+    border-radius: 0.5vw;	
+    background: rgb(142, 98, 223);
+    color: rgb(46, 28, 67);
+    font-weight: bold;
+    border: 0;
+}
+
+.log {
+    width: 25vw;
+    height: 2vw;
+    margin-bottom: 0.5vw;
+    margin-top: 0.5vw;
+    margin-left: 2.5vw;
+    line-height: 2vw;
+    background: rgb(219, 61, 61);
+    color: rgb(79, 30, 30);
+    border-radius: 0.5vw;
+    border: 0;
+}
+
+a {
+    font-size: 1vw;
+    color: #88f;
+}
