@@ -7,10 +7,10 @@ int64_max = 2 ** 31
 HASH_KEY = 3920713911
 
 KEY = Fernet(b'ja3SUk5zbKBMHy9IZZpogAysEX0O5g1UFLA_hgDmnnU=')
-def encode(string): return str(string).encode()
-def decode(string): return bytes(string, "utf-8")
-def encrypt(string): return KEY.encrypt(encode(string)).decode()
-def decrypt(string): return KEY.decrypt(decode(string)).decode()
+def encode(string): return str(string).encode().hex()
+def decode(string): return bytearray.fromhex(string).decode()
+def encrypt(string): return KEY.encrypt(str(string).encode()).decode()
+def decrypt(string): return KEY.decrypt(bytes(string, "utf-8")).decode()
 
 UserNotFind = "User not founded"
 WrongPass = "Wrong password"
@@ -45,7 +45,7 @@ class Account:
 	# not a method
 	def load(base: SQL_base, index):
 		try:
-			return User.unpack( base["users"].get("id", index)[0] )
+			return Account.unpack( base["users"].get("id", index)[0] )
 		except Exception as e:
 			print(f"!!! Fail to load user {index}: {str(e)}")
 			raise e
@@ -85,9 +85,9 @@ class AccountsManager:
 		if len(finded) == 0:
 			return UserNotFind
 		for response in finded:
-			user_data = User.unpack(response)
+			user_data = Account.unpack(response)
 			if hash(password) == user_data.password:
-				return User.load(self.base, user_data.index)
+				return Account.load(self.base, user_data.index)
 		return WrongPass
 
 	def check_login(self, login) -> int:
