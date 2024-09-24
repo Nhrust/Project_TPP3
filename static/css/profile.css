@@ -7,25 +7,25 @@ body {
 
 /* Стилизация формы и элементов ввода */
 input[type="text"], select, textarea {
-    width: 40%;
-    padding: 8px;
-    margin: 8px 0;
+    width: 20vw;
+    padding: 1vw;
+    margin: 1vw 0;
     display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 0.5vw solid #ccc;
+    border-radius: 2vw;
     box-sizing: border-box;
     background-color: #343650; /* Слегка более светлый тон фона */
     color: #FFF; /* Белый текст для читаемости */
 }
 
 input[type="submit"] {
-    width: 100%;
+    width: 5vw;
     background-color: #8D99AE; /* Светло-серый цвет кнопки */
     color: #2B2D42; /* Темно-синий текст */
-    padding: 14px 20px;
-    margin: 8px 0;
+    padding: 14vw 20vw;
+    margin: 8vw 0;
     border: none;
-    border-radius: 4px;
+    border-radius: 4vw;
     cursor: pointer;
 }
 
@@ -34,7 +34,7 @@ input[type="submit"]:hover {
 }
 
 input[type="radio"] {
-    margin-right: 5px;
+    margin-right: 5vw;
 }
 
 /* Стиль для заголовков внутри формы */
@@ -46,11 +46,11 @@ h2 {
 .logout-button {
     background-color: #D90429; /* Красная кнопка */
     color: white;
-    padding: 10px 15px;
+    padding: 10vw 15vw;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 16vw;
     border: none;
-    border-radius: 4px;
+    border-radius: 4vw;
     display: inline-block;
 }
 
@@ -62,11 +62,11 @@ h2 {
 .save-button {
     background-color: #8D99AE; /* Серая кнопка */
     color: #2B2D42; /* Темно-синий текст */
-    padding: 10px 15px;
+    padding: 10vw 15vw;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 16vw;
     border: none;
-    border-radius: 4px;
+    border-radius: 4vw;
     display: inline-block;
 }
 
@@ -75,29 +75,29 @@ h2 {
 }
 
 .Chates{
-    margin-left: 14%;
-    font-size: 32px;
+    margin-left: 6vw;
+    font-size: 1vw;
 }
 
 .Prof{
-    font-size:64px;
-    margin-left:6%;
-    padding-top:1%;
+    font-size:2vw;
+    margin-left:5vw;
+    padding-top:1vw;
 }
 
 .LogOut{
-    margin-left: 1%;
-    font-size: 32px;
+    margin-left: 1vw;
+    font-size: 1vw;
 }
 
 .Info{
     overflow-y:hidden;
     overflow-x:hidden;
     position: fixed;
-    width: 70%;
-    height: 90%;
-    margin-left:22%;
-    margin-top: 2%;
+    width: 70vw;
+    height: 48vw;
+    margin-left:22vw;
+    margin-top: 2vw;
     background:red; /*цвет выбран для наглядности*/
 }
 
@@ -105,10 +105,10 @@ h2 {
     overflow-y:scroll;
     overflow-x:hidden;
     position:fixed;
-    width:30%;
-    height:90%;
-    margin-left:2%;
-    margin-top:2%;
+    width:20vw;
+    height:48vw;
+    margin-left:2vw;
+    margin-top:2vw;
     background:yellow; /*цвет выбран для наглядности*/
     
 }
@@ -117,7 +117,7 @@ h2 {
     overflow-y:hidden;
     overflow-x:hidden;
     position:fixed;
-    width:30%;
-    height:15%;
+    width:30vw;
+    height:7vw;
     background:green; /*цвет выбран для наглядности*/
 }
