@@ -33,6 +33,7 @@ class Account:
 		base["users"].add(
 			self.login, self.password, encode(self.name), self.age, self.gender, encrypt(self.description),
 			params=("login", "password", "name", "age", "gender", "description"))
+		base.commit()
 		self.index = base["users"].get("login", self.login)[0][0]
 		self.name = f"User-{self.index}"
 	
@@ -93,8 +94,21 @@ class AccountsManager:
 	def check_login(self, login) -> int:
 		return len(self.base["users"].get("login", login))
 	
-	def find(self, response) -> list:
-		return self.base["users"].get("id", int(response)) + self.base["users"].get("name", encode(response))
+	def find(self, requester_id: int, request: str) -> list:
+		finded = self.base["users"].get("name", "%" + encode(request) + "%", select_type="LIKE")
+		
+		if request.isdigit():
+			finded = self.base["users"].get("id", int(request)) + finded
+
+		print("finded", finded)
+
+		result = []
+		for item in finded:
+			if item[0] == requester_id:
+				continue
+			result.append( Account_Preview(Account.unpack(item)) )
+
+		return result
 
 	def add(self, login, password) -> Account:
 		new_user = Account("not init", login, hash(password))
@@ -178,6 +192,26 @@ class Chat:
 			return self.base.GET(CHAT + str(self.index), "id", id)
 		except:
 			return Message(None, None, None, True)
+
+class Chat_Preview:
+	def __init__(self, base: SQL_base, viever_id, chat_id):
+		self.viever_id = viever_id
+		self.chat_id = chat_id
+		chat = base["chats"].get("id", chat_id)
+		self.receiver_id = chat[1] if chat[1] != viever_id else chat[2]
+		self.name = encode(base["users"].get("id", self.receiver_id, "name"))
+		self.show_last_message = False
+		self.last_message = "Error in Chat_Preview"
+		self.icon = "default_icon.png"
+
+class Account_Preview:
+	def __init__(self, account: Account):
+		self.icon = "default_icon.png"
+		self.name = account.name
+		self.id = account.index
+	
+	def __repr__(self):
+		return f"{self.icon},{self.name},{self.id}"
 
 class ChatManager:
 	def __init__(self, base: SQL_base):

@@ -1,7 +1,7 @@
 import pyodbc
 import os
 
-DEBUG = False
+DEBUG = True
 TABLE = "_TAB_" # начало названия таблиц в базе
 
 class Param:
@@ -55,9 +55,10 @@ class Table_handler:
 				print(f"!!! WARNING: string too long. Column: {self.params[i]}\n!!! '{data}'\n!!! '{sliced}'\n")
 		self.base.cursor.execute(f"INSERT INTO {self.table.name}({name}) VALUES ({data})")
 
-	def get(self, column_name, value) -> list:
+	def get(self, column_name, value, select_column="*", select_type="=") -> list:
 		value = value if value.__class__.__name__ != "str" else "\'" + value + "\'"
-		selector = f"SELECT * FROM {self.table.name} WHERE {column_name} = {value}"
+		selector = f"SELECT {select_column} FROM {self.table.name} WHERE {column_name} {select_type} {value}"
+		if DEBUG: print(selector)
 		self.base.cursor.execute(selector)
 		return self.base.cursor.fetchall()
 
@@ -119,8 +120,8 @@ class SQL_base:
 	def DROP(self, name) -> None:
 		self.cursor.execute(f"DROP TABLE {name}")
 	
-	def GET(self, table, column_name, value) -> list:
-		selector = f"SELECT * FROM {table} WHERE {column_name} = {value}"
+	def GET(self, table, column_name, value, select_column="*") -> list:
+		selector = f"SELECT {select_column} FROM {table} WHERE {column_name} = {value}"
 		self.cursor.execute(selector)
 		return self.cursor.fetchall()
 

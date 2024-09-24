@@ -5,7 +5,7 @@ from flask_socketio import SocketIO, emit
 
 
 base = SQL_base("base")
-base.drop_table("users")
+# base.drop_table("users") # !!! delete all users
 accounts = AccountsManager(base)
 clients = ClientManager()
 app = Flask(__name__, static_folder="static")
@@ -184,15 +184,20 @@ def edit_profile():
 		
 		user.name, user.age, user.gender, user.description = new_name, new_age, new_gender, new_description
 		user.update_on_base(base)
+		base.commit()
 	return redirect("/profile")
 
 
 
 
-@socketio.on('message')
-def handle_message(data):
-	print(data)
-	socketio.emit("message", "hi")
+@socketio.on('find_request')
+def find_request(_request):
+	print("find_request", _request)
+	ip = request.remote_addr
+	account = clients[ip]
+	finded = accounts.find(account.index, _request)
+	response = ";".join(list(map(str, finded)))
+	socketio.emit("find_response", response)
 
 
 if __name__ == "__main__":

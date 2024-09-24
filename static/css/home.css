@@ -36,3 +36,31 @@ h1 {
 h2 {
     color: #EDF2F4; /* Светло-серый текст */
 }
+
+.chats .account {
+	border: 1px dotted #f0f;
+	height: 2vw;
+	margin: 0.5vw;
+}
+
+.chats .account img {
+	position: absolute;
+	width: 2vw;
+	aspect-ratio: 1;
+}
+
+.chats .account .name {
+	font-size: 1vw;
+	position: absolute;
+	margin: 0.5vw 0.5vw 0.5vw 2.5vw;
+}
+
+.chats .account .link {
+	font-size: 1.9vw;
+	position: absolute;
+	width: 2vw;
+	height: 2vw;
+	right: 0;
+	text-decoration: none;
+	color: #fff;
+}

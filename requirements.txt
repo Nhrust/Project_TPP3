@@ -1,0 +1,1 @@
+pip install pyodbc flask flask_socketio cryptography

@@ -3,30 +3,41 @@
 	<head>
 		<title>Главная</title>
 		<meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home.css') }}">
+        <link rel="stylesheet" type="text/css" href="static/css/main.css">
+		<link rel="stylesheet" type="text/css" href="static/css/home.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
-        <script>
-            const socket = io();
-        
-            socket.on('message', (arg) => {
-                console.log(arg);
-            })
-
-            function send() {
-                socket.emit('message', 'hi');
-            }
-        </script>
+        <script src="static/js/script.js"></script>
 	</head>
 	<body>
 		<h1>Главная</h1>
         
         <a href="/profile" class="Profile">Профиль</a>
         
-        <div class="chats">
-            <p>Чаты</p>
-            {% for chat in chats %}
+        <div class="chats"> <!-- имя класса chats не менять !!! -->
+            <h2>Чаты</h2>
+            <div class="FIND"> <!-- имя класса FIND не менять !!! -->
+                <input type="text" name="find" class="find" placeholder="Поиск">
+                <button onclick="find_users()">Найти больше</button>
+            </div>
 
+            <!-- Тут появляются:
+            
+            <div class="account">
+                <img>
+                <p class="name"></p>
+                <a class="link"></a>
+            </div>
+
+            изменить можно в script.js -->
+
+            {% for chat in chats %}
+                <div class="chat">
+                    <img class="icon">
+                    <p class="name">{{ chat.name }}</p>
+                    {% if chat.show_last_message %}
+                        <p class="last">{{ chat.last_message }}</p>
+                    {% endif %}
+                </div>
             {% endfor %}
         </div>
         
