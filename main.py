@@ -14,7 +14,7 @@ base.commit()
 
 
 if not accounts.check_login("admin"):
-	admin = User(None, "admin", 1549191368)
+	admin = Account(None, "admin", 1549191368)
 	admin.create_on_base(base)
 	admin.name = "Админ"
 	admin.update_on_base(base)
@@ -102,7 +102,7 @@ def auth():
 		print("try to auth", login, password)
 		user = accounts.get(login, password)
 		
-		if isinstance(user, User):
+		if isinstance(user, Account):
 			clients.add(request.remote_addr, user)
 			resp = make_response(redirect("/home",code=302))
 			resp.set_cookie("last_login", '', expires=0)
