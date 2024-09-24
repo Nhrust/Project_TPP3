@@ -19,11 +19,11 @@ input[type="text"], select, textarea {
 }
 
 input[type="submit"] {
-    width: 5vw;
+    width: 7vw;
     background-color: #8D99AE; /* Светло-серый цвет кнопки */
     color: #2B2D42; /* Темно-синий текст */
-    padding: 14vw 20vw;
-    margin: 8vw 0;
+    padding: 5vw 10vw;
+    margin: 1vw 0;
     border: none;
     border-radius: 4vw;
     cursor: pointer;
