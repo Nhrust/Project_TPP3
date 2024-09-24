@@ -14,7 +14,7 @@ base.commit()
 
 
 if not accounts.check_login("admin"):
-	base["users"].add("admin", 1549191368, "Admin", 0, 0, "", params=("login", "password", "name", "age", "description")) #hash(admin)
+	base["users"].add("admin", 1549191368, "Admin", 0, 0, "", params=("login", "password", "name", "age", "gender" "description")) #hash(admin)
 	clients.add("admin", User.load(base, 0))
 base.commit()
 

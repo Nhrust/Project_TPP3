@@ -54,7 +54,14 @@ class AccountsManager:
 			self.base.drop_table("users")
 		except:
 			None
-		self.base.create_table("users", "id int identity(0,1)", "login varchar(32)", "password int")
+		self.base.create_table("users",
+			"id int identity(0,1)",
+			"login varchar(32)",
+			"password int",
+			"name varchar(32)",
+			"age tinyint default 0",
+			"gender tinyint default 0",
+			"description varchar(180) default ''")
 		self.base.commit()
 
 class ClientManager:
