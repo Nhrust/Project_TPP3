@@ -55,18 +55,23 @@ class Table_handler:
 				print(f"!!! WARNING: string too long. Column: {self.params[i]}\n!!! '{data}'\n!!! '{sliced}'\n")
 		self.base.cursor.execute(f"INSERT INTO {self.table.name}({name}) VALUES ({data})")
 
-	def get(self, column_name, value):
+	def get(self, column_name, value) -> list:
 		value = value if value.__class__.__name__ != "str" else "\'" + value + "\'"
 		selector = f"SELECT * FROM {self.table.name} WHERE {column_name} = {value}"
 		self.base.cursor.execute(selector)
 		return self.base.cursor.fetchall()
 
-	def set(self, column_name, value, new_column_name, new_value):
+	def set(self, column_name, value, new_column_name, new_value) -> None:
 		new_value = new_value if new_value.__class__.__name__ != "str" else "\'" + new_value + "\'"
 		try:
 			self.base.cursor.execute(f"UPDATE {self.table.name} SET {new_column_name} = {new_value} WHERE {column_name} = {value}")
 		except Exception as e:
 			print("error in SQL request", f"\nUPDATE {self.table.name} SET {new_column_name} = {new_value} WHERE {column_name} = {value}")
+
+	def get_last_id(self) -> int:
+		selector = f"SELECT max(id) FROM {self.table.name}"
+		self.base.cursor.execute(selector)
+		return selector[0]
 
 	def delete(self, column_name, value):
 		value = value if value.__class__.__name__ != "str" else "\'" + value + "\'"
@@ -82,7 +87,7 @@ class SQL_base:
 		for table in self.get_tables_by_key(TABLE):
 			self.tables[table[len(TABLE):]] = Table(self, table)
 		
-	def get_tables_by_key(self, key):
+	def get_tables_by_key(self, key) -> str:
 		for table in self.cursor.tables():
 			if key not in table.table_name:
 				continue
@@ -104,15 +109,17 @@ class SQL_base:
 		self.cursor.execute(f"CREATE TABLE {TABLE}{name}({columns[0]}{''.join([', ' + i for i in columns[1:]])})")
 		self.tables[name] = Table(self, TABLE + name)
 
-	def create(self, name, *columns) -> None:
-		self.cursor.execute(f"CREATE TABLE {TABLE}{name}({columns[0]}{''.join([', ' + i for i in columns[1:]])})")
-		self.tables[name] = Table(self, TABLE + name)
-
 	def drop_table(self, name) -> None:
 		self.cursor.execute(f"DROP TABLE {TABLE}{name}")
 		del self.tables[name]
+
+	def CREATE(self, name, *columns) -> None:
+		self.cursor.execute(f"CREATE TABLE {name}({columns[0]}{''.join([', ' + i for i in columns[1:]])})")
+
+	def DROP(self, name) -> None:
+		self.cursor.execute(f"DROP TABLE {name}")
 	
-	def GET(self, table, column_name, value):
+	def GET(self, table, column_name, value) -> list:
 		selector = f"SELECT * FROM {table} WHERE {column_name} = {value}"
 		self.cursor.execute(selector)
 		return self.cursor.fetchall()
@@ -120,5 +127,5 @@ class SQL_base:
 	def __getitem__(self, name) -> Table_handler:
 		return Table_handler(self, TABLE + name)
 
-	def commit(self):
+	def commit(self) -> None:
 		self.base.commit()

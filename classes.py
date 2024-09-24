@@ -1,13 +1,16 @@
 from random import randint
 from cryptography.fernet import Fernet
+from sql import *
 
 DEBUG = False
 int64_max = 2 ** 31
 HASH_KEY = 3920713911
 
 KEY = Fernet(b'ja3SUk5zbKBMHy9IZZpogAysEX0O5g1UFLA_hgDmnnU=')
-def encrypt(string): return KEY.encrypt(str(string).encode()).decode()
-def decrypt(string): return KEY.decrypt(bytes(string, "utf-8")).decode()
+def encode(string): return str(string).encode()
+def decode(string): return bytes(string, "utf-8")
+def encrypt(string): return KEY.encrypt(encode(string)).decode()
+def decrypt(string): return KEY.decrypt(decode(string)).decode()
 
 UserNotFind = "User not founded"
 WrongPass = "Wrong password"
@@ -16,8 +19,51 @@ def hash(string: str):
 	integer = int( str(string).encode().hex(), 16 )
 	return (integer * HASH_KEY) % int64_max
 
+class Account:
+	def __init__(self, index, login, password):
+		self.index = index
+		self.login = login
+		self.password = password
+		self.name = f"User-{self.index}"
+		self.age = 0
+		self.gender = 0
+		self.description = ''
+	
+	def create_on_base(self, base: SQL_base):
+		base["users"].add(
+			self.login, self.password, encode(self.name), self.age, self.gender, encrypt(self.description),
+			params=("login", "password", "name", "age", "gender", "description"))
+		self.index = base["users"].get("login", self.login)[0][0]
+		self.name = f"User-{self.index}"
+	
+	def update_on_base(self, base):
+		base["users"].set("id", self.index, "name", encode(self.name))
+		base["users"].set("id", self.index, "age", self.age)
+		base["users"].set("id", self.index, "gender", self.gender)
+		base["users"].set("id", self.index, "description", encrypt(self.description))
+	
+	# not a method
+	def load(base: SQL_base, index):
+		try:
+			return User.unpack( base["users"].get("id", index)[0] )
+		except Exception as e:
+			print(f"!!! Fail to load user {index}: {str(e)}")
+			raise e
+	
+	# not a method
+	def unpack(response):
+		if DEBUG: print("account unpack", response)
+		new = Account(None, None, None)
+		new.index, new.login, new.password, new.name, new.age, new.gender, new.description = response
+		new.name = decode(new.name)
+		new.description = decrypt(new.description)
+		return new
+
+	def __repr__(self):
+		return f"{self.index = }\n{self.login = }\n{self.password = }"
+
 class AccountsManager:
-	def __init__(self, base):
+	def __init__(self, base: SQL_base):
 		self.base = base
 		
 		if "users" not in self.base.tables:
@@ -44,11 +90,14 @@ class AccountsManager:
 				return User.load(self.base, user_data.index)
 		return WrongPass
 
-	def check_login(self, login):
+	def check_login(self, login) -> int:
 		return len(self.base["users"].get("login", login))
+	
+	def find(self, response) -> list:
+		return self.base["users"].get("id", int(response)) + self.base["users"].get("name", encode(response))
 
-	def add(self, login, password):
-		new_user = User("not init", login, hash(password))
+	def add(self, login, password) -> Account:
+		new_user = Account("not init", login, hash(password))
 		new_user.create_on_base(self.base)
 		self.base.commit()
 		return new_user
@@ -93,79 +142,10 @@ class ClientManager:
 
 	def __getitem__(self, ip):
 		return self.get(ip)
-	
-class User:
-	def __init__(self, index, login, password):
-		self.index = index
-		self.login = login
-		self.password = password
-		self.name = f"User-{self.index}"
-		self.age = 0
-		self.gender = 0
-		self.description = ''
-	
-	def create_on_base(self, base):
-		base["users"].add(
-			self.login, self.password, encrypt(self.name), self.age, self.gender, encrypt(self.description),
-			params=("login", "password", "name", "age", "gender", "description"))
-		self.index = base["users"].get("login", self.login)[0][0]
-		self.name = f"User-{self.index}"
-	
-	def update_on_base(self, base):
-		base["users"].set("id", self.index, "name", encrypt(self.name))
-		base["users"].set("id", self.index, "age", self.age)
-		base["users"].set("id", self.index, "gender", self.gender)
-		base["users"].set("id", self.index, "description", encrypt(self.description))
-	
-	# not a method
-	def load(base, index):
-		try:
-			return User.unpack( base["users"].get("id", index)[0] )
-		except Exception as e:
-			print(f"!!! Fail to load user {index}: {str(e)}")
-			raise e
-	
-	# not a method
-	def unpack(response):
-		new = User(None, None, None)
-		if DEBUG: print(response)
-		new.index, new.login, new.password, new.name, new.age, new.gender, new.description = response
-		new.name = decrypt(new.name)
-		new.description = decrypt(new.description)
-		return new
 
-	def __repr__(self):
-		return f"{self.index = }\n{self.login = }\n{self.password = }"
-
-CHAT = "_CHAT_"
-GROUP_CHAT = "_GROUP_CHAT_"
-GROUP_CHAT_USERS = "_CHAT_USERS_"
-
-class ChatManager:
-	def __init__(self, base):
-		self.base = base
-
-		self.chats = [i for i in self.base.get_tables_by_key("_CHAT_")]
-
-		if "chats" not in self.base.tables:
-			self.base.create_table("chats",
-				"id int identity(0,1)",
-				"name nvarchar(256)",
-				"user1 int",
-				"user2 int")
-			self.base.commit()
-		
-		if "group_chats" not in self.base.tables:
-			self.base.create_table("group_chats",
-				"id int identity(0,1)",
-				"name nvarchar(256)",
-				"type tinyint")
-	
-	def get_view(self, chat_id, user_id):
-		return []
-	
-	def get_chat_by_id(self, index):
-		return Chat(base, index)
+CHAT = "_CHT_"
+GROUP_CHAT = "_GCH_"
+GROUP_CHAT_USERS = "_GCU_"
 
 class Message:
 	def __init__(self, sender, data, time, deleted):
@@ -181,13 +161,14 @@ class Message:
 		return new
 
 class Chat:
-	def __init__(self, base, index):
+	def __init__(self, base: SQL_base, index):
 		self.base = base
-		try:
-			self.index, self.name, self.user1, self.user2 = self.base["chats"].get("id", index)[0]
+		finded = self.base["chats"].get("id", index)
+		if len(finded) == 0:
+			self.index, self.user1, self.user2 = self.base["chats"].get("id", index)[0]
 			self.exist = True
-		except:
-			self.index, self.name, self.user1, self.user2 = index, "Удалённый чат", None, None
+		else:
+			self.index, self.user1, self.user2 = index, None, None
 			self.exist = False
 	
 	def get_message(self, id):
@@ -197,3 +178,33 @@ class Chat:
 			return self.base.GET(CHAT + str(self.index), "id", id)
 		except:
 			return Message(None, None, None, True)
+
+class ChatManager:
+	def __init__(self, base: SQL_base):
+		self.base = base
+
+		if "chats" not in self.base.tables:
+			self.base.create_table("chats",
+				"id int identity(0,1)",
+				"user1 int",
+				"user2 int")
+			self.base.commit()
+		
+		if "group_chats" not in self.base.tables:
+			self.base.create_table("group_chats",
+				"id int identity(0,1)",
+				"name varchar(256)",
+				"type tinyint")
+			self.base.commit()
+	
+	def create(self, user1, user2):
+		self.base["chats"].add(user1, user2, params=("user1", "user2"))
+		index = self.base["chats"].get_last_id()
+		self.base.CREATE(CHAT + str(index),
+			"sender int",
+			"data varchar(1024)",
+			"time varchar(14)",
+			"deleted bit")
+	
+	def get_all_chats_for_user(self, user_id):
+		return self.base["chats"].get("user1", user_id) + self.base["chats"].get("user2", user_id)
