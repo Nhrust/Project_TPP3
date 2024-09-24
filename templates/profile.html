@@ -7,23 +7,29 @@
 		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/profile.css') }}">
 	</head>
 	<body>
-		<h1>Профиль</h1>
+		<div class="Menu">
+			<div class="Headmenu">
+				<h1 class="Prof">Профиль</h1>
+				<a href="/home" class="Chates">Чаты</a>
+				<a href="/logout" class = "LogOut">Log out</a>
+			</div>
+		</div>
 
 		<form method="post" action="/edit_profile">
-			<p>Имя:</p><input type="text" name="name" value="{{user.name}}">
-			<br>
-			<p>Возраст:</p><input type="number" name="age" value="{{user.age}}">
-			<br>
-			<p>Пол:</p>
-			<input type="radio" name="gender" value="0" {% if user.gender == 0 %} checked {% endif %}><g>Не указано</g>
-			<input type="radio" name="gender" value="1" {% if user.gender == 1 %} checked {% endif %}><g>Мужской</g>
-			<input type="radio" name="gender" value="2" {% if user.gender == 2 %} checked {% endif %}><g>Женский</g>
-			<br>
-			<p>О себе:</p><input type="text" name="description" value="{{user.description}}">
-			<br>
-			<input type="submit" value="Сохранить">
+			<div class="Info">
+				<p>Имя:</p><input type="text" name="name" value="{{user.name}}">
+				<br>
+				<p>Возраст:</p><input type="number" name="age" value="{{user.age}}">
+				<br>
+				<p>Пол:</p>
+				<input type="radio" name="gender" value="0" {% if user.gender == 0 %} checked {% endif %}><g>Не указано</g>
+				<input type="radio" name="gender" value="1" {% if user.gender == 1 %} checked {% endif %}><g>Мужской</g>
+				<input type="radio" name="gender" value="2" {% if user.gender == 2 %} checked {% endif %}><g>Женский</g>
+				<br>
+				<p>О себе:</p><input type="text" name="description" value="{{user.description}}">
+				<br>
+				<input type="submit" value="Сохранить">
+			</div>
 		</form>
-		
-		<a href="/logout">Log out</a>
 	</body>
 </html>

@@ -21,7 +21,7 @@
 	<body>
 		<h1>Главная</h1>
         
-        <a href="/profile">Профиль</a>
+        <a href="/profile" class="Profile">Профиль</a>
         
         <div class="chats">
             <p>Чаты</p>
@@ -30,8 +30,8 @@
             {% endfor %}
         </div>
         
-        <a href="/logout">Выйти из аккаунта</a>
+        <a href="/logout" class="logout">Выйти из аккаунта</a>
 
-        <button onclick="send()">Send</button>
+        <button onclick="send()" class="send">Send</button>
 	</body>
 </html>

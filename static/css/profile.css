@@ -1,0 +1,123 @@
+/* Основные стили страницы */
+body {
+    background-color: #2B2D42; /* Темно-синий фон */
+    color: #E0E1DD; /* Светло-серый текст */
+    font-family: 'Arial', sans-serif;
+}
+
+/* Стилизация формы и элементов ввода */
+input[type="text"], select, textarea {
+    width: 40%;
+    padding: 8px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #343650; /* Слегка более светлый тон фона */
+    color: #FFF; /* Белый текст для читаемости */
+}
+
+input[type="submit"] {
+    width: 100%;
+    background-color: #8D99AE; /* Светло-серый цвет кнопки */
+    color: #2B2D42; /* Темно-синий текст */
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #EF233C; /* Красный цвет для эффекта при наведении */
+}
+
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Стиль для заголовков внутри формы */
+h2 {
+    color: #EDF2F4; /* Светло-серый текст */
+}
+
+/* Стиль для кнопки выхода */
+.logout-button {
+    background-color: #D90429; /* Красная кнопка */
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.logout-button:hover {
+    background-color: #EF233C; /* Светлее красный при наведении */
+}
+
+/* Стиль для сохранения формы */
+.save-button {
+    background-color: #8D99AE; /* Серая кнопка */
+    color: #2B2D42; /* Темно-синий текст */
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.save-button:hover {
+    background-color: #EF233C; /* Красный при наведении */
+}
+
+.Chates{
+    margin-left: 14%;
+    font-size: 32px;
+}
+
+.Prof{
+    font-size:64px;
+    margin-left:6%;
+    padding-top:1%;
+}
+
+.LogOut{
+    margin-left: 1%;
+    font-size: 32px;
+}
+
+.Info{
+    overflow-y:hidden;
+    overflow-x:hidden;
+    position: fixed;
+    width: 70%;
+    height: 90%;
+    margin-left:22%;
+    margin-top: 2%;
+    background:red; /*цвет выбран для наглядности*/
+}
+
+.Menu{
+    overflow-y:scroll;
+    overflow-x:hidden;
+    position:fixed;
+    width:30%;
+    height:90%;
+    margin-left:2%;
+    margin-top:2%;
+    background:yellow; /*цвет выбран для наглядности*/
+    
+}
+
+.Headmenu{
+    overflow-y:hidden;
+    overflow-x:hidden;
+    position:fixed;
+    width:30%;
+    height:15%;
+    background:green; /*цвет выбран для наглядности*/
+}

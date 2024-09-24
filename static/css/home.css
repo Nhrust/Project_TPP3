@@ -1,0 +1,38 @@
+body {
+    background-color: #2B2D42; /* Темно-синий фон */
+    color: #E0E1DD; /* Светло-серый текст */
+    font-family: 'Arial', sans-serif;
+}
+
+h1 {
+    margin-left: 5%;
+	margin-top: 1%;
+	position: absolute;
+}
+
+.Profile {
+    margin-left: 1%;
+	margin-top: 1.5%;
+	position: absolute;
+}
+
+.chats {
+    margin-left: 5%;
+	margin-top: 10%;
+	position: absolute;
+}
+
+.logout{
+    margin-left: 2%;
+	margin-top: 49%;
+	position: absolute;
+}
+
+.send{
+    margin-left: 97%;
+	margin-top: 49%;
+	position: absolute;
+}
+h2 {
+    color: #EDF2F4; /* Светло-серый текст */
+}
