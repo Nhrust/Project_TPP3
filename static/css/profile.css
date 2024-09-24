@@ -9,23 +9,35 @@ body {
 input[type="text"], select, textarea {
     width: 20vw;
     padding: 1vw;
-    margin: 1vw 0;
-    margin-left:2vw;
+    margin-left:1vw;
     display: inline-block;
-    border: 0.5vw solid #ccc;
-    border-radius: 2vw;
+    border: 0.2vw solid #ccc;
+    border-radius: 1vw;
+    box-sizing: border-box;
+    background-color: #343650; /* Слегка более светлый тон фона */
+    color: #FFF; /* Белый текст для читаемости */
+}
+
+input[type="number"], select, textarea {
+    width: 20vw;
+    padding: 1vw;
+    margin-left:1vw;
+    display: inline-block;
+    border: 0.2vw solid #ccc;
+    border-radius: 1vw;
     box-sizing: border-box;
     background-color: #343650; /* Слегка более светлый тон фона */
     color: #FFF; /* Белый текст для читаемости */
 }
 
 input[type="submit"] {
-    width: 7vw;
+    width: 67vw;
     background-color: #8D99AE; /* Светло-серый цвет кнопки */
     color: #2B2D42; /* Темно-синий текст */
     padding: 1vw 4vw;
     margin: 1vw 0;
-    margin-left: 2vw;
+    margin-left: 1vw;
+    margin-top:5vw;
     border: none;
     border-radius: 2vw;
     cursor: pointer;
@@ -92,15 +104,28 @@ h2 {
     font-size: 1vw;
 }
 
-p{
-    margin-left:2vw;
+.Name{
+    margin-left:44vw;
+    margin-top:2vw;
 }
 
-g{
-    margin-left:2vw;
+.Age{
+    margin-left:44vw;
+    margin-top:2vw;
 }
+
+.Sex{
+    margin-left:44vw;
+    margin-top:2vw;
+}
+
+.IaboutU{
+    margin-left:44vw;
+    margin-top:2vw;
+}
+
 .Info{
-    overflow-y:hidden;
+    overflow-y:scroll;
     overflow-x:hidden;
     position: fixed;
     width: 70vw;
@@ -137,4 +162,15 @@ g{
     border: none;
     border-radius: 1vw;
     background:green; /*цвет выбран для наглядности*/
+}
+
+
+#circle{
+    margin-left:15vw;
+    width:12vw;
+    height:12vw;
+    -webkit-border-radius: 1vw;
+    -moz-border-radius: 1vw;
+    border-radius: 5vw;
+    background: purple;
 }

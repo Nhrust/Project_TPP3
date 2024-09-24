@@ -17,16 +17,15 @@
 
 		<form method="post" action="/edit_profile">
 			<div class="Info">
-				<p>Имя:</p><input type="text" name="name" value="{{user.name}}">
-				<br>
-				<p>Возраст:</p><input type="number" name="age" value="{{user.age}}">
-				<br>
-				<p>Пол:</p>
+				<div id="circle"></div>
+				<p class="Name">Имя:<input type="text" name="name" value="{{user.name}}"></p>
+				<p class="Age">Возраст:<input type="number" name="age" placeholder="Возраст" value="{{user.age}}"></p>
+				<p class="Sex">Пол:
 				<input type="radio" name="gender" value="0" {% if user.gender == 0 %} checked {% endif %}><g>Не указано</g>
 				<input type="radio" name="gender" value="1" {% if user.gender == 1 %} checked {% endif %}><g>Мужской</g>
 				<input type="radio" name="gender" value="2" {% if user.gender == 2 %} checked {% endif %}><g>Женский</g>
-				<br>
-				<p>О себе:</p><input type="text" name="description" value="{{user.description}}">
+				</p>
+				<p class="IaboutU">О себе:<input type="text" name="description" value="{{user.description}}"></p>
 				<br>
 				<input type="submit" value="Сохранить">
 			</div>
