@@ -5,7 +5,7 @@ from flask_socketio import SocketIO, emit
 
 
 base = SQL_base("base")
-# base.drop_table("useres")
+base.drop_table("users")
 accounts = AccountsManager(base)
 clients = ClientManager()
 app = Flask(__name__, static_folder="static")
@@ -14,9 +14,12 @@ base.commit()
 
 
 if not accounts.check_login("admin"):
-	base["users"].add("admin", 1549191368, "Admin", 0, 0, "", params=("login", "password", "name", "age", "gender" "description")) #hash(admin)
-	clients.add("admin", User.load(base, 0))
+	admin = User(None, "admin", 1549191368)
+	admin.create_on_base(base)
+	admin.name = "Админ"
+	admin.update_on_base(base)
 base.commit()
+
 
 
 
@@ -96,6 +99,7 @@ def auth():
 	if request.method == "POST":
 		login = request.form['login']
 		password = request.form['password']
+		print("try to auth", login, password)
 		user = accounts.get(login, password)
 		
 		if isinstance(user, User):
@@ -171,18 +175,15 @@ def edit_profile():
 		new_age = int(request.form["age"])
 		new_gender = int(request.form["gender"])
 		new_description = request.form["description"]
+		
 		ip = request.remote_addr
 		user = clients[ip]
+		
 		if user == None:
 			return redirect("/home")
-		user.name = new_name
-		user.age = new_age
-		user.gender = new_gender
-		user.description = new_description
-		base["users"].set("id", user.index, "name", new_name)
-		base["users"].set("id", user.index, "age", new_age)
-		base["users"].set("id", user.index, "gender", new_gender)
-		base["users"].set("id", user.index, "description", new_description)
+		
+		user.name, user.age, user.gender, user.description = new_name, new_age, new_gender, new_description
+		user.update_on_base(base)
 	return redirect("/profile")
 
 
