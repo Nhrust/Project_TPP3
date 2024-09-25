@@ -18,6 +18,18 @@ input[type="text"], select, textarea {
     color: #FFF; /* Белый текст для читаемости */
 }
 
+input[type="text1"], select, textarea {
+    width: 33.4vw;
+    padding: 1vw;
+    margin-left:0.6vw;
+    display: inline-block;
+    border: 0.2vw solid #ccc;
+    border-radius: 1vw;
+    box-sizing: border-box;
+    background-color: #343650; /* Слегка более светлый тон фона */
+    color: #FFF; /* Белый текст для читаемости */
+}
+
 input[type="number"], select, textarea {
     width: 20vw;
     padding: 1vw;
@@ -31,24 +43,38 @@ input[type="number"], select, textarea {
 }
 
 input[type="submit"] {
-    width: 67vw;
+    width: 15vw;
     background-color: #8D99AE; /* Светло-серый цвет кнопки */
     color: #2B2D42; /* Темно-синий текст */
     padding: 1vw 4vw;
     margin: 1vw 0;
-    margin-left: 1vw;
-    margin-top:5vw;
+    margin-left: 2vw;
+    margin-top:23vw;
     border: none;
     border-radius: 2vw;
     cursor: pointer;
 }
 
 input[type="submit"]:hover {
-    background-color: #EF233C; /* Красный цвет для эффекта при наведении */
+    background-color: #ae23ef; /* Красный цвет для эффекта при наведении */
 }
 
-input[type="radio"] {
-    margin-right: 5vw;
+.radio1{
+    position:absolute;
+    top:13.5vw;
+    left: 20.5vw;
+}
+
+.radio2{
+    position:absolute;
+    left:25.5vw;
+    top:13.5vw;
+}
+
+.radio3{
+    position:absolute;
+    left:30.3vw;
+    top:13.5vw;
 }
 
 /* Стиль для заголовков внутри формы */
@@ -105,23 +131,23 @@ h2 {
 }
 
 .Name{
-    margin-left:44vw;
+    margin-left:15vw;
     margin-top:2vw;
 }
 
 .Age{
-    margin-left:44vw;
+    margin-left:15vw;
     margin-top:2vw;
 }
 
 .Sex{
-    margin-left:44vw;
+    margin-left:16vw;
     margin-top:2vw;
 }
 
 .IaboutU{
-    margin-left:44vw;
-    margin-top:2vw;
+    margin-left:2vw;
+    margin-top:3vw;
 }
 
 .Info{
@@ -134,7 +160,7 @@ h2 {
     margin-top: 2vw;
     border: none;
     border-radius: 1vw;
-    background:red; /*цвет выбран для наглядности*/
+    background:rgb(120, 86, 151); /*цвет выбран для наглядности*/
 }
 
 .Menu{
@@ -147,7 +173,7 @@ h2 {
     margin-top:8vw;
     border: none;
     border-radius: 1vw;
-    background:yellow; /*цвет выбран для наглядности*/
+    background:rgb(93, 67, 117); /*цвет выбран для наглядности*/
     
 }
 
@@ -161,18 +187,54 @@ h2 {
     margin-top:2vw;
     border: none;
     border-radius: 1vw;
-    background:green; /*цвет выбран для наглядности*/
+    background:rgb(103, 71, 133); /*цвет выбран для наглядности*/
 }
 
+.Not_choisen{
+    left:19vw;
+    top:12.2vw;
+    position:absolute;
+}
 
+.Male{
+    left:24vw;
+    top:12.2vw;
+    position:absolute;
+}
+
+.Female{
+    left:29vw;
+    top:12.2vw;
+    position:absolute;
+}
+
+/*место под аватар*/
 #circle{
-    position: absolute;
-    top: 5vw;
-    margin-left:15vw;
+    position:absolute;
+    top:2vw;
+    margin-left:2vw;
     width:12vw;
     height:12vw;
     -webkit-border-radius: 1vw;
     -moz-border-radius: 1vw;
     border-radius: 5vw;
     background: purple;
+}
+
+#circle:hover{
+    background-color: rgb(95, 1, 95); /*цвет при наведении*/
+}
+
+#circle:hover .ChoosePhoto{
+    display:block;
+}
+
+/*текст при наведении*/
+.ChoosePhoto{
+    display: none;
+    position:absolute;
+    top:5.5vw;
+    left:2.5vw;
+    color:white;
+    font-size:1vw;
 }

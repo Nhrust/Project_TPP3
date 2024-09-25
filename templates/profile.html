@@ -14,18 +14,28 @@
 			<a href="/home" class="Chates">Чаты</a>
 			<a href="/logout" class = "LogOut">Log out</a>
 		</div>
-
 		<form method="post" action="/edit_profile">
 			<div class="Info">
-				<div id="circle"></div>
-				<p class="Name">Имя:<input type="text" name="name" value="{{user.name}}"></p>
-				<p class="Age">Возраст:<input type="number" name="age" placeholder="Возраст" value="{{user.age}}"></p>
+				<div id="circle">
+					<div class="ChoosePhoto">Выберите фото</div>
+				</div>
+				<p class="Name"><input type="text" placeholder="Имя" name="name" value="{{user.name}}"></p>
+				<p class="Age"><input type="number" aria-placeholder="Возраст" name="age" placeholder="Возраст" value="{{user.age}}"></p>
 				<p class="Sex">Пол:
-				<input type="radio" name="gender" value="0" {% if user.gender == 0 %} checked {% endif %}><g>Не указано</g>
-				<input type="radio" name="gender" value="1" {% if user.gender == 1 %} checked {% endif %}><g>Мужской</g>
-				<input type="radio" name="gender" value="2" {% if user.gender == 2 %} checked {% endif %}><g>Женский</g>
+					<g class="Not_choisen">Не указан</g>
+					<g class="Male">Мужской</g>
+					<g class="Female">Женский</g>
+					<div class="radio1">
+						<input type="radio" name="gender" value="0" {% if user.gender == 0 %} checked {% endif %}>
+					</div>
+					<div class="radio2">
+						<input type="radio" name="gender" value="1" {% if user.gender == 1 %} checked {% endif %}>
+					</div>
+					<div class="radio3">
+						<input type="radio" name="gender" value="2" {% if user.gender == 2 %} checked {% endif %}>
+					</div>
 				</p>
-				<p class="IaboutU">О себе:<input type="text" name="description" value="{{user.description}}"></p>
+				<p class="IaboutU"><input type="text1" placeholder="О себе..." name="description" value="{{user.description}}"></p>
 				<br>
 				<input type="submit" value="Сохранить">
 			</div>
