@@ -66,7 +66,7 @@ class Account:
 class AccountsManager:
 	def __init__(self, base: SQL_base):
 		self.base = base
-		
+
 		if "users" not in self.base.tables:
 			self.base.create_table("users",
 				"id int identity(0,1)",
@@ -157,10 +157,6 @@ class ClientManager:
 	def __getitem__(self, ip):
 		return self.get(ip)
 
-CHAT = "_CHT_"
-GROUP_CHAT = "_GCH_"
-GROUP_CHAT_USERS = "_GCU_"
-
 class Message:
 	def __init__(self, sender, data, time, deleted):
 		self.sender = sender
@@ -189,7 +185,7 @@ class Chat:
 		if not self.exist:
 			return Message(None, None, None, True)
 		try:
-			return self.base.GET(CHAT + str(self.index), "id", id)
+			return self.base.GET(CHAT + str(self.index), f"id = {id}")
 		except:
 			return Message(None, None, None, True)
 
@@ -230,10 +226,30 @@ class ChatManager:
 				"name varchar(256)",
 				"type tinyint")
 			self.base.commit()
+		
+	def get(self, user_id_1: int, user_id_2: int) -> int:
+		min_id = min(user_id_1, user_id_2)
+		max_id = max(user_id_1, user_id_2)
+
+		finded = self.base["chats"].GET(f"user1 = {min_id} AND user2 = {max_id}", "id")
+
+		print(finded)
+
+		if len(finded) == 0:
+			print(f"create({min_id}, {max_id})")
+			self.create(min_id, max_id)
+			return self.base["chats"].get_last_id()
+		
+		return finded[0][0]
 	
-	def create(self, user1, user2):
-		self.base["chats"].add(user1, user2, params=("user1", "user2"))
+	def create(self, user_id_1: int, user_id_2: int):
+		if user_id_1 == user_id_2:
+			print("!!! CANNOT CREATE CHAT: Users id equal", user_id_1)
+
+		self.base["chats"].add(min(user_id_1, user_id_2), max(user_id_1, user_id_2), params=("user1", "user2"))
+		self.base.commit()
 		index = self.base["chats"].get_last_id()
+		print("index", index)
 		self.base.CREATE(CHAT + str(index),
 			"sender int",
 			"data varchar(1024)",

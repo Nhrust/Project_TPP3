@@ -1,8 +1,11 @@
 import pyodbc
 import os
 
-DEBUG = True
-TABLE = "_TAB_" # начало названия таблиц в базе
+DEBUG = False
+TABLE = "_TAB_"
+CHAT = "_CHT_"
+GROUP_CHAT = "_GCH_"
+GROUP_CHAT_USERS = "_GCU_"
 
 class Param:
 	def __init__(self, name, type_name, buffer_length):
@@ -37,10 +40,10 @@ class Table_handler:
 						print(f"!!! WARNING: string too long. Column: {self.table.params[i]}\n!!! '{item}'\n!!! '{sliced}'\n")
 
 			self.base.cursor.execute(f"INSERT INTO {self.table.name} VALUES {tuple(data)}")
-			if DEBUG: print(f"INSERT INTO {self.table.name} VALUES {tuple(data)}")
+			if self.base.DEBUG: print(f"INSERT INTO {self.table.name} VALUES {tuple(data)}")
 		else:
 			self.base.cursor.execute(f"INSERT INTO {self.table.name}({', '.join(params)}) VALUES {tuple(data)}")
-			if DEBUG: print(f"INSERT INTO {self.table.name}({', '.join(params)}) VALUES {tuple(data)}")
+			if self.base.DEBUG: print(f"INSERT INTO {self.table.name}({', '.join(params)}) VALUES {tuple(data)}")
 
 	def write(self, name, data) -> None:
 		try:
@@ -58,7 +61,13 @@ class Table_handler:
 	def get(self, column_name, value, select_column="*", select_type="=") -> list:
 		value = value if value.__class__.__name__ != "str" else "\'" + value + "\'"
 		selector = f"SELECT {select_column} FROM {self.table.name} WHERE {column_name} {select_type} {value}"
-		if DEBUG: print(selector)
+		if self.base.DEBUG: print(selector)
+		self.base.cursor.execute(selector)
+		return self.base.cursor.fetchall()
+	
+	def GET(self, where, select_column="*") -> list:
+		selector = f"SELECT {select_column} FROM {self.table.name} WHERE {where}"
+		if self.base.DEBUG: print(selector)
 		self.base.cursor.execute(selector)
 		return self.base.cursor.fetchall()
 
@@ -72,27 +81,38 @@ class Table_handler:
 	def get_last_id(self) -> int:
 		selector = f"SELECT max(id) FROM {self.table.name}"
 		self.base.cursor.execute(selector)
-		return selector[0]
+		return self.cursor.fetchall()[0]
 
 	def delete(self, column_name, value):
 		value = value if value.__class__.__name__ != "str" else "\'" + value + "\'"
 		self.base.cursor.execute(f"DELETE FROM {self.table.name} WHERE {column_name} = {value}")
 
 class SQL_base:
+	DEBUG = False
+
 	def __init__(self, database, driver="Driver=ODBC Driver 17 for SQL Server") -> None:
 		server = os.getenv("SQL_SERVER")
-		self.base = pyodbc.connect(f"{driver};Server={server};Database={database};Trusted_Connection=yes;encoding=utf-8")
-		self.cursor = self.base.cursor()
+		self.datsbase = database
+		self.base: pyodbc.Connection = pyodbc.connect(f"{driver};Server={server};Database={database};Trusted_Connection=yes;encoding=utf-8")
+		self.cursor: pyodbc.Cursor = self.base.cursor()
 		self.tables = dict()
 		
 		for table in self.get_tables_by_key(TABLE):
 			self.tables[table[len(TABLE):]] = Table(self, table)
 		
+		if self.DEBUG: print("# SQL_base.__init__()\n\tfind tables:", *list(self.tables.keys()))
+		
 	def get_tables_by_key(self, key) -> str:
-		for table in self.cursor.tables():
+		tables = []
+
+		for table in self.cursor.tables(): 
 			if key not in table.table_name:
 				continue
-			yield table.table_name
+			tables.append(table.table_name)
+		
+		self.cursor.tables()
+		
+		return tables
 
 	def show(self) -> None:
 		for table in self.cursor.tables():
@@ -107,26 +127,51 @@ class SQL_base:
 			print()
 
 	def create_table(self, name, *columns) -> None:
+		if self.DEBUG: print(f"# SQL_base.create_table(self, {columns})\n\tCREATE TABLE {TABLE}{name}({columns[0]}{''.join([', ' + i for i in columns[1:]])})")
 		self.cursor.execute(f"CREATE TABLE {TABLE}{name}({columns[0]}{''.join([', ' + i for i in columns[1:]])})")
+		self.commit()
 		self.tables[name] = Table(self, TABLE + name)
 
 	def drop_table(self, name) -> None:
-		self.cursor.execute(f"DROP TABLE {TABLE}{name}")
-		del self.tables[name]
+		if self.DEBUG: print(f"# SQL_base.drop_table(self, {name})\n\tDROP TABLE {TABLE}{name}")
+		try:
+			self.cursor.execute(f"DROP TABLE {TABLE}{name}")
+			self.commit()
+		except Exception as e:
+			print(e)
+		try:
+			del self.tables[name]
+		except Exception as e:
+			print(e)
 
 	def CREATE(self, name, *columns) -> None:
+		if self.DEBUG: print(f"# SQL_base.CREATE(self, {name}, {columns})\n\tCREATE TABLE {name}({columns[0]}{''.join([', ' + i for i in columns[1:]])})")
 		self.cursor.execute(f"CREATE TABLE {name}({columns[0]}{''.join([', ' + i for i in columns[1:]])})")
+		self.commit()
 
 	def DROP(self, name) -> None:
+		if self.DEBUG: print(f"# SQL_base.DROP(self, {name})\n\tDROP TABLE {name}")
 		self.cursor.execute(f"DROP TABLE {name}")
+		self.commit()
 	
-	def GET(self, table, column_name, value, select_column="*") -> list:
-		selector = f"SELECT {select_column} FROM {table} WHERE {column_name} = {value}"
+	def GET(self, table, where, select_column="*") -> list:
+		selector = f"SELECT {select_column} FROM {table} WHERE {where}"
+		if self.DEBUG: print(f"# SQL_base.GET(self, {table}, {where}, {select_column})\n\t{selector}")
 		self.cursor.execute(selector)
-		return self.cursor.fetchall()
+		finded = self.cursor.fetchall()
+		if self.DEBUG: print("finded:", finded)
+		return finded
 
 	def __getitem__(self, name) -> Table_handler:
 		return Table_handler(self, TABLE + name)
 
 	def commit(self) -> None:
+		if self.DEBUG: print("# SQL_base.commit()")
 		self.base.commit()
+	
+	def RESET(self):
+		self.cursor.execute("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE'")
+		for table in self.cursor.fetchall():
+			self.cursor.execute(f"DROP TABLE {table[2]}")
+		self.base.commit()
+		self.tables = dict()

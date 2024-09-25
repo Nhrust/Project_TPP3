@@ -4,10 +4,13 @@ from classes import *
 from flask_socketio import SocketIO, emit
 
 
+DEBUG = True
 base = SQL_base("base")
-# base.drop_table("users") # !!! delete all users
+# base.RESET() # !!! полностью чистит БД
 accounts = AccountsManager(base)
 clients = ClientManager()
+chats = ChatManager(base)
+
 app = Flask(__name__, static_folder="static")
 socketio = SocketIO(app, async_mode='threading')
 base.commit()
@@ -53,7 +56,7 @@ def signin():
 	
 	return render_template("signin.html")
 
-@app.route("/home")
+@app.route("/home", methods=["GET", "POST"])
 def home():
 	ip = request.remote_addr
 	user = clients[ip]
@@ -61,7 +64,10 @@ def home():
 	if user == None:
 		return redirect("/login",code=302)
 	
-	return render_template("home.html")
+	if "open_chat" in request.args:
+		return render_template("home.html", chat_opened=True, chat=request.args["open_chat"])
+	
+	return render_template("home.html", chat_opened=False)
 
 @app.route("/profile")
 def profile():
@@ -187,19 +193,42 @@ def edit_profile():
 		base.commit()
 	return redirect("/profile")
 
+@app.route("/view_profile/<index>")
+def view_profile(index):
+	viewed_user = Account.unpack(base["users"].get("id", index)[0])
+	if DEBUG: print("view profile", index)
+	if DEBUG: print("viewed_user index", viewed_user.index)
+	return render_template("view.html", user=viewed_user)
+
+@app.route("/open_chat_with_user/<index>")
+def open_chat_with_user(index):
+	ip = request.remote_addr
+	user = clients[ip]
+
+	if user == None:
+		return redirect("/login", code=302)
+	
+	print(f"chats.get({user.index}, {int(index)})")
+	chat_id = chats.get(user.index, int(index))
+	if DEBUG: print("open chat", chat_id)
+
+	return redirect(f"/home?open_chat={chat_id}")
+
 
 
 
 @socketio.on('find_request')
 def find_request(_request):
+	if DEBUG: print("> find_requesr", _request)
 	print("find_request", _request)
 	ip = request.remote_addr
 	account = clients[ip]
 	finded = accounts.find(account.index, _request)
 	response = ";".join(list(map(str, finded)))
+	if DEBUG: print("< find_response", response)
 	socketio.emit("find_response", response)
 
 
 if __name__ == "__main__":
-	app.run(debug=True)
+	app.run(debug=DEBUG)
 	# app.run(debug=True, host="0.0.0.0")
