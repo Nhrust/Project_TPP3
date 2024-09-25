@@ -39,24 +39,30 @@ h2 {
 
 .chats .account {
 	border: 1px dotted #f0f;
-	height: 2vw;
+	height: 3vw;
 	margin: 0.5vw;
 }
 
 .chats .account img {
 	position: absolute;
-	width: 2vw;
+	width: 3vw;
 	aspect-ratio: 1;
 }
 
 .chats .account .name {
-	font-size: 1vw;
+	font-size: 1.2vw;
 	position: absolute;
-	margin: 0.5vw 0.5vw 0.5vw 2.5vw;
+	margin: 0.4vw 0.5vw 0.2vw 3.5vw;
+}
+
+.chats .account .status {
+	font-size: 0.8vw;
+	position: absolute;
+	margin: 1.8vw 0.5vw 0.5vw 3.5vw;
 }
 
 .chats .account .link {
-	font-size: 1.9vw;
+	font-size: 2vw;
 	position: absolute;
 	width: 2vw;
 	height: 2vw;

@@ -166,6 +166,8 @@ h2 {
 
 
 #circle{
+    position: absolute;
+    top: 5vw;
     margin-left:15vw;
     width:12vw;
     height:12vw;

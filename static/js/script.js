@@ -6,6 +6,11 @@ function find_users() {
 }
 
 socket.on('find_response', (arg) => {
+    const finded = document.querySelectorAll(".account");
+    finded.forEach(element => {
+        element.parentNode.removeChild(element);
+    });
+
     if (arg != "") {
         arg.split(";").forEach(element => {
             const values = element.split(",");
@@ -22,10 +27,15 @@ socket.on('find_response', (arg) => {
             name.textContent = values[1];
             div.appendChild(name);
 
+            const status = document.createElement("p");
+            status.classList.add("status");
+            status.textContent = "status";
+            div.appendChild(status);
+
             const link = document.createElement("a");
             link.classList.add("link");
-            link.href = values[2];
-            link.textContent = "+";
+            link.href = "/view_profile/" + values[2];
+            link.textContent = ">";
             div.appendChild(link);
 
             const FIND = document.querySelector(".FIND");
