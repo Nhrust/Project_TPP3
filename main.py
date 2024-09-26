@@ -6,7 +6,7 @@ from flask_socketio import SocketIO, emit
 
 DEBUG = True
 base = SQL_base("base")
-base.RESET() # !!! полностью чистит БД
+# base.RESET() # !!! полностью чистит БД
 accounts = AccountsManager(base)
 clients = ClientManager()
 chats = ChatManager(base)

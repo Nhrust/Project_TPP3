@@ -90,7 +90,7 @@ class Table_handler:
 		self.base.cursor.execute(f"DELETE FROM {self.table.name} WHERE {column_name} = {value}")
 
 class SQL_base:
-	DEBUG = False
+	DEBUG = True
 
 	def __init__(self, database, driver="Driver=ODBC Driver 17 for SQL Server") -> None:
 		server = os.getenv("SQL_SERVER")
@@ -104,17 +104,12 @@ class SQL_base:
 		
 		if self.DEBUG: print("# SQL_base.__init__()\n\tfind tables:", *list(self.tables.keys()))
 		
-	def get_tables_by_key(self, key) -> str:
-		tables = []
-
-		for table in self.cursor.tables(): 
-			if key not in table.table_name:
-				continue
-			tables.append(table.table_name)
-		
-		self.cursor.tables()
-		
-		return tables
+	def get_tables_by_key(self, key: str=None) -> str:
+		if key == None:
+			self.cursor.execute("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE'")
+			return [table[2] for table in self.cursor.fetchall()]
+		self.cursor.execute(f"SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE' AND TABLE_NAME LIKE '{key}%'")
+		return [table[2] for table in self.cursor.fetchall() if key in table[2]]
 
 	def show(self) -> None:
 		for table in self.cursor.tables():

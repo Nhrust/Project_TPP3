@@ -240,10 +240,7 @@ class ChatManager:
 
 		finded = self.base["chats"].GET(f"user1 = {min_id} AND user2 = {max_id}", "id")
 
-		print(finded)
-
 		if len(finded) == 0:
-			print(f"create({min_id}, {max_id})")
 			self.create(min_id, max_id)
 			return self.base["chats"].get_last_id()
 		
@@ -260,7 +257,6 @@ class ChatManager:
 		self.base["chats"].add(min(user_id_1, user_id_2), max(user_id_1, user_id_2), params=("user1", "user2"))
 		self.base.commit()
 		index = self.base["chats"].get_last_id()
-		print("index", index)
 		self.base.CREATE(CHAT + str(index),
 			"sender int",
 			"data varchar(1024)",
