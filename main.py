@@ -6,7 +6,7 @@ from flask_socketio import SocketIO, emit
 
 DEBUG = True
 base = SQL_base("base")
-# base.RESET() # !!! полностью чистит БД
+base.RESET() # !!! полностью чистит БД
 accounts = AccountsManager(base)
 clients = ClientManager()
 chats = ChatManager(base)
@@ -31,7 +31,7 @@ base.commit()
 @app.route("/login")
 def login():
 	last_login = request.cookies.get("last_login")
-	log = request.cookies.get("log")
+	log = request.cookies.get("login_log")
 	
 	if last_login == None:
 		last_login = ""
@@ -43,14 +43,18 @@ def login():
 
 @app.route("/signin")
 def signin():
-	last_login = request.cookies.get("last_login")
-	log = request.cookies.get("log")
+	last_login = request.cookies.get("last_signin")
+	log = request.cookies.get("signin_log")
 
 	if last_login == None:
 		last_login = ""
 
 	if log != None:
-		log = eval(log)
+		try:
+			log = eval(log)
+		except:
+			log = (log, )
+		
 		if len(log) != 0:
 			return render_template("signin.html", last_login=last_login, show=True, log=log)
 	
@@ -59,35 +63,36 @@ def signin():
 @app.route("/home", methods=["GET", "POST"])
 def home():
 	ip = request.remote_addr
-	user = clients[ip]
+	account = clients[ip]
 	
-	if user == None:
+	if account == None:
 		return redirect("/login",code=302)
 	
-	if "open_chat" in request.args:
-		return render_template("home.html", chat_opened=True, chat=request.args["open_chat"])
+	finded = chats.get_all_chats_for_user(account.index)
+	_chats = [Chat_Preview(base, account.index, i) for i in finded]
 	
-	return render_template("home.html", chat_opened=False)
+	return render_template("home.html", chats=_chats, chat_opened=account.chat_opened, chat_id=account.opened_chat)
 
 @app.route("/profile")
 def profile():
 	ip = request.remote_addr
-	user = clients[ip]
+	account = clients[ip]
 
-	if user == None:
+	if account == None:
 		return redirect("/")
 
-	return render_template("profile.html", user=user)
+	return render_template("profile.html", user=account)
 
 @app.route("/admin")
 def admin():
 	ip = request.remote_addr
-	user = clients[ip]
+	account = clients[ip]
 
-	if user == None:
+	if account == None:
 		return redirect("/login", code=302)
 	
 	return render_template("admin.html")
+
 
 
 
@@ -97,7 +102,9 @@ def admin():
 def index():
 	resp = make_response(redirect("/login",code=302))
 	resp.set_cookie("last_login", '', expires=0)
-	resp.set_cookie("log", '', expires=0)
+	resp.set_cookie("last_signin", '', expires=0)
+	resp.set_cookie("login_log", '', expires=0)
+	resp.set_cookie("signin_log", '', expires=0)
 	return resp
 
 @app.route("/auth", methods=['GET', 'POST'])
@@ -106,25 +113,25 @@ def auth():
 		login = request.form['login']
 		password = request.form['password']
 		print("try to auth", login, password)
-		user = accounts.get(login, password)
+		account = accounts.get(login, password)
 		
-		if isinstance(user, Account):
-			clients.add(request.remote_addr, user)
+		if isinstance(account, Account):
+			clients.add(request.remote_addr, account)
 			resp = make_response(redirect("/home",code=302))
 			resp.set_cookie("last_login", '', expires=0)
-			resp.set_cookie("log", '', expires=0)
+			resp.set_cookie("login_log", '', expires=0)
 			return resp
 		
-		elif user == UserNotFind:
+		elif account == UserNotFind:
 			resp = make_response(redirect("/login",code=302))
 			resp.set_cookie("last_login", "")
-			resp.set_cookie("log", user)
+			resp.set_cookie("login_log", account)
 			return resp
 		
-		elif user == WrongPass:
+		elif account == WrongPass:
 			resp = make_response(redirect("/login",code=302))
 			resp.set_cookie("last_login", login)
-			resp.set_cookie("log", user)
+			resp.set_cookie("login_log", account)
 			return resp
 		
 		print("unexpected error")
@@ -154,16 +161,16 @@ def new_auth():
 		
 		if len(log) != 0:
 			resp = make_response(redirect("/signin",code=302))
-			resp.set_cookie("last_login", login)
-			resp.set_cookie("log", str(log))
+			resp.set_cookie("last_signin", login)
+			resp.set_cookie("signin_log", str(log))
 			return resp
 		
-		user = accounts.add(login, password1)
-		clients.add(request.remote_addr, user)
+		account = accounts.add(login, password1)
+		clients.add(request.remote_addr, account)
 
 		resp = make_response(redirect("/home",code=302))
-		resp.set_cookie("last_login", '', expires=0)
-		resp.set_cookie("log", '', expires=0)
+		resp.set_cookie("last_signin", '', expires=0)
+		resp.set_cookie("signin_log", '', expires=0)
 		return resp
 		
 	return render_template(redirect("/login",code=302))
@@ -183,13 +190,13 @@ def edit_profile():
 		new_description = request.form["description"]
 		
 		ip = request.remote_addr
-		user = clients[ip]
+		account = clients[ip]
 		
-		if user == None:
+		if account == None:
 			return redirect("/home")
 		
-		user.name, user.age, user.gender, user.description = new_name, new_age, new_gender, new_description
-		user.update_on_base(base)
+		account.name, account.age, account.gender, account.description = new_name, new_age, new_gender, new_description
+		account.update_on_base(base)
 		base.commit()
 	return redirect("/profile")
 
@@ -203,16 +210,19 @@ def view_profile(index):
 @app.route("/open_chat_with_user/<index>")
 def open_chat_with_user(index):
 	ip = request.remote_addr
-	user = clients[ip]
+	account = clients[ip]
 
-	if user == None:
+	if account == None:
 		return redirect("/login", code=302)
 	
-	print(f"chats.get({user.index}, {int(index)})")
-	chat_id = chats.get(user.index, int(index))
+	print(f"chats.get({account.index}, {int(index)})")
+	chat_id = chats.get(account.index, int(index))
 	if DEBUG: print("open chat", chat_id)
-
-	return redirect(f"/home?open_chat={chat_id}")
+	
+	account.chat_opened = True
+	account.opened_chat = chat_id
+	
+	return redirect("/home")
 
 
 
@@ -226,7 +236,23 @@ def find_request(_request):
 	finded = accounts.find(account.index, _request)
 	response = ";".join(list(map(str, finded)))
 	if DEBUG: print("< find_response", response)
-	socketio.emit("find_response", response)
+
+	socketio.emit("find_response", response, room=request.sid)
+
+@socketio.on('get_chat_name')
+def get_chat_name(chat_id):
+	if chat_id == "EMPTY":
+		print("try to open chat when chat_id not set")
+		return
+	chat_id = int(chat_id)
+	ip = request.remote_addr
+	account = clients[ip]
+	second_id = chats.get_second(chat_id, account.index)
+	chat_name = base["users"].get("id", second_id, "name")[0][0]
+
+	socketio.emit("set_chat_name", decode(chat_name), room=request.sid)
+
+
 
 
 if __name__ == "__main__":

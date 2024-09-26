@@ -1,3 +1,8 @@
+CHAT_ID {
+	position: absolute;
+	display: none;
+}
+
 body {
     background-color: #2B2D42; /* Темно-синий фон */
     color: #E0E1DD; /* Светло-серый текст */
@@ -5,63 +10,81 @@ body {
 }
 
 h1 {
-    margin-left: 5%;
-	margin-top: 1%;
-	position: absolute;
+	font-size: 2vw;
 }
 
-.Profile {
-    margin-left: 1%;
-	margin-top: 1.5%;
-	position: absolute;
-}
-
-.chats {
-    margin-left: 5%;
-	margin-top: 10%;
-	position: absolute;
-}
-
-.logout{
-    margin-left: 2%;
-	margin-top: 49%;
-	position: absolute;
-}
-
-.send{
-    margin-left: 97%;
-	margin-top: 49%;
-	position: absolute;
-}
 h2 {
-    color: #EDF2F4; /* Светло-серый текст */
+	font-size: 1vw;
 }
 
-.chats .account {
+.left {
+	position: absolute;
+	left: 0;
+	left: 0;
+	width: 20vw;
+	height: 100%;
+	border: 1px dotted #f0f;
+}
+
+.left .top {
+	position: absolute;
+	width: 20vw;
+	height: 5vw;
+	border: 1px dotted #0f0;
+}
+
+.left .top h1 {
+	position: absolute;
+    margin: 1vw 2vw;
+}
+
+.left .bottom {
+	position: absolute;
+	top: 5vw;
+	width: 20vw;
+	height: calc(100vh - 5vw);
+	overflow-x: hidden;
+	overflow-y: auto;
+	border: 1px dotted #0ff;
+}
+
+.left .bottom .find {
+	position: relative;
+	width: 20vw;
+	min-height: 5vw;
+	border: 1px dotted #f00;
+}
+
+.left .bottom .find h2 {
+	margin: 0.5vw 1vw;
+}
+
+.left .bottom .find .account {
 	border: 1px dotted #f0f;
 	height: 3vw;
+	width: 19vw;
 	margin: 0.5vw;
 }
 
-.chats .account img {
+.left .bottom .find .account img {
 	position: absolute;
 	width: 3vw;
 	aspect-ratio: 1;
 }
 
-.chats .account .name {
+.left .bottom .find .account .name {
 	font-size: 1.2vw;
 	position: absolute;
 	margin: 0.4vw 0.5vw 0.2vw 3.5vw;
 }
 
-.chats .account .status {
+.left .bottom .find .account .status {
 	font-size: 0.8vw;
 	position: absolute;
 	margin: 1.8vw 0.5vw 0.5vw 3.5vw;
 }
 
-.chats .account .link {
+.left .bottom .find .account .link {
 	font-size: 2vw;
 	position: absolute;
 	width: 2vw;
@@ -70,3 +93,105 @@ h2 {
 	text-decoration: none;
 	color: #fff;
 }
+
+.left .bottom .chats {
+	width: 20vw;
+	min-height: 5vw;
+	border: 1px dotted #ff0;
+}
+
+.left .bottom .chats h2 {
+	margin: 0.5vw 1vw;
+}
+
+.left .bottom .chats .chat {
+	border: 1px dotted #f0f;
+	height: 3vw;
+	width: 19vw;
+	margin: 0.5vw;
+}
+
+.left .bottom .chats .chat img {
+	position: absolute;
+	width: 3vw;
+	aspect-ratio: 1;
+}
+
+.left .bottom .chats .chat .name {
+	font-size: 1.2vw;
+	position: absolute;
+	margin: 0.4vw 0.5vw 0.2vw 3.5vw;
+}
+
+.left .bottom .chats .chat .status {
+	font-size: 0.8vw;
+	position: absolute;
+	margin: 1.8vw 0.5vw 0.5vw 3.5vw;
+}
+
+.right {
+	position: absolute;
+	left: 20vw;
+	width: 80vw;
+	height: 100%;
+	border: 1px dotted #8f8;
+}
+
+.right .top {
+	width: 80vw;
+	height: 5vw;
+	border: 1px dotted #f0f;
+}
+
+.right .top .profile {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 15vw;
+	height: 5vw;
+	border: 1px dotted #00f;
+}
+
+.right .top .profile .decor {
+	position: absolute;
+	width: 14vw;
+	height: 4vw;
+	margin: calc(0.5vw - 1px);
+	border: 1px solid #bbb;
+	border-radius: 1vw;
+	line-height: 4vw;
+	transition: 0.2s;
+}
+
+.right .top .profile:hover .decor {
+	border: 1px solid #fff;
+}
+
+.right .top .profile img {
+	position: absolute;
+	height: 3vw;
+	aspect-ratio: 1;
+	margin: 0.5vw;
+	border-radius: 0.625vw;
+}
+
+.right .top .profile p {
+	position: absolute;
+	left: 5vw;
+	font-size: 1vw;
+	color: #bbb;
+	transition: 0.2s;
+}
+
+.right .top .profile:hover p {
+	color: #fff;
+}
+
+.right .send {
+	position: absolute;
+	bottom: 0;
+	width: 80vw;
+	height: 3vw;
+	border: 1px dotted #00f;
+}
+

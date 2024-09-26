@@ -6,44 +6,72 @@
         <link rel="stylesheet" type="text/css" href="static/css/main.css">
 		<link rel="stylesheet" type="text/css" href="static/css/home.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
-        <script src="static/js/script.js"></script>
+        <script src="static/js/home.js"></script>
 	</head>
 	<body>
-		<h1>Главная</h1>
-        
-        <a href="/profile" class="Profile">Профиль</a>
-        
-        <div class="chats"> <!-- имя класса chats не менять !!! -->
-            <h2>Чаты</h2>
-            <div class="FIND"> <!-- имя класса FIND не менять !!! -->
-                <input type="text" name="find" class="find" placeholder="Поиск">
-                <button onclick="find_users()">Найти больше</button>
+        <div class="left">
+            <div class="top">
+                <h1>Главная</h1>
             </div>
 
-            <!-- Тут появляются:
+            <div class="bottom">
+                <div class="find">
+                    <h2>Поиск пользователей</h2>
+
+                    <div class="FIND_FIELD"> <!-- имя класса FIND_FIELD не менять !!! -->
+                        <form class="find_form">
+                            <input type="text" name="find" class="find_input" placeholder="Поиск">
+                            <input type="submit" value="Найти больше">
+                        </form>
+                    </div>
+
+                    <!-- Тут появляются:
+                    
+                    <div class="account">
+                        <img>
+                        <p class="name"></p>
+                        <p class="status"></p>
+                        <a class="link"></a>
+                    </div>
+
+                    изменить можно в script.js -->
+                
+                </div> <!-- find -->
+
+                <div class="chats"> <!-- имя класса chats не менять !!! -->
+                    <h2>Чаты</h2>
+
+                    {% for chat in chats %}
+                        <div class="chat">
+                            <img class="icon">
+                            <p class="name">{{ chat.name }}</p>
+                            <p class="status">status</p>
+                            {% if chat.show_last_message %}
+                                <p class="last">{{ chat.last_message }}</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div> <!-- chats -->
+            </div> <!-- left -->
+        </div> <!-- bottom -->
+
+        <div class="right">
             
-            <div class="account">
-                <img>
-                <p class="name"></p>
-                <p class="status"></p>
-                <a class="link"></a>
-            </div>
+            <div class="top">
+                <h2 class="chat_name"></h2>
 
-            изменить можно в script.js -->
-
-            {% for chat in chats %}
-                <div class="chat">
-                    <img class="icon">
-                    <p class="name">{{ chat.name }}</p>
-                    {% if chat.show_last_message %}
-                        <p class="last">{{ chat.last_message }}</p>
-                    {% endif %}
-                </div>
-            {% endfor %}
-        </div>
-        
-        <a href="/logout" class="logout">Выйти из аккаунта</a>
-
-        <button onclick="send()" class="send">Send</button>
-	</body>
+                <a href="/profile"><div class="profile">
+                    <div class="decor">
+                        <img src="static/Images/default_icon.png">
+                        <p>Профиль</p>
+                    </div>
+                </div></a>
+            </div> <!-- top -->
+        </div> <!-- right -->
+    </body>
+    <script src="static/js/home_after.js"></script>
+    
+    {% if chat_opened %}
+        <script>open_chat("{{ chat_id }}")</script>
+    {% endif %}
 </html>

@@ -59,6 +59,7 @@ class Table_handler:
 		self.base.cursor.execute(f"INSERT INTO {self.table.name}({name}) VALUES ({data})")
 
 	def get(self, column_name, value, select_column="*", select_type="=") -> list:
+		"""SELECT {select_column} FROM ... WHERE {column_name} {select_type} {value}"""
 		value = value if value.__class__.__name__ != "str" else "\'" + value + "\'"
 		selector = f"SELECT {select_column} FROM {self.table.name} WHERE {column_name} {select_type} {value}"
 		if self.base.DEBUG: print(selector)
@@ -66,6 +67,7 @@ class Table_handler:
 		return self.base.cursor.fetchall()
 	
 	def GET(self, where, select_column="*") -> list:
+		"""SELECT {select_column} FROM ... WHERE {where}"""
 		selector = f"SELECT {select_column} FROM {self.table.name} WHERE {where}"
 		if self.base.DEBUG: print(selector)
 		self.base.cursor.execute(selector)
@@ -81,7 +83,7 @@ class Table_handler:
 	def get_last_id(self) -> int:
 		selector = f"SELECT max(id) FROM {self.table.name}"
 		self.base.cursor.execute(selector)
-		return self.cursor.fetchall()[0]
+		return self.base.cursor.fetchall()[0][0]
 
 	def delete(self, column_name, value):
 		value = value if value.__class__.__name__ != "str" else "\'" + value + "\'"

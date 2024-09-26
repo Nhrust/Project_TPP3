@@ -8,7 +8,7 @@ HASH_KEY = 3920713911
 
 KEY = Fernet(b'ja3SUk5zbKBMHy9IZZpogAysEX0O5g1UFLA_hgDmnnU=')
 def encode(string): return str(string).encode().hex()
-def decode(string): return bytearray.fromhex(string).decode()
+def decode(string): return bytearray.fromhex(str(string)).decode()
 def encrypt(string): return KEY.encrypt(str(string).encode()).decode()
 def decrypt(string): return KEY.decrypt(bytes(string, "utf-8")).decode()
 
@@ -20,6 +20,9 @@ def hash(string: str):
 	return (integer * HASH_KEY) % int64_max
 
 class Account:
+	chat_opened = False
+	opened_chat = -1
+
 	def __init__(self, index, login, password):
 		self.index = index
 		self.login = login
@@ -34,7 +37,7 @@ class Account:
 			self.login, self.password, encode(self.name), self.age, self.gender, encrypt(self.description),
 			params=("login", "password", "name", "age", "gender", "description"))
 		base.commit()
-		self.index = base["users"].get("login", self.login)[0][0]
+		self.index = base["users"].get_last_id()
 		self.name = f"User-{self.index}"
 	
 	def update_on_base(self, base):
@@ -42,6 +45,7 @@ class Account:
 		base["users"].set("id", self.index, "age", self.age)
 		base["users"].set("id", self.index, "gender", self.gender)
 		base["users"].set("id", self.index, "description", encrypt(self.description))
+		base.commit()
 	
 	# not a method
 	def load(base: SQL_base, index):
@@ -79,6 +83,9 @@ class AccountsManager:
 			self.base.commit()
 
 	def get(self, login, password):
+		if len(password) < 4:
+			return WrongPass
+
 		finded = self.base["users"].get("login", login)
 		
 		if DEBUG: print(finded)
@@ -154,7 +161,7 @@ class ClientManager:
 		except:
 			return None
 
-	def __getitem__(self, ip):
+	def __getitem__(self, ip) -> Account:
 		return self.get(ip)
 
 class Message:
@@ -193,9 +200,9 @@ class Chat_Preview:
 	def __init__(self, base: SQL_base, viever_id, chat_id):
 		self.viever_id = viever_id
 		self.chat_id = chat_id
-		chat = base["chats"].get("id", chat_id)
+		chat = base["chats"].get("id", chat_id)[0]
 		self.receiver_id = chat[1] if chat[1] != viever_id else chat[2]
-		self.name = encode(base["users"].get("id", self.receiver_id, "name"))
+		self.name = decode(base["users"].get("id", self.receiver_id, "name")[0][0])
 		self.show_last_message = False
 		self.last_message = "Error in Chat_Preview"
 		self.icon = "default_icon.png"
@@ -242,6 +249,10 @@ class ChatManager:
 		
 		return finded[0][0]
 	
+	def get_second(self, chat_id, user_id):
+		chat = self.base["chats"].get("id", chat_id)[0]
+		return chat[1] if user_id == chat[2] else chat[2]
+	
 	def create(self, user_id_1: int, user_id_2: int):
 		if user_id_1 == user_id_2:
 			print("!!! CANNOT CREATE CHAT: Users id equal", user_id_1)
@@ -257,4 +268,5 @@ class ChatManager:
 			"deleted bit")
 	
 	def get_all_chats_for_user(self, user_id):
-		return self.base["chats"].get("user1", user_id) + self.base["chats"].get("user2", user_id)
+		finded = self.base["chats"].get("user1", user_id, "id") + self.base["chats"].get("user2", user_id, "id")
+		return [i[0] for i in finded]
