@@ -7,9 +7,11 @@ body {
 
 /* Стилизация формы и элементов ввода */
 input[type="text"], select, textarea {
+    position: absolute;
     width: 20vw;
     padding: 1vw;
-    margin-left:1vw;
+    margin-left:2vw;
+    top:3.2vw;
     display: inline-block;
     border: 0.2vw solid #ccc;
     border-radius: 1vw;
@@ -19,9 +21,11 @@ input[type="text"], select, textarea {
 }
 
 input[type="text1"], select, textarea {
+    position:absolute;
     width: 33.4vw;
     padding: 1vw;
-    margin-left:0.6vw;
+    top:23vw;
+    left:2vw;
     display: inline-block;
     border: 0.2vw solid #ccc;
     border-radius: 1vw;
@@ -31,9 +35,11 @@ input[type="text1"], select, textarea {
 }
 
 input[type="number"], select, textarea {
+    position:absolute;
     width: 20vw;
     padding: 1vw;
-    margin-left:1vw;
+    top:18vw;
+    left:2vw;
     display: inline-block;
     border: 0.2vw solid #ccc;
     border-radius: 1vw;
@@ -48,8 +54,8 @@ input[type="submit"] {
     color: #2B2D42; /* Темно-синий текст */
     padding: 1vw 4vw;
     margin: 1vw 0;
-    margin-left: 2vw;
-    margin-top:23vw;
+    margin-left: 2%;
+    margin-top:58%;
     border: none;
     border-radius: 2vw;
     cursor: pointer;
@@ -61,20 +67,20 @@ input[type="submit"]:hover {
 
 .radio1{
     position:absolute;
-    top:13.5vw;
-    left: 20.5vw;
+    top:20vw;
+    left: 50vw;
 }
 
 .radio2{
     position:absolute;
-    left:25.5vw;
-    top:13.5vw;
+    left:55.3vw;
+    top:20vw;
 }
 
 .radio3{
     position:absolute;
-    left:30.3vw;
-    top:13.5vw;
+    left:61.4vw;
+    top:20vw;
 }
 
 /* Стиль для заголовков внутри формы */
@@ -141,8 +147,9 @@ h2 {
 }
 
 .Sex{
-    margin-left:16vw;
-    margin-top:2vw;
+    position: absolute;
+    left:45vw;
+    top:18vw;
 }
 
 .IaboutU{
@@ -191,28 +198,28 @@ h2 {
 }
 
 .Not_choisen{
-    left:19vw;
-    top:12.2vw;
+    left:4vw;
+    top:0.1vw;
     position:absolute;
 }
 
 .Male{
-    left:24vw;
-    top:12.2vw;
+    left:9vw;
+    top:0.1vw;
     position:absolute;
 }
 
 .Female{
-    left:29vw;
-    top:12.2vw;
+    left:15vw;
+    top:0.1vw;
     position:absolute;
 }
 
 /*место под аватар*/
 #circle{
     position:absolute;
-    top:2vw;
-    margin-left:2vw;
+    top:3.2vw;
+    left:3vw;
     width:12vw;
     height:12vw;
     -webkit-border-radius: 1vw;
@@ -237,4 +244,32 @@ h2 {
     left:2.5vw;
     color:white;
     font-size:1vw;
+}
+
+.Profile_Frame{
+    position: absolute;
+    width: 65vw;
+    padding: 7vw;
+    top:2vw;
+    left:2vw;
+    display: inline-block;
+    border: 0.2vw solid #ccc;
+    border-radius: 1vw;
+    box-sizing: border-box;
+}
+
+.Choose_frame{
+    position:absolute;
+    top:10.5vw;
+    left:56.2vw;
+    width:8vw;
+    height:3vw;
+    background:rgb(0,0,0,0);
+    border: 0.2vw solid #ccc;
+    border-radius: 1vw;
+    box-sizing: border-box;
+
+}
+.Choose_frame:hover{
+    background-color: rgba(0, 0, 0, 0.203);
 }
