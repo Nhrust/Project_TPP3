@@ -49,13 +49,14 @@ input[type="number"], select, textarea {
 }
 
 input[type="submit"] {
+    position: absolute;
     width: 15vw;
     background-color: #8D99AE; /* Светло-серый цвет кнопки */
     color: #2B2D42; /* Темно-синий текст */
     padding: 1vw 4vw;
     margin: 1vw 0;
-    margin-left: 2%;
-    margin-top:58%;
+    left: 2vw;
+    top:37vw;
     border: none;
     border-radius: 2vw;
     cursor: pointer;
