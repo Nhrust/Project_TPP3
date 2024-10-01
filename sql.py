@@ -1,7 +1,7 @@
 import pyodbc
 import os
 
-DEBUG = False
+DEBUG = True
 TABLE = "_TAB_"
 CHAT = "_CHT_"
 GROUP_CHAT = "_GCH_"
@@ -140,6 +140,15 @@ class SQL_base:
 			del self.tables[name]
 		except Exception as e:
 			print(e)
+	
+	def ADD(self, name, data, params=None):
+		"""INSERT INTO {name} ( {params} ) VALUES {data}"""
+		if params == None:
+			self.cursor.execute(f"INSERT INTO {name} VALUES {tuple(data)}")
+			if self.DEBUG: print(f"INSERT INTO {name} VALUES {tuple(data)}")
+		else:
+			self.cursor.execute(f"INSERT INTO {name}({', '.join(params)}) VALUES {tuple(data)}")
+			if self.DEBUG: print(f"INSERT INTO {name}({', '.join(params)}) VALUES {tuple(data)}")
 
 	def CREATE(self, name, *columns) -> None:
 		if self.DEBUG: print(f"# SQL_base.CREATE(self, {name}, {columns})\n\tCREATE TABLE {name}({columns[0]}{''.join([', ' + i for i in columns[1:]])})")
@@ -147,11 +156,13 @@ class SQL_base:
 		self.commit()
 
 	def DROP(self, name) -> None:
+		"""DROP TABLE {name}"""
 		if self.DEBUG: print(f"# SQL_base.DROP(self, {name})\n\tDROP TABLE {name}")
 		self.cursor.execute(f"DROP TABLE {name}")
 		self.commit()
 	
 	def GET(self, table, where, select_column="*") -> list:
+		"""SELECT {select_column} FROM {table} WHERE {where}"""
 		selector = f"SELECT {select_column} FROM {table} WHERE {where}"
 		if self.DEBUG: print(f"# SQL_base.GET(self, {table}, {where}, {select_column})\n\t{selector}")
 		self.cursor.execute(selector)

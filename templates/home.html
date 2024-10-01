@@ -67,11 +67,28 @@
                     </div>
                 </div></a>
             </div> <!-- top -->
+
+            <!-- Тут появляются:
+            
+            <div class="main">
+                ...
+            </div>
+
+            <div class="send">
+                <form class="send_form">
+                    <input type="text" class="input">
+                    <input type="submit" class="submit">
+                </form>
+            </send>
+             
+            -->
+
         </div> <!-- right -->
     </body>
-    <script src="static/js/home_after.js"></script>
     
     {% if chat_opened %}
         <script>open_chat("{{ chat_id }}")</script>
     {% endif %}
+    
+    <script src="static/js/home_after.js"></script>
 </html>

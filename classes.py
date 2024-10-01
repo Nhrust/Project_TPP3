@@ -2,7 +2,7 @@ from random import randint
 from cryptography.fernet import Fernet
 from sql import *
 
-DEBUG = False
+DEBUG = True
 int64_max = 2 ** 31
 HASH_KEY = 3920713911
 
@@ -155,7 +155,7 @@ class ClientManager:
 		except:
 			return
 
-	def get(self, ip):
+	def get(self, ip) -> Account:
 		try:
 			return self.clients[ip]
 		except:
@@ -178,11 +178,11 @@ class Message:
 		return new
 
 class Chat:
-	def __init__(self, base: SQL_base, index):
-		self.base = base
-		finded = self.base["chats"].get("id", index)
+	def __init__(self, manager, index):
+		self.manager = manager
+		finded = self.manager.base["chats"].get("id", index)
 		if len(finded) == 0:
-			self.index, self.user1, self.user2 = self.base["chats"].get("id", index)[0]
+			self.index, self.user1, self.user2 = finded[0]
 			self.exist = True
 		else:
 			self.index, self.user1, self.user2 = index, None, None
@@ -192,9 +192,18 @@ class Chat:
 		if not self.exist:
 			return Message(None, None, None, True)
 		try:
-			return self.base.GET(CHAT + str(self.index), f"id = {id}")
+			finded = self.manager.base.GET(CHAT + str(self.index), f"id = {id}")
+			return Message( *(finded[0]) )
 		except:
 			return Message(None, None, None, True)
+	
+	def send_message(self, account, message):
+		if self.exist:
+			print("!!! CANNOT SEND MESSAGE BECAUSE CHAT NOT EXIST")
+			return
+		print("chat exist")
+		print("base.ADD")
+		self.manager.base.ADD(CHAT + str(account.opened_chat), (encode(message), "000000", 0), params=("data", "time", "deleted"))
 
 class Chat_Preview:
 	def __init__(self, base: SQL_base, viever_id, chat_id):
@@ -226,6 +235,12 @@ class ChatManager:
 				"user1 int",
 				"user2 int")
 			self.base.commit()
+			self.chats = dict()
+		else:
+			self.chats = dict()
+			for chat_name in self.base.get_tables_by_key(CHAT):
+				chat_id = int(chat_name.replace(CHAT, ""))
+				self.chats[chat_id] = Chat(self, chat_id)
 		
 		if "group_chats" not in self.base.tables:
 			self.base.create_table("group_chats",
@@ -262,7 +277,15 @@ class ChatManager:
 			"data varchar(1024)",
 			"time varchar(14)",
 			"deleted bit")
+		self.base.commit()
+		self.chats[index] = Chat(self, index)
 	
 	def get_all_chats_for_user(self, user_id):
 		finded = self.base["chats"].get("user1", user_id, "id") + self.base["chats"].get("user2", user_id, "id")
 		return [i[0] for i in finded]
+	
+	def __getitem__(self, index) -> Chat:
+		try:
+			return self.chats[index]
+		except:
+			return None

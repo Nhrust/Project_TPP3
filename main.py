@@ -252,6 +252,22 @@ def get_chat_name(chat_id):
 
 	socketio.emit("set_chat_name", decode(chat_name), room=request.sid)
 
+@socketio.on('send_message')
+def send_message(message):
+	ip = request.remote_addr
+	account = clients[ip]
+
+	if account == None:
+		print("!!! sender not in accaunts")
+		return
+	
+	if account.opened_chat == -1:
+		print("!!! CHAT NOT OPENED")
+		return
+	
+	print("chats send_message()")
+	chats[account.opened_chat].send_message(account, message)
+
 
 
 

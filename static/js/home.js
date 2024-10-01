@@ -46,7 +46,14 @@ socket.on('find_response', (arg) => {
 })
 
 function send_message() {
-    const message = document.querySelector();
+    const message = document.querySelector(".send_input").value;
+    console.log(message);
+    if (message != null) {
+        if (message.length != 0) {
+            socket.emit("send_message", message);
+            console.log("sended");
+        }
+    }
 }
 
 function open_chat(chat_id) {
@@ -76,16 +83,13 @@ function open_chat(chat_id) {
             
             const input = document.createElement("input");
             input.type = "text";
-            input.classList.add("input");
+            input.classList.add("send_input");
             form.appendChild(input);
 
             const submit = document.createElement("input");
             submit.type = "submit";
-            submit.classList.add("submit");
-            submit.onsubmit = function(event) {
-                event.preventDefault();
-                send_message();
-            }
+            submit.classList.add("send_submit");
+            submit.value = "Send";
             form.appendChild(submit);
         
         send.appendChild(form);
@@ -98,4 +102,5 @@ function open_chat(chat_id) {
 socket.on("set_chat_name", (arg) => {
     const chat_name = document.querySelector(".chat_name");
     chat_name.textContent = arg;
+    console.log("set_chat_name");
 })
