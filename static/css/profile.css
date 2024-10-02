@@ -63,7 +63,7 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #ae23ef; /* Красный цвет для эффекта при наведении */
+    background-color: #ae23ef;
 }
 
 .radio1{
