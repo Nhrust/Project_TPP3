@@ -179,6 +179,16 @@ h2 {
 	border: 1px dotted #00f;
 }
 
+input[type="submit1"]{
+	width: 4vw;
+	height: 1vw;
+	padding:1vw;
+	border: 1px solid #bbb;
+	border-radius: 0.5vw;
+	background-color: transparent;
+	color:#fff;
+}
+
 .text_message{
 	position:fixed;
 	background:rgb(72, 9, 131);
@@ -211,9 +221,9 @@ input[type="submit"]{
 }
 
 input[type="text1"], select, textarea {
-    width: 60vw;
+    width: 50vw;
     padding: 1vw;
-	margin-left:6%;
+	margin-left:10%;
     margin-top:0.2%;
     display: inline-block;
     border: 0.2vw solid rgb(103, 71, 133);
