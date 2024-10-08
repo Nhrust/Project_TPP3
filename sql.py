@@ -92,10 +92,10 @@ class Table_handler:
 class SQL_base:
 	DEBUG = True
 
-	def __init__(self, database, driver="Driver=ODBC Driver 17 for SQL Server") -> None:
+	def __init__(self, database, driver="ODBC Driver 17 for SQL Server") -> None:
 		server = os.getenv("SQL_SERVER")
 		self.datsbase = database
-		self.base: pyodbc.Connection = pyodbc.connect(f"{driver};Server={server};Database={database};Trusted_Connection=yes;encoding=utf-8")
+		self.base: pyodbc.Connection = pyodbc.connect(f"Driver={driver};Server={server};Database={database};Trusted_Connection=yes;encoding=utf-8")
 		self.cursor: pyodbc.Cursor = self.base.cursor()
 		self.tables = dict()
 		
