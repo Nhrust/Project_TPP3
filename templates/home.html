@@ -26,7 +26,7 @@
                     <div class="FIND_FIELD"> <!-- имя класса FIND_FIELD не менять !!! -->
                         <form class="find_form">
                             <input type="text" name="find" class="find_input" placeholder="Поиск">
-                            <input type="submit" class="submit" value="Найти больше">
+                            <input type="submit" class="submit" value="Найти">
                         </form>
                     </div>
 
@@ -62,8 +62,8 @@
         <div class="right">
             
             <div class="top">
-                {% if chat_opened %}
-                    <a href="/profile"><div class="chat_topicleft">
+                {% if chat_opened and current_chat.valid %}
+                    <a href="/view_profile/{{current_chat.reciver_id}}"><div class="chat_topicleft">
                         <div class="img_avatar"><img class="chat_avatar"></div>
                         <h2 class="chat_name">Test</h2>
                         <p class="status">Не в сети</p>
@@ -75,6 +75,7 @@
                     </div>
                 {% endif %}
             </div> <!-- top -->
+            {{ dir(current_chat) }}
 
             <!-- Тут появляются:
             
@@ -104,7 +105,7 @@
     </body>
     
     {% if chat_opened %}
-        <script>open_chat("{{ chat_id }}")</script>
+        <script>open_chat("{{ current_chat.chat_id }}")</script>
     {% endif %}
     
     <script src="static/js/home_after.js"></script>
