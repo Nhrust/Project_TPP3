@@ -179,10 +179,9 @@ h2 {
 	border: 1px dotted #00f;
 }
 
-input[type="submit1"]{
-	width: 4vw;
-	height: 1vw;
-	padding:1vw;
+.find_form .submit{
+	width: 6vw;
+	height: 2.2vw;
 	border: 1px solid #bbb;
 	border-radius: 0.5vw;
 	background-color: transparent;
@@ -211,16 +210,18 @@ input[type="text"], select, textarea{
 	color:#fff;
 }
 
-input[type="submit"]{
+.send_form .send_submit{
 	width: 6vw;
 	height: 2.2vw;
+	margin-top:0.5vw;
+	margin-left:0.2vw;
 	border: 1px solid #bbb;
 	border-radius: 0.5vw;
 	background-color: transparent;
-	color:#fff;
+	color:#bbb;
 }
 
-input[type="text1"], select, textarea {
+.send .send_input{
     width: 50vw;
     padding: 1vw;
 	margin-left:10%;
@@ -230,5 +231,108 @@ input[type="text1"], select, textarea {
     border-radius: 0.5vw;
     box-sizing: border-box;
     background-color: #343650;
+	color:#bbb;
+}
+
+.send_form .send_submit:hover {
+	border: 1px solid #fff;
+	color: #fff;
+}
+
+.right .top .chat_name{
+	display: inline;
+	position: absolute;
+	left:7vw;
+	top:1.2vw;
+	font-size: 2vw;
+	color:#bbb;
+}
+.right .top .img_avatar{
+	position: absolute;
+	left: 2vw;
+	top:0.5vw;
+	width: 4vw;
+	height: 4vw;
+	border: 1px solid #bbb;
+	border-radius: 1vw;
+}
+
+.right .top .chat_topicleft:hover .chat_name{
+	color: #fff;
+}
+
+.right .top .chat_topicleft:hover .img_avatar{
+	border-color: #fff;
+}
+
+.right .top .chat_topicleft{
+	position:absolute;
+	width:60vw;
+	height: 5vw;
+	border: 1px solid #f00;
+}
+
+.right .top .chat_topicright{
+	position: absolute;
+	left: 60vw;
+	width: 20vw;
+	height: 5vw;
+	border: 1px solid #0ff;
+}
+
+.right .top .status{
+	position:absolute;
+	left: 55vw;
+	top:3.5vw;
+	font-size:1vw;
+	color:#bbb;
+}
+
+.right .top .chat_topicleft:hover .status{
 	color:#fff;
+}
+
+.right .top .photo{
+	position: absolute;
+	padding: 1vw;
+	top:1vw;
+	left: 3vw;
+	width: 2vw;
+	height: 1vw;
+	border: 1px solid #bbb;
+	border-radius: 1vw;
+}
+
+.right .top .photo:hover{
+	border-color:#fff;
+}
+
+.right .top .video{
+	position: absolute;
+	padding: 1vw;
+	top:1vw;
+	left: 8vw;
+	width: 2vw;
+	height: 1vw;
+	border: 1px solid #bbb;
+	border-radius: 1vw;
+}
+
+.right .top .video:hover{
+	border-color:#fff;
+}
+
+.right .top .files{
+	position: absolute;
+	padding: 1vw;
+	top:1vw;
+	left: 13vw;
+	width: 2vw;
+	height: 1vw;
+	border: 1px solid #bbb;
+	border-radius: 1vw;
+}
+
+.right .top .files:hover{
+	border-color:#fff;
 }
