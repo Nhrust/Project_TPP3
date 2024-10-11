@@ -3,8 +3,8 @@ from cryptography.fernet import Fernet
 from sql import *
 
 DEBUG = True
-int64_max = 2 ** 31
-HASH_KEY = 3920713911
+int64_max = 2 ** 63
+HASH_KEY = 2_178_561_987
 
 KEY = Fernet(b'ja3SUk5zbKBMHy9IZZpogAysEX0O5g1UFLA_hgDmnnU=')
 def encode(string): return str(string).encode().hex()
@@ -17,7 +17,12 @@ WrongPass = "Wrong password"
 
 def hash(string: str):
 	integer = int( str(string).encode().hex(), 16 )
+	print(integer)
 	return (integer * HASH_KEY) % int64_max
+
+print(hash("1234"))
+print()
+print(hash("12341234"))
 
 class Account:
 	chat_opened = False
@@ -75,7 +80,7 @@ class AccountsManager:
 			self.base.create_table("users",
 				"id int identity(0,1)",
 				"login varchar(32)",
-				"password int",
+				"password int(64)",
 				"name varchar(256)",
 				"age tinyint default 0",
 				"gender tinyint default 0",

@@ -69,9 +69,9 @@ def home():
 		return redirect("/login",code=302)
 	
 	finded = chats.get_all_chats_for_user(account.index)
-	_chats = [Chat_Preview(base, account.index, i) for i in finded]
+	user_chats = [Chat_Preview(base, account.index, i) for i in finded]
 	
-	return render_template("home.html", chats=_chats, chat_opened=account.chat_opened, chat_id=account.opened_chat)
+	return render_template("home.html", chats=user_chats, chat_opened=account.chat_opened, chat_id=account.opened_chat)
 
 @app.route("/profile")
 def profile():
