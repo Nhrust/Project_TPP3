@@ -26,7 +26,7 @@
                     <div class="FIND_FIELD"> <!-- имя класса FIND_FIELD не менять !!! -->
                         <form class="find_form">
                             <input type="text" name="find" class="find_input" placeholder="Поиск">
-                            <input type="submit" value="Найти больше">
+                            <input type="submit" class="submit" value="Найти больше">
                         </form>
                     </div>
 
@@ -59,11 +59,21 @@
                 </div> <!-- chats -->
             </div> <!-- left -->
         </div> <!-- bottom -->
-
         <div class="right">
             
             <div class="top">
-                <h2 class="chat_name"></h2>
+                {% if chat_opened %}
+                    <a href="/profile"><div class="chat_topicleft">
+                        <div class="img_avatar"><img class="chat_avatar"></div>
+                        <h2 class="chat_name">Test</h2>
+                        <p class="status">Не в сети</p>
+                    </div></a>
+                    <div class="chat_topicright">
+                        <div class="photo"><p>фото</p></div>
+                        <div class="video"><p>видео</p></div>
+                        <div class="files"><p>файлы</p></div>
+                    </div>
+                {% endif %}
             </div> <!-- top -->
 
             <!-- Тут появляются:

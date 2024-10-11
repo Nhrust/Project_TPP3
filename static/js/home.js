@@ -89,7 +89,7 @@ function open_chat(chat_id) {
             const submit = document.createElement("input");
             submit.type = "submit";
             submit.classList.add("send_submit");
-            submit.value = "Send";
+            submit.value = "Отправить";
             form.appendChild(submit);
         
         send.appendChild(form);
