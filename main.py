@@ -17,11 +17,15 @@ base.commit()
 
 
 if not accounts.check_login("admin"):
-	admin = Account(None, "admin", 1549191368)
+	admin = Account(None, "admin", hash("admin"))
 	admin.create_on_base(base)
 	admin.name = "Админ"
 	admin.update_on_base(base)
 base.commit()
+
+def get_account():	
+	ip = request.remote_addr
+	return clients[ip]
 
 
 
@@ -189,8 +193,7 @@ def edit_profile():
 		new_gender = int(request.form["gender"])
 		new_description = request.form["description"]
 		
-		ip = request.remote_addr
-		account = clients[ip]
+		account = get_account()
 		
 		if account == None:
 			return redirect("/home")
@@ -209,8 +212,7 @@ def view_profile(index):
 
 @app.route("/open_chat_with_user/<index>")
 def open_chat_with_user(index):
-	ip = request.remote_addr
-	account = clients[ip]
+	account = get_account()
 
 	if account == None:
 		return redirect("/login", code=302)
@@ -231,8 +233,7 @@ def open_chat_with_user(index):
 def find_request(_request):
 	if DEBUG: print("> find_requesr", _request)
 	print("find_request", _request)
-	ip = request.remote_addr
-	account = clients[ip]
+	account = get_account()
 	finded = accounts.find(account.index, _request)
 	response = ";".join(list(map(str, finded)))
 	if DEBUG: print("< find_response", response)
@@ -245,8 +246,7 @@ def get_chat_name(chat_id):
 		print("try to open chat when chat_id not set")
 		return
 	chat_id = int(chat_id)
-	ip = request.remote_addr
-	account = clients[ip]
+	account = get_account()
 	second_id = chats.get_second(chat_id, account.index)
 	chat_name = base["users"].get("id", second_id, "name")[0][0]
 
@@ -254,8 +254,7 @@ def get_chat_name(chat_id):
 
 @socketio.on('send_message')
 def send_message(message):
-	ip = request.remote_addr
-	account = clients[ip]
+	account = get_account()
 
 	if account == None:
 		print("!!! sender not in accaunts")
@@ -268,6 +267,9 @@ def send_message(message):
 	print("chats send_message()")
 	chats[account.opened_chat].send_message(account, message)
 
+@socketio.on('get_message')
+def get_message(start: int, end: int):
+	account = get_account()
 
 
 

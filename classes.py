@@ -20,10 +20,6 @@ def hash(string: str):
 	print(integer)
 	return (integer * HASH_KEY) % int64_max
 
-print(hash("1234"))
-print()
-print(hash("12341234"))
-
 class Account:
 	chat_opened = False
 	opened_chat = -1
@@ -80,7 +76,7 @@ class AccountsManager:
 			self.base.create_table("users",
 				"id int identity(0,1)",
 				"login varchar(32)",
-				"password int(64)",
+				"password bigint",
 				"name varchar(256)",
 				"age tinyint default 0",
 				"gender tinyint default 0",
@@ -140,7 +136,7 @@ class AccountsManager:
 		self.base.create_table("users",
 			"id int identity(0,1)",
 			"login varchar(32)",
-			"password int",
+			"password bigint",
 			"name varchar(256)",
 			"age tinyint default 0",
 			"gender tinyint default 0",
