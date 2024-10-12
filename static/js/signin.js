@@ -12,16 +12,18 @@ function check_passwords() {
             pass1.classList.remove("wrong");
         }
     }
-    else if (pass2.classList.contains("wrong")) {
+    else {
+        if (wrong1) {
+            pass1.classList.add("wrong");
+        }
+    }
+    if (pass2.classList.contains("wrong")) {
         if (!wrong2) {
             pass2.classList.remove("wrong");
         }
     }
     else {
-        if (wrong1) {
-            pass1.classList.add("wrong");
-        }
-        else if (wrong2) {
+        if (wrong2) {
             pass2.classList.add("wrong");
         }
     }

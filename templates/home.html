@@ -44,16 +44,17 @@
 
                 <div class="chats"> <!-- имя класса chats не менять !!! -->
                     <h2>Чаты</h2>
-
                     {% for chat in chats %}
-                        <div class="chat">
-                            <img class="icon">
-                            <p class="name">{{ chat.name }}</p>
-                            <p class="status">status</p>
-                            {% if chat.show_last_message %}
-                                <p class="last">{{ chat.last_message }}</p>
-                            {% endif %}
-                        </div>
+                        <a href="/open_chat_with_user/{{ chat.receiver_id }}">
+                            <div class="chat">
+                                <img class="icon">
+                                <p class="name">{{ chat.name }}</p>
+                                <p class="status">status</p>
+                                {% if chat.show_last_message %}
+                                    <p class="last">{{ chat.last_message }}</p>
+                                {% endif %}
+                            </div>
+                        </a>
                     {% endfor %}
                 </div> <!-- chats -->
             </div> <!-- left -->
@@ -62,9 +63,9 @@
             
             <div class="top">
                 {% if chat_opened and current_chat.valid %}
-                    <a href="/view_profile/{{current_chat.reciver_id}}"><div class="chat_topicleft">
+                    <a href="/view_profile/{{current_chat.receiver_id}}"><div class="chat_topicleft">
                         <div class="img_avatar"><img class="chat_avatar"></div>
-                        <h2 class="chat_name">Test</h2>
+                        <h2 class="chat_name">{{current_chat.name}}</h2>
                         <p class="status">Не в сети</p>
                     </div></a>
                     <div class="chat_topicright">
@@ -74,7 +75,7 @@
                     </div>
                 {% endif %}
             </div> <!-- top -->
-
+            
             <!-- Тут появляются:
             
             
@@ -90,21 +91,23 @@
                 ...
             </div>
 
-
-            <div class="send">
-                <form class="send_form">
-                    <input type="text" class="input">
-                    <input type="submit" class="submit">
-                </form>
-            </div>
-             
             -->
+
+
+            {% if chat_opened %}
+                <div class="send">
+                    <form class="send_form">
+                        <input type="text" class="input">
+                        <input type="submit" class="submit">
+                    </form>
+                </div>
+            {% endif %}
         </div> <!-- right -->
     </body>
+    
+    <script src="static/js/home.js"></script>
     
     {% if chat_opened %}
         <script>open_chat("{{ current_chat.chat_id }}")</script>
     {% endif %}
-    
-    <script src="static/js/home.js"></script>
 </html>

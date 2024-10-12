@@ -18,30 +18,34 @@ socket.on('find_response', (arg) => {
         arg.split(";").forEach(element => {
             const values = element.split(",");
 
-            const div = document.createElement("div");
-            div.classList.add("account");
-
-            const img = document.createElement("img");
-            img.src = "static/Images/" + values[0];
-            div.appendChild(img);
-
-            const name = document.createElement("p");
-            name.classList.add("name");
-            name.textContent = values[1];
-            div.appendChild(name);
-
-            const status = document.createElement("p");
-            status.classList.add("status");
-            status.textContent = "status";
-            div.appendChild(status);
-
             const link = document.createElement("a");
-            link.classList.add("link");
             link.href = "/view_profile/" + values[2];
-            link.textContent = ">";
-            div.appendChild(link);
 
-            FIND_FIELD.after(div);
+                const div = document.createElement("div");
+                div.classList.add("account");
+
+                    const img = document.createElement("img");
+                    img.src = "static/Images/" + values[0];
+                    div.appendChild(img);
+
+                    const name = document.createElement("p");
+                    name.classList.add("name");
+                    name.textContent = values[1];
+                    div.appendChild(name);
+
+                    const status = document.createElement("p");
+                    status.classList.add("status");
+                    status.textContent = "status";
+                    div.appendChild(status);
+
+                    const symbol = document.createElement("p");
+                    symbol.classList.add("symbol");
+                    symbol.textContent = ">";
+                    div.appendChild(symbol);
+                
+                link.appendChild(div);
+
+            FIND_FIELD.after(link);
         });
     }
 })
@@ -49,9 +53,8 @@ socket.on('find_response', (arg) => {
 
 
 
-const chat_name = document.querySelector(".chat_name");
-
 socket.on("set_chat_name", (arg) => {
+    var chat_name = document.querySelector(".chat_name");
     chat_name.textContent = arg;
 })
 
@@ -59,27 +62,15 @@ socket.on("set_chat_name", (arg) => {
 
 
 document.querySelector(".find_form").onsubmit = function(event) {
-    console.log("find_request");
     event.preventDefault();
-    var request = document.querySelector(".find_input").value;
-    socket.emit('find_request', request);
+    socket.emit('find_request', document.querySelector(".find_input"));
 }
 
 
 
-
-document.querySelector(".send_form").onsubmit = function(event) {
-    console.log("event prevent default");
-    event.preventDefault();
-    send_message();
-}
-
-
-
-
-const send_input = document.querySelector(".send_input")
 
 function send_message() {
+    var send_input = document.querySelector(".send_input");
     var message = send_input.value;
     console.log(message);
     if (message != null) {
@@ -88,6 +79,7 @@ function send_message() {
             console.log("sended");
         }
     }
+    send_input.value = "";
 }
 
 
@@ -117,6 +109,10 @@ function open_chat(chat_id) {
         
         const form = document.createElement("form");
         form.classList.add("send_form");
+        form.onsubmit = function(event) {
+            event.preventDefault();
+            send_message();
+        }
             
             const input = document.createElement("input");
             input.type = "text";

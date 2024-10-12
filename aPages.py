@@ -5,7 +5,7 @@ from classes import *
 
 def init(DEBUG: bool, app: Flask, base: SQL_base, accounts: AccountsManager, clients: ClientManager, chats: ChatManager):
     
-    def get_account():	
+    def get_account() -> tuple[str, Account]:	
         ip = request.remote_addr
         return ip, clients[ip]
 
