@@ -108,12 +108,18 @@ class AccountsManager:
 		return len(self.base.table("users").get("login", login))
 	
 	def find(self, requester_id: int, request: str) -> list:
-		finded = self.base.table("users").get("name", "%" + encode(request) + "%", select_type="LIKE")
+		raw_finded = self.base.table("users").get("name", "%" + encode(request) + "%", select_type="LIKE")
 		
 		if request.isdigit():
-			finded = self.base.table("users").get("id", int(request)) + finded
+			raw_finded = self.base.table("users").get("id", int(request)) + raw_finded
 
-		print("finded", finded)
+		finded = []
+		
+		for i in raw_finded:
+			if i not in finded:
+				finded.append(i)
+		
+		if DEBUG: print("finded", finded)
 
 		result = []
 		for item in finded:

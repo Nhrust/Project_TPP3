@@ -63,7 +63,7 @@ socket.on("set_chat_name", (arg) => {
 
 document.querySelector(".find_form").onsubmit = function(event) {
     event.preventDefault();
-    socket.emit('find_request', document.querySelector(".find_input"));
+    socket.emit('find_request', document.querySelector(".find_input").value);
 }
 
 

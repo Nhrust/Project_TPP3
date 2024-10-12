@@ -13,11 +13,12 @@ def init(DEBUG: bool, app: Flask, base: SQL_base, accounts: AccountsManager, cli
 
     @socketio.on('find_request')
     def find_request(_request: str):
+        if DEBUG: print("> find_request", _request)
+
         if _request == "":
             if DEBUG: print("> find_request\n? request is empty")
             return
-        
-        if DEBUG: print("> find_request", _request)
+
         ip, account = get_account()
         finded = accounts.find(account.index, _request)
         response = ";".join(list(map(str, finded)))
