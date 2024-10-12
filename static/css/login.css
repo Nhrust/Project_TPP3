@@ -6,6 +6,27 @@ form {
     align-content: center;
 }
 
+.fast_login {
+    width: 10vw;
+    padding: 5vw;
+    position: absolute;
+    left: 5vw;
+    top: 15vw;
+    text-align: center;
+    background: #222;
+    border-radius: 1vw;
+}
+
+.fast_login .hidden {
+    display: none;
+}
+
+.fast_login .submit {
+    width: 10vw;
+    height: 2vw;
+    display: block;
+}
+
 .center {
     width: 30vw;
     padding: 5vw;

@@ -170,7 +170,7 @@ class SQL_base:
 		if self.DEBUG: print("finded:", finded)
 		return finded
 
-	def __getitem__(self, name) -> Table_handler:
+	def table(self, name) -> Table_handler:
 		return Table_handler(self, TABLE + name)
 
 	def commit(self) -> None:
