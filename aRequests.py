@@ -60,7 +60,7 @@ def init(DEBUG: bool, app: Flask, base: SQL_base, accounts: AccountsManager, cli
         clients.add(request.remote_addr, account)
         return redirect("/home")
 
-    @app.route("/new_auth", methods=['GET', 'POST'])
+    @app.route("/new_auth", methods=['POST'])
     def new_auth():
         if request.method == "POST":
             login = request.form['login']
@@ -121,14 +121,14 @@ def init(DEBUG: bool, app: Flask, base: SQL_base, accounts: AccountsManager, cli
         return redirect("/profile")
 
     @app.route("/view_profile/<index>")
-    def view_profile(index):
+    def view_profile(index: str):
         viewed_user = Account.unpack(base.table("users").get("id", index)[0])
         if DEBUG: print("view profile", index)
         if DEBUG: print("viewed_user index", viewed_user.index)
         return render_template("view.html", user=viewed_user)
 
     @app.route("/open_chat_with_user/<index>")
-    def open_chat_with_user(index):
+    def open_chat_with_user(index: str):
         ip, account = get_account()
 
         if account == None:

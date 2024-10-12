@@ -50,7 +50,7 @@ def init(DEBUG: bool, app: Flask, base: SQL_base, accounts: AccountsManager, cli
             return redirect("/login",code=302)
         
         finded = chats.get_all_chats_for_user(account.index)
-        user_chats = [Chat_Preview(base, account.index, i) for i in finded]
+        user_chats = [ChatPreview(base, account.index, i) for i in finded]
         
         return render_template("home.html", chats=user_chats, chat_opened=account.chat_opened, current_chat=account.get_opened_chat(base))
 

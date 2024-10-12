@@ -24,7 +24,7 @@ class Account:
 	chat_opened = False
 	opened_chat = -1
 
-	def __init__(self, index, login, password):
+	def __init__(self, index: int, login: str, password: int):
 		self.index = index
 		self.login = login
 		self.password = password
@@ -40,11 +40,10 @@ class Account:
 			params=("login", "password", "name", "age", "gender", "description"))
 		base.commit()
 		self.index = base.table("users").get_last_id()
-		print(f"? base.table('users').get_last_id() = {self.index}")
 		self.name = f"User-{self.index}"
-		print(f"? new user name = {self.name}")
+		self.update_on_base(base)
 	
-	def update_on_base(self, base):
+	def update_on_base(self, base: SQL_base):
 		base.table("users").set("id", self.index, "name", encode(self.name))
 		base.table("users").set("id", self.index, "age", self.age)
 		base.table("users").set("id", self.index, "gender", self.gender)
@@ -52,10 +51,10 @@ class Account:
 		base.commit()
 	
 	def get_opened_chat(self, base: SQL_base):
-		return Chat_Preview(base, self.index, self.opened_chat)
+		return ChatPreview(base, self.index, self.opened_chat)
 	
 	# not a method
-	def load(base: SQL_base, index):
+	def load(base: SQL_base, index: int):
 		try:
 			return Account.unpack( base.table("users").get("id", index)[0] )
 		except Exception as e:
@@ -63,7 +62,7 @@ class Account:
 			raise e
 	
 	# not a method
-	def unpack(response):
+	def unpack(response: list):
 		if DEBUG: print("account unpack", response)
 		new = Account(None, None, None)
 		new.index, new.login, new.password, new.name, new.age, new.gender, new.description = response
@@ -89,8 +88,8 @@ class AccountsManager:
 				"description varchar(1024) default ''")
 			self.base.commit()
 
-	def get(self, login, password):
-		if len(password) < 4:
+	def get(self, login: str, password: str):
+		if len(str(password)) < 4:
 			return WrongPass
 
 		finded = self.base.table("users").get("login", login)
@@ -105,7 +104,7 @@ class AccountsManager:
 				return Account.load(self.base, user_data.index)
 		return WrongPass
 
-	def check_login(self, login) -> int:
+	def check_login(self, login: str) -> int:
 		return len(self.base.table("users").get("login", login))
 	
 	def find(self, requester_id: int, request: str) -> list:
@@ -120,17 +119,17 @@ class AccountsManager:
 		for item in finded:
 			if item[0] == requester_id:
 				continue
-			result.append( Account_Preview(Account.unpack(item)) )
+			result.append( AccountPreview(Account.unpack(item)) )
 
 		return result
 
-	def add(self, login, password) -> Account:
+	def add(self, login: str, password: str) -> Account:
 		new_user = Account("not init", login, hash(password))
 		new_user.create_on_base(self.base)
 		self.base.commit()
 		return new_user
 
-	def delete(self, index):
+	def delete(self, index: int):
 		self.base.table("users").delete("id", index)
 		self.base.commit()
 
@@ -157,7 +156,7 @@ class AccountsManager:
 			acc = Account.unpack(self.base.table("users").get("id", i)[0])
 			result.append( (acc.login, acc.name) )
 		
-		print(f"& {result = }")
+		if self.base.DEBUG: print(f"? classes.AccountsManager.get_all ? {result = }")
 		
 		return result
 
@@ -165,16 +164,16 @@ class ClientManager:
 	def __init__(self):
 		self.clients = dict()
 
-	def add(self, ip, user):
-		self.clients[ip] = user
+	def add(self, ip: int, account: Account):
+		self.clients[ip] = account
 
-	def remove(self, ip):
+	def remove(self, ip: int):
 		try:
 			del self.clients[ip]
 		except:
 			return
 
-	def get(self, ip) -> Account:
+	def get(self, ip: int) -> Account:
 		try:
 			return self.clients[ip]
 		except:
@@ -184,20 +183,22 @@ class ClientManager:
 		return self.get(ip)
 
 class Message:
-	def __init__(self, sender, data, time, deleted):
+	def __init__(self, sender: int, data: str, time: str, deleted: bool):
 		self.sender = sender
 		self.data = data
 		self.time = time
 		self.deleted = deleted
 	
 	# not a method
-	def unpack(response):
+	def unpack(response: list):
 		new = Message(None, None, None, None)
 		new.sender, new.data, new.time, new.deleted = response
 		return new
 
+class ChatManager: None
+
 class Chat:
-	def __init__(self, manager, index):
+	def __init__(self, manager: ChatManager, index: int):
 		self.manager = manager
 		finded = self.manager.base.table("chats").get("id", index)
 		if len(finded) == 0:
@@ -207,7 +208,7 @@ class Chat:
 			self.index, self.user1, self.user2 = index, None, None
 			self.exist = False
 	
-	def get_message(self, id):
+	def get_message(self, id: int):
 		if not self.exist:
 			return Message(None, None, None, True)
 		try:
@@ -216,40 +217,44 @@ class Chat:
 		except:
 			return Message(None, None, None, True)
 	
-	def send_message(self, account, message):
+	def send_message(self, account: Account, raw_message: str):
 		if self.exist:
 			print("!!! CANNOT SEND MESSAGE BECAUSE CHAT NOT EXIST")
 			return
-		print("chat exist")
-		print("base.ADD")
-		self.manager.base.ADD(CHAT + str(account.opened_chat), (encode(message), "000000", 0), params=("data", "time", "deleted"))
+		self.manager.base.ADD(CHAT + str(account.opened_chat), (encode(raw_message), "000000", 0), params=("data", "time", "deleted"))
 
-class Chat_Preview:
-	def __init__(self, base: SQL_base, viever_id, chat_id):
+class ChatPreview:
+	def __init__(self, base: SQL_base, viever_id: int, chat_id: int):
 		self.viever_id = viever_id
 		self.chat_id = chat_id
 
 		finded_chats = base.table("chats").get("id", chat_id)
-		if base.DEBUG: print(f"? {finded_chats = }")
+		if base.DEBUG: print(f"? ChatPreview ? {finded_chats = }")
+		
 		if len(finded_chats) == 0:
-			self.valid = False
+			self.valid             = False
+			self.receiver_id       = None
+			self.name              = None
+			self.show_last_message = None
+			self.last_message      = None
+			self.icon              = None
 			return
-		self.valid = True
+		
 		chat = finded_chats[0]
-
+		self.valid = True
 		self.receiver_id = chat[1] if chat[1] != viever_id else chat[2]
 		self.name = decode(base.table("users").get("id", self.receiver_id, "name")[0][0])
 		self.show_last_message = False
-		self.last_message = "Error in Chat_Preview"
+		self.last_message = "Error in ChatPreview"
 		self.icon = "default_icon.png"
 
-class Account_Preview:
+class AccountPreview:
 	def __init__(self, account: Account):
 		self.icon = "default_icon.png"
 		self.name = account.name
 		self.id = account.index
 	
-	def __repr__(self):
+	def __repr__(self) -> str:
 		return f"{self.icon},{self.name},{self.id}"
 
 class ChatManager:
@@ -285,11 +290,11 @@ class ChatManager:
 		
 		return finded_chats[0][0]
 	
-	def get_second(self, chat_id, user_id):
+	def get_second(self, chat_id, user_id) -> int:
 		chat = self.base.table("chats").get("id", chat_id)[0]
 		return chat[1] if user_id == chat[2] else chat[2]
 	
-	def create(self, user_id_1: int, user_id_2: int):
+	def create(self, user_id_1: int, user_id_2: int) -> None:
 		if user_id_1 == user_id_2:
 			print("!!! CANNOT CREATE CHAT: Users id equal", user_id_1)
 
@@ -304,7 +309,7 @@ class ChatManager:
 		self.base.commit()
 		self.chats[index] = Chat(self, index)
 	
-	def get_all_chats_for_user(self, user_id):
+	def get_all_chats_for_user(self, user_id) -> list:
 		finded = self.base.table("chats").get("user1", user_id, "id") + self.base.table("chats").get("user2", user_id, "id")
 		return [i[0] for i in finded]
 	
