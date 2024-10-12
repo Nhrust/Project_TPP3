@@ -7,18 +7,27 @@
 		<link rel="stylesheet" type="text/css" href="static/css/signin.css">
 	</head>
 	<body>
-		<h1>Регистрация</h1>
-		<form method="post" action="/new_auth">
-			<input type="text" name="login">
-			<input type="password" name="password1">
-			<input type="password" name="password2">
-			<input type="submit" value="Sign in">
-		</form>
-		{% if show %}
-			{% for i in log %}
-				<p class="log"> {{ i }} </p>
-			{% endfor %}
-		{% endif %}
-		<a href="/">Back to login</a>
+		<div class="center">
+			<h1>Регистрация</h1>
+
+			<form method="post" action="/new_auth">
+				<input type="text" name="login" class="login">
+				<input type="password" name="password1" class="password" id="pass1"
+					onchange onpropertychange onkeyuponpaste oninput="check_passwords()" />
+				<input type="password" name="password2" class="password" id="pass2"
+					onchange onpropertychange onkeyuponpaste oninput="check_passwords()" />
+				<input type="submit" value="Sign in" class="submit">
+			</form>
+
+			{% if show_logs %}
+				{% for i in log %}
+					<p class="log"> {{ i }} </p>
+				{% endfor %}
+			{% endif %}
+			
+			<a href="/">Back to login</a>
+		</div>
 	</body>
+
+	<script src="static/js/signin.js"></script>
 </html>

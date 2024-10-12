@@ -22,13 +22,12 @@
 			<form method="post" action="/auth">
 				<input type="text" name="login" value="{{ last_login }}" class="login"><br>
 				<input type="password" name="password" class="password"><br>
-
 				<input type="submit" value="Submit" class="submit">
 			</form>
 
-				{% if show %}
-					<div class="log"> {{ log }} </div>
-				{% endif %}
+			{% if show_logs %}
+				<div class="log"> {{ log }} </div>
+			{% endif %}
 			
 			<a href="/signin">Sign in</a>
 		</div>

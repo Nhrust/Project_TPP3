@@ -3,8 +3,13 @@ const socket = io();
 var chat_opened = false;
 var opened_chat = -1;
 
+
+
+
+const FIND_FIELD = document.querySelector(".FIND_FIELD");
+
 socket.on('find_response', (arg) => {
-    const finded = document.querySelectorAll(".account");
+    var finded = document.querySelectorAll(".account");
     finded.forEach(element => {
         element.parentNode.removeChild(element);
     });
@@ -36,17 +41,46 @@ socket.on('find_response', (arg) => {
             link.textContent = ">";
             div.appendChild(link);
 
-            const FIND_FIELD = document.querySelector(".FIND_FIELD");
             FIND_FIELD.after(div);
-
-            const find = document.querySelector(".find");
-            
         });
     }
 })
 
+
+
+
+const chat_name = document.querySelector(".chat_name");
+
+socket.on("set_chat_name", (arg) => {
+    chat_name.textContent = arg;
+})
+
+
+
+
+document.querySelector(".find_form").onsubmit = function(event) {
+    console.log("find_request");
+    event.preventDefault();
+    var request = document.querySelector(".find_input").value;
+    socket.emit('find_request', request);
+}
+
+
+
+
+document.querySelector(".send_form").onsubmit = function(event) {
+    console.log("event prevent default");
+    event.preventDefault();
+    send_message();
+}
+
+
+
+
+const send_input = document.querySelector(".send_input")
+
 function send_message() {
-    const message = document.querySelector(".send_input").value;
+    var message = send_input.value;
     console.log(message);
     if (message != null) {
         if (message.length != 0) {
@@ -56,11 +90,14 @@ function send_message() {
     }
 }
 
+
+
+
+const right = document.querySelector(".right");
+
 function open_chat(chat_id) {
     chat_opened = true;
     opened_chat = Number(chat_id);
-
-    const right = document.querySelector(".right");
 
     document.querySelectorAll(".main")
         .forEach(element => {
@@ -94,13 +131,7 @@ function open_chat(chat_id) {
         
         send.appendChild(form);
     
-    right.appendChild(send)
+    right.appendChild(send);
 
     socket.emit('get_chat_name', chat_id);
 }
-
-socket.on("set_chat_name", (arg) => {
-    const chat_name = document.querySelector(".chat_name");
-    chat_name.textContent = arg;
-    console.log("set_chat_name");
-})

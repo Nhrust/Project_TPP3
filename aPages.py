@@ -19,9 +19,9 @@ def init(DEBUG: bool, app: Flask, base: SQL_base, accounts: AccountsManager, cli
             last_login = ""
         
         if log != None:
-            return render_template("login.html", show=True, log=log, last_login=last_login, accs=accounts.get_all())
+            return render_template("login.html", show_logs=True, log=log, last_login=last_login, accs=accounts.get_all())
         
-        return render_template("login.html", show=False, log=log, last_login=last_login, accs=accounts.get_all())
+        return render_template("login.html", show_logs=False, log=log, last_login=last_login, accs=accounts.get_all())
 
     @app.route("/signin")
     def signin():
@@ -38,7 +38,7 @@ def init(DEBUG: bool, app: Flask, base: SQL_base, accounts: AccountsManager, cli
                 log = (log, )
             
             if len(log) != 0:
-                return render_template("signin.html", last_login=last_login, show=True, log=log)
+                return render_template("signin.html", show_logs=True, last_login=last_login, log=log)
         
         return render_template("signin.html")
 
