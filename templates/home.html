@@ -106,8 +106,13 @@
     </body>
     
     <script src="static/js/home.js"></script>
-    
+    <script>setup(
+        "{{'true' if chat_opened else 'false'}}",
+        "{{current_chat.id if chat_opened else -1}}",
+        "0",
+        "{{current_chat.last_message_id}}",
+        "{{current_chat.client_id}}")</script>
     {% if chat_opened %}
-        <script>open_chat("{{ current_chat.chat_id }}")</script>
+        <script>open_chat("{{ current_chat.id }}")</script>
     {% endif %}
 </html>

@@ -20,6 +20,7 @@ def init(DEBUG: bool, app: Flask, base: SQL_base, accounts: AccountsManager, cli
             return
 
         ip, account = get_account()
+
         finded = accounts.find(account.index, _request)
         response = ";".join(list(map(str, finded)))
         
@@ -28,9 +29,12 @@ def init(DEBUG: bool, app: Flask, base: SQL_base, accounts: AccountsManager, cli
 
     @socketio.on('get_chat_name')
     def get_chat_name(chat_id: str):
+        if DEBUG: print("> get_chat_name", chat_id)
+
         if chat_id == "EMPTY":
             print("!!! try to open chat when chat_id not set")
             return
+        
         chat_id = int(chat_id)
         ip, account = get_account()
         second_id = chats.get_second(chat_id, account.index)
@@ -41,6 +45,8 @@ def init(DEBUG: bool, app: Flask, base: SQL_base, accounts: AccountsManager, cli
 
     @socketio.on('send_message')
     def send_message(raw_message: str):
+        if DEBUG: print("> send_message", raw_message)
+
         ip, account = get_account()
 
         if account == None:
@@ -55,5 +61,17 @@ def init(DEBUG: bool, app: Flask, base: SQL_base, accounts: AccountsManager, cli
         chats[account.opened_chat].send_message(account, raw_message)
 
     @socketio.on('get_message')
-    def get_message(start: int, end: int):
+    def get_message(index: int):
+        if DEBUG: print("> get_message", index)
+
         ip, account = get_account()
+
+        message = chats[account.opened_chat].get_message(int(index))
+        if message == None:
+            print("!!! get_message_response fail")
+            return
+
+        # response = message.pack()
+        # if DEBUG: print("< get_message_response", response)
+
+        # socketio.emit("get_message_response", response, room=request.sid)

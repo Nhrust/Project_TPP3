@@ -62,7 +62,7 @@ class Table_handler:
 		"""SELECT {select_column} FROM ... WHERE {column_name} {select_type} {value}"""
 		value = value if value.__class__.__name__ != "str" else "\'" + value + "\'"
 		selector = f"SELECT {select_column} FROM {self.table.name} WHERE {column_name} {select_type} {value}"
-		if self.base.DEBUG: print(selector)
+		if self.base.DEBUG: print(f"# Table_handler.get(self, {column_name}, {value}, {select_column}, {select_type})\n\t{selector}")
 		self.base.cursor.execute(selector)
 		return self.base.cursor.fetchall()
 	
@@ -169,6 +169,13 @@ class SQL_base:
 		finded = self.cursor.fetchall()
 		if self.DEBUG: print("finded:", finded)
 		return finded
+	
+	def GET_LAST_ID(self, table: str) -> int:
+		"""SELECT max(id) FROM {table}"""
+		selector = f"SELECT max(id) FROM {table}"
+		if DEBUG: print(f"# SQL_base.GET_LAST_ID(self, {table})\n\t{selector}")
+		self.cursor.execute(selector)
+		return self.cursor.fetchall()[0][0]
 
 	def table(self, name) -> Table_handler:
 		return Table_handler(self, TABLE + name)

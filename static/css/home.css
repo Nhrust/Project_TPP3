@@ -179,7 +179,7 @@ h2 {
 	position: absolute;
 	bottom: 0;
 	width: 80vw;
-	height: 3vw;
+	height: 5vh; /* не менять */
 	border: 1px dotted #00f;
 }
 
@@ -216,9 +216,8 @@ input[type="text"], select, textarea{
 
 .send_form .send_submit{
 	width: 6vw;
-	height: 2.2vw;
-	margin-top:0.5vw;
-	margin-left:0.2vw;
+	height: 4vh;
+	margin: 0.25vh;
 	border: 1px solid #bbb;
 	border-radius: 0.5vw;
 	background-color: transparent;
@@ -228,8 +227,8 @@ input[type="text"], select, textarea{
 .send .send_input{
     width: 50vw;
     padding: 1vw;
+	margin: 0.25vw;
 	margin-left:10%;
-    margin-top:0.2%;
     display: inline-block;
     border: 0.2vw solid rgb(103, 71, 133);
     border-radius: 0.5vw;
@@ -339,4 +338,64 @@ input[type="text"], select, textarea{
 
 .right .top .files:hover{
 	border-color:#fff;
+}
+
+.right .main {
+	display: flex;
+	height: 85vh;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+.right .main .message {
+	display: inline-block;
+	color: #ddd;
+	margin: 1vh 1.5vh;
+}
+
+.right .main #my.message {
+	color: #fff;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.right .main .message .box {
+	background: #3b3d62;
+	padding: 1vh 1.5vh;
+	max-width: 66%;
+	min-width: 33%;
+}
+
+.right .main .message .sender {
+	font-size: 2vh;
+	margin: -0.25vh 0 0.5vh -0.5vh;
+	font-weight: bold;
+}
+
+.right .main #my.message .sender {
+	display: none;
+}
+
+.right .main .message .data {
+	font-size: 2vh;
+	border: 1px dotted #f0f;
+	display: inline;
+}
+
+.right .main .message .info {
+	border: 1px dotted #0f0;
+	display: inline;
+	float: right;
+}
+
+.right .main .message .info .time {
+	display: inline;
+}
+
+.right .main .message .info .symbol {
+	display: inline;
+}
+
+_meta_ {
+	display: none;
 }

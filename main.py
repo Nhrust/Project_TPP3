@@ -34,5 +34,4 @@ init_socket  (DEBUG, app, base, accounts, clients, chats, socketio)
 
 
 if __name__ == "__main__":
-	app.run(debug=DEBUG)
-	# app.run(debug=True, host="0.0.0.0")
+	app.run(debug=DEBUG) #, host="0.0.0.0")

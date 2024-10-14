@@ -2,6 +2,17 @@ const socket = io();
 
 var chat_opened = false;
 var opened_chat = -1;
+var chat_type = 0;
+var last_message_index = 0;
+var self_id = 0;
+
+function setup(_chat_opened, _opened_chat, _chat_type, _last_message_index, _self_id) {
+    chat_opened = Boolean(_chat_opened);
+    opened_chat = Number(_opened_chat);
+    chat_type = Number(_chat_type);
+    last_message_index = Number(_last_message_index);
+    self_id = Number(_self_id);
+}
 
 
 
@@ -77,9 +88,11 @@ function send_message() {
         if (message.length != 0) {
             socket.emit("send_message", message);
             console.log("sended");
+            last_message_index += 1;
+            appendMessage(last_message_index + 1, self_id, message, "203100", "0", 1);
+            send_input.value = "";
         }
     }
-    send_input.value = "";
 }
 
 
@@ -88,17 +101,14 @@ function send_message() {
 const right = document.querySelector(".right");
 
 function open_chat(chat_id) {
-    chat_opened = true;
     opened_chat = Number(chat_id);
 
-    document.querySelectorAll(".main")
-        .forEach(element => {
-            element.parentNode.removeChild(element);
-        })
-    document.querySelectorAll(".send")
-        .forEach(element => {
-            element.parentNode.removeChild(element);
-        })
+    document.querySelectorAll(".main").forEach(element => {
+        element.parentNode.removeChild(element);
+    })
+    document.querySelectorAll(".send").forEach(element => {
+        element.parentNode.removeChild(element);
+    })
     
     const main = document.createElement("div");
     main.classList.add("main");
@@ -130,4 +140,63 @@ function open_chat(chat_id) {
     right.appendChild(send);
 
     socket.emit('get_chat_name', chat_id);
+    
+    socket.emit('get_message', '0');
+}
+
+
+
+
+function appendMessage(an_index, a_sender, a_data, a_time, a_deleted, position) {
+    var main = document.querySelector(".main");
+
+    const message = document.createElement("div");
+    message.classList.add("message");
+    if (position == 1) {
+        message.id = "my";
+    }
+    
+        const box = document.createElement("div");
+        box.classList.add("box");
+
+            if (chat_type == 1) {
+                const sender = document.createElement("p");
+                sender.classList.add("sender");
+                sender.textContent = a_sender;
+                box.appendChild(sender);
+            }
+
+            const data = document.createElement("div");
+            data.classList.add("data");
+            data.textContent = a_data;
+            box.appendChild(data);
+
+            const info = document.createElement("div");
+            info.classList.add("info");
+
+                const time = document.createElement("p");
+                time.classList.add("time");
+                time.textContent = String(a_time).slice(0, 2) + ":" + String(a_time).slice(2, 4) + ":" + String(a_time).slice(4, 6);
+                info.appendChild(time)
+
+                const symbol = document.createElement("p");
+                symbol.classList.add("symbol");
+                symbol.textContent = "?";
+                info.appendChild(symbol);
+            
+            box.appendChild(info);
+
+            const _index = document.createElement("_meta_");
+            _index.classList.add("_index");
+            _index.textContent = an_index;
+            box.appendChild(_index);
+
+            const _deleted = document.createElement("_meta_");
+            _deleted.classList.add("_deleted");
+            _deleted.textContent = a_deleted;
+            box.appendChild(_deleted);
+        
+        message.appendChild(box);
+
+    main.appendChild(message);
 }

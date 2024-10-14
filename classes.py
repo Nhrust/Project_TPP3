@@ -189,69 +189,105 @@ class ClientManager:
 		return self.get(ip)
 
 class Message:
-	def __init__(self, sender: int, data: str, time: str, deleted: bool):
+	def __init__(self, index: int, sender: int, data: str, time: str, deleted: bool):
+		self.index = index
 		self.sender = sender
 		self.data = data
 		self.time = time
 		self.deleted = deleted
 	
+	def pack(self) -> str:
+		return f"{self.index},{self.sender},{self.time},{self.deleted},{len(self.data)},{self.data}"
+
 	# not a method
 	def unpack(response: list):
-		new = Message(None, None, None, None)
-		new.sender, new.data, new.time, new.deleted = response
+		new = Message(None, None, None, None, None)
+		new.index, new.sender, new.data, new.time, new.deleted = response
+		print("???", response)
+		new.data = decode(new.data)
 		return new
 
 class ChatManager: None
 
 class Chat:
+	index: int
+	user1: int
+	user2: int
+
 	def __init__(self, manager: ChatManager, index: int):
 		self.manager = manager
 		finded = self.manager.base.table("chats").get("id", index)
+		
 		if len(finded) == 0:
-			self.index, self.user1, self.user2 = finded[0]
-			self.exist = True
-		else:
-			self.index, self.user1, self.user2 = index, None, None
+			self.index = index
 			self.exist = False
+			return
+		
+		self.exist = True
+		self.index, self.user1, self.user2 = map(int, finded[0])
 	
-	def get_message(self, id: int):
+	def get_message(self, index: int):
 		if not self.exist:
-			return Message(None, None, None, True)
-		try:
-			finded = self.manager.base.GET(CHAT + str(self.index), f"id = {id}")
-			return Message( *(finded[0]) )
-		except:
-			return Message(None, None, None, True)
+			print("!!! cant get message because chat not exist")
+			return None
+		
+		if index == -1:
+			index = self.manager.base.GET_LAST_ID(CHAT + str(self.index))
+
+		finded = self.manager.base.GET(CHAT + str(self.index), f"id = {index}")
+		
+		if len(finded) == 0:
+			print(f"!!! message [{index}] not found")
+			return None
+
+		return Message.unpack(finded[0])
+	
+	def get_messages(self, start: int, end: int):
+		if not self.exist:
+			print("!!! cant get message because chat not exist")
+			return None
+		
+		finded = self.manager.base.GET(CHAT + str(self.index), f"(id >= {start}) AND (id <= {end})")
+		
+		if len(finded) == 0:
+			print(f"!!! messages [{start}:{end}] not found")
+		elif DEBUG:
+			print(f"? founded {len(finded)}/{end - start + 1} messages")
+
+		return [Message.unpack(i[0]) for i in finded]
 	
 	def send_message(self, account: Account, raw_message: str):
-		if self.exist:
+		if not self.exist:
 			print("!!! CANNOT SEND MESSAGE BECAUSE CHAT NOT EXIST")
 			return
-		self.manager.base.ADD(CHAT + str(account.opened_chat), (encode(raw_message), "000000", 0), params=("data", "time", "deleted"))
+		self.manager.base.ADD(CHAT + str(account.opened_chat), (account.index, encode(raw_message), "000000", 0), params=("sender", "data", "time", "deleted"))
+		self.manager.base.commit()
 
 class ChatPreview:
-	def __init__(self, base: SQL_base, viever_id: int, chat_id: int):
-		self.viever_id = viever_id
-		self.chat_id = chat_id
+	show_last_message = False
+	
+	valid: bool
+	receiver_id: int
+	name: str
+	last_message_id: int
+	icon: str
+
+	def __init__(self, base: SQL_base, client_id: int, chat_id: int):
+		self.client_id = client_id
+		self.id = chat_id
 
 		finded_chats = base.table("chats").get("id", chat_id)
 		if base.DEBUG: print(f"? ChatPreview ? {finded_chats = }")
 		
 		if len(finded_chats) == 0:
-			self.valid             = False
-			self.receiver_id       = None
-			self.name              = None
-			self.show_last_message = None
-			self.last_message      = None
-			self.icon              = None
+			self.valid = False
 			return
 		
 		chat = finded_chats[0]
 		self.valid = True
-		self.receiver_id = chat[1] if chat[1] != viever_id else chat[2]
+		self.receiver_id = chat[1] if chat[1] != client_id else chat[2]
 		self.name = decode(base.table("users").get("id", self.receiver_id, "name")[0][0])
-		self.show_last_message = False
-		self.last_message = "Error in ChatPreview"
+		self.last_message_id = base.GET_LAST_ID(CHAT + str(self.id))
 		self.icon = "default_icon.png"
 
 class AccountPreview:
@@ -265,6 +301,7 @@ class AccountPreview:
 
 class ChatManager:
 	chats_args = ["id int identity(0,1)", "user1 int", "user2 int"]
+	chat_args = ["id int identity(0,1)", "sender int", "data varchar(1024)", "time varchar(14)", "deleted bit"]
 	group_chats_args = ["id int identity(0,1)", "name varchar(256)", "type tinyint"]
 
 
@@ -307,11 +344,7 @@ class ChatManager:
 		self.base.table("chats").add(min(user_id_1, user_id_2), max(user_id_1, user_id_2), params=("user1", "user2"))
 		self.base.commit()
 		index = self.base.table("chats").get_last_id()
-		self.base.CREATE(CHAT + str(index),
-			"sender int",
-			"data varchar(1024)",
-			"time varchar(14)",
-			"deleted bit")
+		self.base.CREATE(CHAT + str(index), *self.chat_args)
 		self.base.commit()
 		self.chats[index] = Chat(self, index)
 	
