@@ -16,7 +16,7 @@ input[type="text"], select, textarea {
     border: 0.2vw solid #ccc;
     border-radius: 1vw;
     box-sizing: border-box;
-    background-color: #343650; /* Слегка более светлый тон фона */
+    background-color: rgba(0,0,0,0); /* Слегка более светлый тон фона */
     color: #FFF; /* Белый текст для читаемости */
 }
 
@@ -148,9 +148,14 @@ h2 {
 }
 
 .Sex{
+    width:18.5vw;
+    height:4vw;
+    padding:1vw;
     position: absolute;
     left:45vw;
     top:18vw;
+    border: 2px solid #fff;
+    border-radius: 0.5vw;
 }
 
 .IaboutU{
@@ -159,7 +164,7 @@ h2 {
 }
 
 .Info{
-    overflow-y:scroll;
+    overflow-y:hidden;
     overflow-x:hidden;
     position: fixed;
     width: 70vw;
@@ -168,11 +173,11 @@ h2 {
     margin-top: 2vw;
     border: none;
     border-radius: 1vw;
-    background:rgb(120, 86, 151); /*цвет выбран для наглядности*/
+    background:rgb(79, 53, 104); /*цвет выбран для наглядности*/
 }
 
 .Menu{
-    overflow-y:scroll;
+    overflow-y:hidden;
     overflow-x:hidden;
     position:fixed;
     width:21vw;
@@ -181,7 +186,7 @@ h2 {
     margin-top:8vw;
     border: none;
     border-radius: 1vw;
-    background:rgb(93, 67, 117); /*цвет выбран для наглядности*/
+    background:rgb(79, 53, 104); /*цвет выбран для наглядности*/
     
 }
 
@@ -195,7 +200,7 @@ h2 {
     margin-top:2vw;
     border: none;
     border-radius: 1vw;
-    background:rgb(103, 71, 133); /*цвет выбран для наглядности*/
+    background:rgb(79, 53, 104); /*цвет выбран для наглядности*/
 }
 
 .Not_choisen{
@@ -226,11 +231,11 @@ h2 {
     -webkit-border-radius: 1vw;
     -moz-border-radius: 1vw;
     border-radius: 5vw;
-    background: purple;
+    background: rgb(103, 70, 134);
 }
 
 #circle:hover{
-    background-color: rgb(95, 1, 95); /*цвет при наведении*/
+    background-color: rgb(47, 32, 61); /*цвет при наведении*/
 }
 
 #circle:hover .ChoosePhoto{
@@ -265,6 +270,7 @@ h2 {
     left:56.2vw;
     width:8vw;
     height:3vw;
+    text-align: center; 
     background:rgb(0,0,0,0);
     border: 0.2vw solid #ccc;
     border-radius: 1vw;
@@ -273,4 +279,38 @@ h2 {
 }
 .Choose_frame:hover{
     background-color: rgba(0, 0, 0, 0.203);
+}
+
+.Settings_of_profile{
+    padding:1vw;
+    margin-top:1vw;
+    margin-left:1vw;
+    width:16.5vw;
+    height:1vw;
+    text-align: center; 
+    border: 0.2vw solid #bbb;
+    background-color: #343650;
+    border-radius: 0.5vw;
+}
+
+.Settings_of_profile:hover{
+    border-color: #fff;
+    background-color: #ae23ef;
+}
+
+.Settings{
+    padding:1vw;
+    margin-top:1vw;
+    margin-left:1vw;
+    width:16.5vw;
+    height:1vw;
+    text-align: center;
+    border: 0.2vw solid #bbb;
+    background-color: #343650;
+    border-radius: 0.5vw;
+}
+
+.Settings:hover{
+    border-color: #fff;
+    background-color: #ae23ef;
 }
