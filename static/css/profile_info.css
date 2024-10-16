@@ -1,0 +1,89 @@
+.vertical {
+	display: block;
+	width: max-content;
+}
+.vertical:nth-child(2) {
+	width: 100%;
+}
+
+.horisontal {
+	display: flex;
+}
+
+.horisontal {
+	border: 1px solid #fff;
+}
+
+.Name {
+	width: calc(100% - 2.5vw);
+	height: 2vw;
+	line-height: 2vw;
+	font-size: 1.2vw;
+	margin: 1vw;
+	padding: 0.25vw;
+	margin-bottom: 0;
+	border: 0;
+}
+
+.Icon {
+	--size: 20vw;
+	width: var(--size);
+	height: var(--size);
+	margin: 1vw;
+}
+
+.Icon img {
+	position: absolute;
+	width: var(--size);
+	height: var(--size);
+}
+
+.Icon input[type="file"] {
+	position: absolute;
+	display: none;
+}
+
+.Icon .file_input {
+	position: absolute;
+	text-align: center;
+	line-height: var(--size);
+	width: var(--size);
+	height: var(--size);
+	opacity: 0%;
+}
+.Icon:hover .file_input {
+	opacity: 100%;
+	background: rgba(0, 0, 63, 0.75);
+}
+
+.About {
+	width: calc(100% - 2vw);
+	height: calc(100% - 3vw);
+	margin: 1vw;
+	margin-left: 0;
+	border: 0;
+	padding: 0.5vw;
+	resize: none;
+	font-size: 0.8vw;
+
+	color: var(--color-text);
+	background-color: var(--bg-color-text);
+}
+
+input[type=radio] {
+	display: none;
+}
+input[type=radio]:checked + label {
+	/* display: none; */
+	background: #f0f;
+}
+
+label {
+	color: #fff;
+}
+label:checked {
+	color: #f88;
+}
+label:active {
+	color: #f00;
+}

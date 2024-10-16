@@ -1,316 +1,103 @@
 /* Основные стили страницы */
 body {
-    background-color: #2B2D42; /* Темно-синий фон */
+    background-color: var(--bg-color);
     color: #E0E1DD; /* Светло-серый текст */
     font-family: 'Arial', sans-serif;
+    padding: 3.5vh 2vw;
 }
 
-/* Стилизация формы и элементов ввода */
-input[type="text"], select, textarea {
-    position: absolute;
+
+
+
+.Headmenu {
+    position: fixed;
     width: 20vw;
-    padding: 1vw;
-    margin-left:2vw;
-    top:3.2vw;
-    display: inline-block;
-    border: 0.2vw solid #ccc;
+    height: 15vh;
+    border: none;
     border-radius: 1vw;
-    box-sizing: border-box;
-    background-color: rgba(0,0,0,0); /* Слегка более светлый тон фона */
-    color: #FFF; /* Белый текст для читаемости */
+    background: var(--bg-color-alt);
 }
 
-input[type="text1"], select, textarea {
-    position:absolute;
-    width: 33.4vw;
-    padding: 1vw;
-    top:23vw;
-    left:2vw;
-    display: inline-block;
-    border: 0.2vw solid #ccc;
-    border-radius: 1vw;
-    box-sizing: border-box;
-    background-color: #343650; /* Слегка более светлый тон фона */
-    color: #FFF; /* Белый текст для читаемости */
+.Headmenu h1 {
+    text-align: center;
+    margin: 3vh 1.75vw 1vh 1.75vw;
+    font-size: 3.5vh;
 }
 
-input[type="number"], select, textarea {
-    position:absolute;
+.Headmenu a div {
+    position: absolute;
+    display: block;
+    width: 8.5vw;
+    height: 3vh;
+
+    line-height: 3vh;
+    text-align: center;
+    text-decoration: none;
+    font-size: 2vh;
+    margin: 1vw;
+    
+    background: var(--button-bg);
+    color: var(--button-color);
+}
+.Headmenu a div:hover {
+    background-color: var(--button-bg-hover); /* Светлее красный при наведении */
+}
+
+.Headmenu .LogOut {
+    left: 9.5vw;
+}
+
+
+
+
+.Menu {
+    position: fixed;
     width: 20vw;
-    padding: 1vw;
-    top:18vw;
-    left:2vw;
-    display: inline-block;
-    border: 0.2vw solid #ccc;
+    height: 74.5vh;
+    top: 22vh;
+    
     border-radius: 1vw;
-    box-sizing: border-box;
-    background-color: #343650; /* Слегка более светлый тон фона */
-    color: #FFF; /* Белый текст для читаемости */
+    background: var(--bg-color-alt);
 }
 
-input[type="submit"] {
-    position: absolute;
-    width: 15vw;
-    background-color: #8D99AE; /* Светло-серый цвет кнопки */
-    color: #2B2D42; /* Темно-синий текст */
-    padding: 1vw 4vw;
-    margin: 1vw 0;
-    left: 2vw;
-    top:37vw;
-    border: none;
-    border-radius: 2vw;
-    cursor: pointer;
-}
-
-input[type="submit"]:hover {
-    background-color: #ae23ef;
-}
-
-.radio1{
-    position:absolute;
-    top:20vw;
-    left: 50vw;
-}
-
-.radio2{
-    position:absolute;
-    left:55.3vw;
-    top:20vw;
-}
-
-.radio3{
-    position:absolute;
-    left:61.4vw;
-    top:20vw;
-}
-
-/* Стиль для заголовков внутри формы */
-h2 {
-    color: #EDF2F4; /* Светло-серый текст */
-}
-
-/* Стиль для кнопки выхода */
-.logout-button {
-    background-color: #D90429; /* Красная кнопка */
-    color: white;
-    padding: 10vw 15vw;
-    text-decoration: none;
-    font-size: 16vw;
-    border: none;
-    border-radius: 4vw;
-    display: inline-block;
-}
-
-.logout-button:hover {
-    background-color: #EF233C; /* Светлее красный при наведении */
-}
-
-/* Стиль для сохранения формы */
-.save-button {
-    background-color: #8D99AE; /* Серая кнопка */
-    color: #2B2D42; /* Темно-синий текст */
-    padding: 10vw 15vw;
-    text-decoration: none;
-    font-size: 16vw;
-    border: none;
-    border-radius: 4vw;
-    display: inline-block;
-}
-
-.save-button:hover {
-    background-color: #EF233C; /* Красный при наведении */
-}
-
-.Chates{
-    margin-left: 6vw;
-    font-size: 1vw;
-}
-
-.Prof{
-    font-size:2vw;
-    margin-left:5vw;
-    padding-top:1vw;
-}
-
-.LogOut{
-    margin-left: 1vw;
-    font-size: 1vw;
-}
-
-.Name{
-    margin-left:15vw;
-    margin-top:2vw;
-}
-
-.Age{
-    margin-left:15vw;
-    margin-top:2vw;
-}
-
-.Sex{
-    width:18.5vw;
-    height:4vw;
-    padding:1vw;
-    position: absolute;
-    left:45vw;
-    top:18vw;
-    border: 2px solid #fff;
+.Menu item {
+    display: block;
+    
+    width: calc(18vw - 0.1vw);
+    height: 2vw;
+    margin: 1vw;
+    
+    line-height: 2vw;
+    text-align: center;
+    
+    border: 0.1vw solid var(--button-color);
+    color: var(--button-color);
+    background: var(--button-bg);
     border-radius: 0.5vw;
 }
-
-.IaboutU{
-    margin-left:2vw;
-    margin-top:3vw;
+.Menu item:hover {
+    border-color: var(--button-color-hover);
+    color: var(--button-color-hover);
+    background: var(--button-bg-hover);
+}
+.Menu item.SELECTED {
+    color: color-mix(in srgb, var(--button-color), #f00 25%) /* для теста */
 }
 
-.Info{
-    overflow-y:hidden;
-    overflow-x:hidden;
+
+
+
+.Views > div {
+    display: none;
     position: fixed;
     width: 70vw;
-    height: 48vw;
-    margin-left:25vw;
-    margin-top: 2vw;
+    height: 86vh;
+    left: 24vw;
+    padding: 3.5vh 2vw;
     border: none;
     border-radius: 1vw;
-    background:rgb(79, 53, 104); /*цвет выбран для наглядности*/
+    background: var(--bg-color-alt);
 }
-
-.Menu{
-    overflow-y:hidden;
-    overflow-x:hidden;
-    position:fixed;
-    width:21vw;
-    height:42vw;
-    margin-left:3vw;
-    margin-top:8vw;
-    border: none;
-    border-radius: 1vw;
-    background:rgb(79, 53, 104); /*цвет выбран для наглядности*/
-    
-}
-
-.Headmenu{
-    overflow-y:hidden;
-    overflow-x:hidden;
-    position:fixed;
-    width:21vw;
-    height:5vw;
-    margin-left:3vw;
-    margin-top:2vw;
-    border: none;
-    border-radius: 1vw;
-    background:rgb(79, 53, 104); /*цвет выбран для наглядности*/
-}
-
-.Not_choisen{
-    left:4vw;
-    top:0.1vw;
-    position:absolute;
-}
-
-.Male{
-    left:9vw;
-    top:0.1vw;
-    position:absolute;
-}
-
-.Female{
-    left:15vw;
-    top:0.1vw;
-    position:absolute;
-}
-
-/*место под аватар*/
-#circle{
-    position:absolute;
-    top:3.2vw;
-    left:3vw;
-    width:12vw;
-    height:12vw;
-    -webkit-border-radius: 1vw;
-    -moz-border-radius: 1vw;
-    border-radius: 5vw;
-    background: rgb(103, 70, 134);
-}
-
-#circle:hover{
-    background-color: rgb(47, 32, 61); /*цвет при наведении*/
-}
-
-#circle:hover .ChoosePhoto{
-    display:block;
-}
-
-/*текст при наведении*/
-.ChoosePhoto{
-    display: none;
-    position:absolute;
-    top:5.5vw;
-    left:2.5vw;
-    color:white;
-    font-size:1vw;
-}
-
-.Profile_Frame{
-    position: absolute;
-    width: 65vw;
-    padding: 7vw;
-    top:2vw;
-    left:2vw;
-    display: inline-block;
-    border: 0.2vw solid #ccc;
-    border-radius: 1vw;
-    box-sizing: border-box;
-}
-
-.Choose_frame{
-    position:absolute;
-    top:10.5vw;
-    left:56.2vw;
-    width:8vw;
-    height:3vw;
-    text-align: center; 
-    background:rgb(0,0,0,0);
-    border: 0.2vw solid #ccc;
-    border-radius: 1vw;
-    box-sizing: border-box;
-
-}
-.Choose_frame:hover{
-    background-color: rgba(0, 0, 0, 0.203);
-}
-
-.Settings_of_profile{
-    padding:1vw;
-    margin-top:1vw;
-    margin-left:1vw;
-    width:16.5vw;
-    height:1vw;
-    text-align: center; 
-    border: 0.2vw solid #bbb;
-    background-color: #343650;
-    border-radius: 0.5vw;
-}
-
-.Settings_of_profile:hover{
-    border-color: #fff;
-    background-color: #ae23ef;
-}
-
-.Settings{
-    padding:1vw;
-    margin-top:1vw;
-    margin-left:1vw;
-    width:16.5vw;
-    height:1vw;
-    text-align: center;
-    border: 0.2vw solid #bbb;
-    background-color: #343650;
-    border-radius: 0.5vw;
-}
-
-.Settings:hover{
-    border-color: #fff;
-    background-color: #ae23ef;
+.Views > div.active {
+    display: block;
 }

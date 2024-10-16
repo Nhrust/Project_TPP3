@@ -5,45 +5,77 @@
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="static/css/main.css">
 		<link rel="stylesheet" type="text/css" href="static/css/profile.css">
+		<link rel="stylesheet" type="text/css" href="static/css/profile_info.css">
+		<link rel="stylesheet" type="text/css" href="static/css/profile_settings.css">
+		<link rel="stylesheet" type="text/css" href="static/css/profile_test.css">
 	</head>
 	<body>
-		<div class="Menu">
-			<div class="Settings_of_profile">Редактировать профиль</div>
-			<div class="Settings">Настройки</div>
-		</div>
 		<div class="Headmenu">
-			<h1 class="Prof">Профиль</h1>
-			<a href="/home" class="Chates">Чаты</a>
-			<a href="/logout" class = "LogOut">Log out</a>
-		</div>
-		<form method="post" action="/edit_profile">
-			<div class="Info">
-				<div class="Profile_Frame">
-					<div class="Choose_frame">Выберите фото рамки</div>
-				</div>
-				<div id="circle">
-					<div class="ChoosePhoto">Выберите фото</div>
-				</div>
-				<p class="Name"><input type="text" placeholder="Имя" name="name" value="{{user.name}}"></p>
-				<p class="Age"><input type="number" aria-placeholder="Возраст" name="age" placeholder="Возраст" value="{{user.age}}"></p>
-				<p class="Sex">Пол:
-					<g class="Not_choisen">Не указан</g>
-					<g class="Male">Мужской</g>
-					<g class="Female">Женский</g>
-					<div class="radio1">
-						<input type="radio" name="gender" value="0" {% if user.gender == 0 %} checked {% endif %}>
+			<h1>Профиль</h1>
+			<a href="/home">
+				<div class="Chates">Чаты</div>
+			</a>
+			<a href="/logout">
+				<div class="LogOut">Log out</div>
+			</a>
+		</div> <!-- .Headmenu -->
+
+		<div class="Menu">
+			<item class="Edit_profile SELECTED" onclick="Open('.Info'    )"> Редактировать профиль </item>
+			<item class="Site_settings"         onclick="Open('.Settings')"> Настройки             </item>
+			<item class="For_test"              onclick="Open('.Test'    )"> Test                  </item>
+		</div> <!-- .Menu -->
+		
+		<div class="Views">
+			<div class="Info active">
+				<form method="post" action="/edit_profile">
+					<div class="horisontal">
+						<div calss="vertical">
+							<input type="text" placeholder="Имя" name="name" value="{{user.name}}" class="Name">
+							
+							<div class="Icon">
+								<img src="static/images/default_icon.png">
+								<label for="icon_file">
+									<div class="file_input">Выбрать файл</div>
+								</label>
+								<input id="icon_file" type="file" name="icon"\>
+							</div>
+						</div>
+						<div class="vertical">
+							<textarea placeholder="О себе..." class="About">{{user.description}}</textarea>
+						</div>
 					</div>
-					<div class="radio2">
-						<input type="radio" name="gender" value="1" {% if user.gender == 1 %} checked {% endif %}>
+
+					<input type="number" name="age" placeholder="Возраст" value="{{user.age}}">
+					
+					<div class="Sex">
+						<h2>Пол:</h2>
+						<radio>
+							<input type="radio" id="r0" name="gender" value="0" {% if user.gender == 0 %} checked {% endif %}/>
+							<label for="r0">Не указано</label>
+						</radio>
+						<radio>
+							<input type="radio" id="r1" name="gender" value="1" {% if user.gender == 1 %} checked {% endif %}/>
+							<label for="r1">Мужской</label>
+						</radio>
+						<radio>
+							<input type="radio" id="r2" name="gender" value="2" {% if user.gender == 2 %} checked {% endif %}/>
+							<label for="r2">Женский</label>
+						</radio>
 					</div>
-					<div class="radio3">
-						<input type="radio" name="gender" value="2" {% if user.gender == 2 %} checked {% endif %}>
-					</div>
-				</p>
-				<p class="IaboutU"><input type="text1" placeholder="О себе..." name="description" value="{{user.description}}"></p>
-				<br>
-				<input type="submit" value="Сохранить">
-			</div>
-		</form>
+
+					<input type="submit" value="Сохранить">
+				</form>
+			</div> <!-- .Info -->
+
+			<div class="Settings">
+				<h1>Settings</h1>
+			</div> <!-- .Settings -->
+
+			<div class="Test">
+				<h1>Test</h1>
+			</div> <!-- .Test -->
+		</div> <!-- Views -->
+
 	</body>
 </html>
