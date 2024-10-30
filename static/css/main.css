@@ -19,10 +19,12 @@ html {
 :root {
     --bg-color: #000;
     --bg-color-alt: #222;
+    --bg-color-text: #001;
     --color: #fff;
     --color-alt: #ddf;
+    --color-text: #eef;
     --button-bg: #444;
-    --button-bg-hover: rgba(255, 72, 72, 0.493);
+    --button-bg-hover: #448;
     --button-color: #fff;
     --button-color-hover: #ddf;
 }
