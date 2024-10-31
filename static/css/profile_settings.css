@@ -21,3 +21,25 @@
     height: 1vw;
 }
 
+.Themes{
+    margin-top: 1vw;
+}
+
+.Themes .Dark_Theme{
+    width:7vw;
+    height:2vw;
+    text-align: center;
+    line-height: 2vw;
+    border: 1px solid var(--button-color);
+    border-radius: 0.5vw;
+    background-color: var(--button-bg);
+}
+
+.Themes .Light_Theme{
+    width:7vw;
+    height:2vw;
+    text-align: center;
+    line-height: 2vw;
+    border: 1px solid var(--button-color);
+    border-radius: 0.5vw;
+}
