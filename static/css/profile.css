@@ -16,9 +16,9 @@ body {
     border: none;
     border-radius: 1vw;
    /* background: var(--bg-color-alt);
-    /*border-color: var(--button-color-hover);
+    /*border-color: var(--button-color-hover);*/
     /*color: var(--button-color-hover);*/
-    background: var(--button-bg-hover);
+    background: var(--button-bg);
 }
 
 .Headmenu h1 {
