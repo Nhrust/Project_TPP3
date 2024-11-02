@@ -21,9 +21,9 @@
 		</div> <!-- .Headmenu -->
 
 		<div class="Menu">
-			<item class="Edit_profile SELECTED" onclick="Open('.Info'    )"> Редактировать профиль </item>
-			<item class="Site_settings"         onclick="Open('.Settings')"> Настройки             </item>
-			<item class="For_test"              onclick="Open('.Test'    )"> Test                  </item>
+			<item class="Edit_profile SELECTED" onclick="Open('.Info', '.Edit_profile'   )"> Редактировать профиль </item>
+			<item class="Site_settings"         onclick="Open('.Settings', '.Site_settings')"> Настройки             </item>
+			<item class="For_test"              onclick="Open('.Test', '.For_test'   )"> Test                  </item>
 		</div> <!-- .Menu -->
 		
 		<div class="Views">
@@ -69,13 +69,69 @@
 			</div> <!-- .Info -->
 
 			<div class="Settings">
-				<h1>Settings</h1>
+				<h1>Тема</h1>
+				<div class="BG_color_set">
+					<p>цвет фона</p>
+					<p><select name="BG_color" class="BG_clr">
+						<option value="0">Красный</option>
+						<option value="1">Оранжевый</option>
+						<option value="2">Желтый</option>
+						<option value="3">Зеленый</option>
+						<option value="4">Голубой</option>
+						<option value="5">Синий</option>
+						<option value="6">Фиолетовый</option>
+						<option value="7">Розовый</option>
+						<option value="8">Коричневый</option>
+						<option value="9">Белый</option>
+						<option value="10">Серый</option>
+						<option selected value="11">Черный</option>
+					</select>
+				</div>
+				<div class="Form_color_set">
+					<p>цвет оформления</p>
+					<p><select name="Form_color" class="F_clr">
+						<option value="0">Красный</option>
+						<option value="1">Оранжевый</option>
+						<option value="2">Желтый</option>
+						<option value="3">Зеленый</option>
+						<option value="4">Голубой</option>
+						<option value="5">Синий</option>
+						<option value="6">Фиолетовый</option>
+						<option value="7">Розовый</option>
+						<option value="8">Коричневый</option>
+						<option value="9">Белый</option>
+						<option selected value="10">Серый</option>
+						<option value="11">Черный</option>
+					</select></p>
+				</div>
+				<div class="Text_color_set">
+					<p>цвет текста</p>
+					<p><select name="Text_color" class="Text_clr">
+						<option value="0">Красный</option>
+						<option value="1">Оранжевый</option>
+						<option value="2">Желтый</option>
+						<option value="3">Зеленый</option>
+						<option value="4">Голубой</option>
+						<option value="5">Синий</option>
+						<option value="6">Фиолетовый</option>
+						<option value="7">Розовый</option>
+						<option value="8">Коричневый</option>
+						<option selected value="9">Белый</option>
+						<option value="10">Серый</option>
+						<option value="11">Черный</option>
+					</select></p>
+				</div>
+				<div class="Themes">
+					<button class="Dark_Theme">Темная тема</button>
+					<button class="Light_Theme">Светлая тема</button>
+				</div>
+				<button class="Butone1" onclick="UpdateTheme()">Сохранить</button></p>
 			</div> <!-- .Settings -->
 
 			<div class="Test">
 				<h1>Test</h1>
 			</div> <!-- .Test -->
 		</div> <!-- Views -->
-
+		<script src="static/js/profile.js"></script>
 	</body>
 </html>
