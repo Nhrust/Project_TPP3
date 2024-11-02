@@ -11,13 +11,14 @@
 			<h1>Регистрация</h1>
 
 			<form method="post" action="/new_auth">
-				<input type="text" name="login" class="login">
+				<input type="text" name="login" class="login" placeholder="Введите логин">
 				<input type="password" name="password1" class="password" id="pass1"
-					onchange onpropertychange onkeyuponpaste oninput="check_passwords()" />
+					placeholder="Введите пароль" onchange onpropertychange onkeyuponpaste oninput="check_passwords()" />
 				<input type="password" name="password2" class="password" id="pass2"
-					onchange onpropertychange onkeyuponpaste oninput="check_passwords()" />
+					placeholder="Повторите пароль" onchange onpropertychange onkeyuponpaste oninput="check_passwords()" />
 				<input type="submit" value="Sign in" class="submit">
 			</form>
+			
 
 			{% if show_logs %}
 				{% for i in log %}
