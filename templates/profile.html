@@ -20,11 +20,21 @@
 			</a>
 		</div> <!-- .Headmenu -->
 
+		<style>
+			.Menu item {
+				-webkit-user-select: none; /* Safari */
+				-moz-user-select: none;    /* Firefox */
+				-ms-user-select: none;     /* IE10+ */
+				user-select: none;         /* Standard */
+			}
+		</style>
+		
 		<div class="Menu">
-			<item class="Edit_profile SELECTED" onclick="Open('.Info', '.Edit_profile'   )"> Редактировать профиль </item>
-			<item class="Site_settings"         onclick="Open('.Settings', '.Site_settings')"> Настройки             </item>
-			<item class="For_test"              onclick="Open('.Test', '.For_test'   )"> Test                  </item>
+			<item class="Edit_profile SELECTED" onclick="Open('.Info', '.Edit_profile'   )">Редактировать профиль</item>
+			<item class="Site_settings"         onclick="Open('.Settings', '.Site_settings')">Настройки</item>
+			<item class="For_test"              onclick="Open('.Test', '.For_test'   )">Test</item>
 		</div> <!-- .Menu -->
+		
 		
 		<div class="Views">
 			<div class="Info active">
