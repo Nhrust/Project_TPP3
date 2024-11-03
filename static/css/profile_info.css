@@ -1,20 +1,36 @@
+
 .vertical {
 	display: block;
 	width: max-content;
 	border: 1px solid var(--button-color);
+	border-radius: 5px;
+	padding: 1vw;
+	background-color: var(--bg-color-alt);
 }
 .vertical:nth-child(2) {
 	width: 100%;
 }
 
+
 .horisontal {
 	display: flex;
-}
-
-.horisontal {
 	border: 1px solid var(--button-color);
+	border-radius: 5px;
+	padding: 0.5vw;
+	gap: 1vw;
+	background-color: var(--button-bg);
 }
 
+.Name {
+	width: calc(100% - 2.5vw);
+	height: 2vw;
+	line-height: 2vw;
+	font-size: 1.2vw;
+	margin: 1px;
+	padding: 0.25vw;
+	margin-bottom: 0;
+	border: 0;
+}
 .Name {
 	width: calc(100% - 2.5vw);
 	height: 2vw;
@@ -23,20 +39,30 @@
 	margin: 1vw;
 	padding: 0.25vw;
 	margin-bottom: 0;
-	border: 0;
+	border: 0.1vw solid var(--button-color);
+	border-radius: 5px;
+	background-color: var(--bg-color-alt);
+	color: var(--button-color);
 }
 
+
 .Icon {
-	--size: 20vw;
+	--size: 15vw;
 	width: var(--size);
 	height: var(--size);
 	margin: 1vw;
+	position: relative;
+	border-radius: 5px;
+	overflow: hidden;
+	border: 2px solid var(--button-color);
+	background-color: var(--bg-color-alt);
 }
 
 .Icon img {
 	position: absolute;
-	width: var(--size);
-	height: var(--size);
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 .Icon input[type="file"] {
@@ -50,10 +76,16 @@
 	line-height: var(--size);
 	width: var(--size);
 	height: var(--size);
-	opacity: 0%;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	color: var(--button-color);
+	cursor: pointer;
 }
+
+
+
 .Icon:hover .file_input {
-	opacity: 100%;
+	opacity: 1;
 	background: rgba(173, 74, 74, 0.356);
 }
 
@@ -61,26 +93,33 @@
 	width: calc(100% - 2vw);
 	height: calc(100% - 3vw);
 	margin: 1vw;
-	margin-left: 0;
-	border: 0;
+	margin-left: 0.5vw;
+	border: var(--button-color);
+	border-radius: 5px;
 	padding: 0.5vw;
 	resize: none;
 	font-size: 0.8vw;
-
-	color: var(--color-text);
-	background-color: var(--bg-color-text);
+	color: var(--button-color);
+	background-color:  var(--button-bg);
 }
 
 input[type=radio] {
 	display: none;
 }
+
 input[type=radio]:checked + label {
-	/* display: none; */
-	background: var(--button-bg-hover);
+	background:  var(--button-bg);
+	color: var(--button-color);
+	border-radius: 5px;
 }
+
 
 label {
 	color: #fff;
+	padding: 0.5vw 1vw;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: color 0.3s ease, background-color 0.3s ease;
 }
 label:checked {
 	color: #f88;
@@ -89,21 +128,33 @@ label:active {
 	color: var(--button-bg-hover);
 }
 
+
 .age{
-	margin-top:0.5vw;
+	margin-top:1vw;
 	color: var(--button-color);
 }
 
 .Sex .pol{
-	margin-top:0.5vw;
+	margin-top:1vw;
 	color: var(--button-color);
 }
 
-input[type="submit"]{
+
+input[type="submit"] {
 	position: fixed;
-    margin-top: 1vw;
-    width: 7vw;
-    height: 1.5vw;
-    border: 1px solid var(--button-color);
-    border-radius: 0.5vw;
+	margin-top: 1vw;
+	width: 7vw;
+	height: 2.5vw;
+	border: 1px solid var(--button-color);
+	border-radius: 5px;
+	background-color: var(--button-bg);
+	color: var(--text-color);
+	font-size: 1vw;
+	cursor: pointer;
+	transition: 0.3s ease, color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+	background-color: var(--button-bg-hover);
+
 }
