@@ -13,7 +13,7 @@ form {
     left: 5vw;
     top: 15vw;
     text-align: center;
-    background: #222;
+    background: var(--bg-color-alt);
     border-radius: 1vw;
 }
 
@@ -34,7 +34,7 @@ form {
     left: 30vw;
     top: 15vw;
     text-align: center;
-    background: #222;
+    background: var(--bg-color-alt);
     border-radius: 1vw;
 }
 
@@ -57,6 +57,7 @@ form {
     background: var(--button-bg);
     color: var(--button-color);
     font-weight: bold;
+    cursor: pointer;
     border: 0;
 }
 
@@ -73,7 +74,7 @@ form {
     margin-top: 0.5vw;
     margin-left: 2.5vw;
     line-height: 2vw;
-    background: rgb(219, 61, 61);
+    background: var(--button-bg-hover);
     color: rgb(79, 30, 30);
     border-radius: 0.5vw;
     border: 0;
@@ -87,6 +88,7 @@ form {
     text-align: center;
     font-weight: bold;
     line-height:1.5vw;
+    cursor: pointer;
     border:1px solid var(--button-bg);
     background-color: var(--button-bg);
     color: var(--button-color);

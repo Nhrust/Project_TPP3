@@ -13,7 +13,7 @@ form {
     left: 30vw;
     top: 15vw;
     text-align: center;
-    background: #222;
+    background: var(--bg-color-alt);
     border-radius: 1vw;
 }
 
@@ -39,6 +39,7 @@ form {
     border-radius: 0.5vw;	
     background: var(--button-bg);
     color: var(--button-color);
+    cursor: pointer;
     font-weight: bold;
     border: 0;
 }
