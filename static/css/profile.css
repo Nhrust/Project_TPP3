@@ -60,9 +60,12 @@ body {
     background: var(--button-bg-hover);
 }
 
+.Headmenu .Chates{
+    margin-left:4vw;
+}
 
 .Headmenu .LogOut {
-    left: 9.5vw;
+    margin:auto;
 }
 
 
