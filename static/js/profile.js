@@ -10,6 +10,7 @@ function Open(name, eman){
 }
 
 const color=['red', 'orange', 'yellow', 'green', 'lightblue', "blue", "purple", "pink", "broun", "white", "grey", "black"];
+const wtcolors=["white", "lightblue", "blue", "rgba(72, 182, 255, 0.493)"]
 const dtcolors=["#000", "#222", "#fff", "#444", "rgba(255, 72, 72, 0.493)"];
 const elem1 = document.querySelector(".BG_clr");
 const elem2 = document.querySelector(".F_clr");
@@ -32,15 +33,15 @@ function UpdateTheme(){
 
 function LightTheme(){
     var style = document.documentElement.style;
-    style.setProperty('--bg-color', color[9]);
+    style.setProperty('--bg-color', wtcolors[0]);
     var style = document.documentElement.style;
-    style.setProperty('--bg-color-alt', color[4]);
+    style.setProperty('--bg-color-alt', wtcolors[1]);
     var style = document.documentElement.style;
-    style.setProperty('--button-color', color[5]);
+    style.setProperty('--button-color', wtcolors[2]);
     var style = document.documentElement.style;
-    style.setProperty('--button-bg', color[4]);
+    style.setProperty('--button-bg', wtcolors[1]);
     var style = document.documentElement.style;
-    style.setProperty('--button-bg-hover', color[5]);
+    style.setProperty('--button-bg-hover', wtcolors[3]);
 }
 
 function DarkTheme(){

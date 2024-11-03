@@ -54,10 +54,16 @@ form {
     font-size: 1vw;
     margin: 0.5vw;
     border-radius: 0.5vw;	
-    background: rgb(142, 98, 223);
-    color: rgb(46, 28, 67);
+    background: var(--button-bg);
+    color: var(--button-color);
     font-weight: bold;
     border: 0;
+}
+
+.submit:hover{
+    transition:0.2s;
+    color: var(--button-color-hover);
+    background: var(--button-bg-hover);
 }
 
 .log {
@@ -73,7 +79,31 @@ form {
     border: 0;
 }
 
+.SingIn{
+    text-decoration: none;
+    margin-left:2.5vw;
+    width:25vw;
+    height:1.75vw;
+    text-align: center;
+    font-weight: bold;
+    line-height:1.5vw;
+    border:1px solid var(--button-bg);
+    background-color: var(--button-bg);
+    color: var(--button-color);
+    border-radius: 0.5vw;
+}
+
+.SingIn:hover{
+    transition:0.2s;
+    color: var(--button-color-hover);
+    background: var(--button-bg-hover);
+}
+
 a {
+    text-decoration: none;
+    display:block;
+    width:25vw;
+    height:2vw;
     font-size: 1vw;
-    color: #88f;
+    color: var(--button-color);
 }

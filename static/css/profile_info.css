@@ -1,6 +1,7 @@
 .vertical {
 	display: block;
 	width: max-content;
+	border: 1px solid var(--button-color);
 }
 .vertical:nth-child(2) {
 	width: 100%;
