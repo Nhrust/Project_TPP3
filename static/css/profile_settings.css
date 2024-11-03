@@ -2,23 +2,32 @@
     color: var(--button-color);
 }
 
+.BG_color_set{
+    margin-top:2vw;
+}
+
 .BG_color_set p{
     color: var(--button-color);
+    margin-top:0.5vw;
 }
 
 .Form_color_set p{
     color: var(--button-color);
+    margin-top:0.5vw;
 }
 
 .Text_color_set p{
     color: var(--button-color);
+    margin-top:0.5vw;
 }
 
 .Butone1{
     position: fixed;
     margin-top: 1vw;
-    width: 6vw;
-    height: 1vw;
+    width: 7vw;
+    height: 1.5vw;
+    border: 1px solid var(--button-color);
+    border-radius: 0.5vw;
 }
 
 .Themes{
@@ -32,7 +41,8 @@
     line-height: 2vw;
     border: 1px solid var(--button-color);
     border-radius: 0.5vw;
-    background-color: var(--button-bg);
+    background-color: #1f1f1f;
+    color:#fff;
 }
 
 .Themes .Light_Theme{
@@ -42,4 +52,4 @@
     line-height: 2vw;
     border: 1px solid var(--button-color);
     border-radius: 0.5vw;
-}
+}   

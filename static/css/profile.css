@@ -18,14 +18,14 @@ body {
    /* background: var(--bg-color-alt);
     /*border-color: var(--button-color-hover);*/
     /*color: var(--button-color-hover);*/
-    background: var(--button-bg);
+    background: var(--bg-color-alt);
 }
 
 .Headmenu h1 {
     text-align: center;
     margin: 3vh 1.75vw 1vh 1.75vw;
     font-size: 3.5vh;
-    color: var(--button-color-hover);     
+    color: var(--button-color);     
     
 }
 
@@ -65,7 +65,7 @@ body {
 }
 
 .Headmenu .LogOut {
-    margin:auto;
+    margin:2px;
 }
 
 
@@ -103,7 +103,7 @@ body {
     background: var(--button-bg-hover);
 }
 .Menu item.SELECTED {
-    color: color-mix(in srgb, var(--button-color), rgb(255, 0, 174) 25%) /* для теста */
+    color: color-mix(in srgb, var(--button-color), rgb(255, 0, 64) 25%) /* для теста */
 }
 
 
