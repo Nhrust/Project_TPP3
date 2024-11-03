@@ -16,8 +16,6 @@ const elem1 = document.querySelector(".BG_clr");
 const elem2 = document.querySelector(".F_clr");
 const elem3 = document.querySelector(".Text_clr");
 
-
-
 function UpdateTheme(){
     var style = document.documentElement.style;
     var index1 = Number(elem1.value);
