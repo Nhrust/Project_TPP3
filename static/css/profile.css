@@ -96,6 +96,7 @@ body {
     background: var(--button-bg);
     border-radius: 5px;
     transition: all 0.3s ease;
+    cursor:pointer;
 }
 .Menu item:hover {
     border-color: var(--button-color-hover);

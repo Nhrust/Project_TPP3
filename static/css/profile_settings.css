@@ -29,7 +29,7 @@
 	border: 1px solid var(--button-color);
 	border-radius: 5px;
 	background-color: var(--button-bg);
-	color: var(--text-color);
+	color: var(--button-color);
 	font-size: 1vw;
 	cursor: pointer;
 	transition: 0.3s ease, color 0.3s ease;
@@ -52,12 +52,14 @@
     border-radius: 0.5vw;
     background-color: #1f1f1f;
     color:#fff;
+    cursor: pointer;
 }
 
 .Themes .Light_Theme{
     width:7vw;
     height:2vw;
     text-align: center;
+    cursor: pointer;
     line-height: 2vw;
     border: 1px solid var(--button-color);
     border-radius: 0.5vw;
