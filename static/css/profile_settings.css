@@ -64,3 +64,12 @@
     border: 1px solid var(--button-color);
     border-radius: 0.5vw;
 }   
+
+.Hline{
+    margin:20px 0;
+    padding: 0;
+    height:6px;
+    border: none;
+    background: linear-gradient(45deg, var(--button-color), var(--bg-color));
+}
+
