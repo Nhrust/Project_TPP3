@@ -73,7 +73,7 @@
 .Icon .file_input {
 	position: absolute;
 	text-align: center;
-	line-height: var(--size);
+	
 	width: var(--size);
 	height: var(--size);
 	opacity: 0;
@@ -115,9 +115,8 @@ input[type=radio]:checked + label {
 
 
 label {
-	float:left;
-	color: var(--color);
-	padding: 0.5vw;
+	color: #fff;
+	padding: 0.5vw 1vw;
 	border-radius: 5px;
 	cursor: pointer;
 	transition: color 0.3s ease, background-color 0.3s ease;
@@ -135,19 +134,16 @@ label:active {
 	color: var(--button-color);
 }
 
-.Sex{
-	display: block;
+.Sex .pol{
+	margin-top:1vw;
+	color: var(--button-color);
+	height: 3vw
 }
 
-.Sex .pol{
-	margin-top: 4vw;
-	color: var(--button-color);
-}
 
 input[type="submit"] {
 	position: fixed;
-	display: block;
-	margin-top:4vw;
+	margin-top: 2vw;
 	width: 7vw;
 	height: 2.5vw;
 	border: 1px solid var(--button-color);
@@ -162,17 +158,4 @@ input[type="submit"] {
 input[type="submit"]:hover {
 	background-color: var(--button-bg-hover);
 
-}
-
-input[type="number"]{
-	position: fixed;
-	margin-top: 1vw;
-	width: 7vw;
-	height: 1.5vw;
-	border: 1px solid var(--button-color);
-	border-radius: 5px;
-	background-color: var(--button-bg);
-	color: var(--text-color);
-	font-size: 1vw;
-	cursor: pointer;
 }

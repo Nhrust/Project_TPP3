@@ -23,7 +23,7 @@
 
 .Butone1{
     position: fixed;
-	margin-top: 1vw;
+	margin-top: 5vw;
 	width: 7vw;
 	height: 2.5vw;
 	border: 1px solid var(--button-color);
