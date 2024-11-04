@@ -139,14 +139,15 @@ h2 {
 
 .left .top .profile .decor {
 	position: absolute;
+	text-align: center;
 	left:2vw;
 	top: 1vw;
 	width: 5vw;
 	height: 3vw;
 	border: 1px solid #bbb;
-	border-radius: 1vw;
+	border-radius: 10px;
 	line-height: 3vw;
-	transition: 0.2s;
+	transition: 0.3s;
 }
 
 .left .top .profile:hover .decor {
