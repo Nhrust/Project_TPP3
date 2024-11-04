@@ -15,10 +15,15 @@ body {
     height: 15vh;
     border: none;
     border-radius: 1vw;
+    justify-content: center;
    /* background: var(--bg-color-alt);
     /*border-color: var(--button-color-hover);*/
     /*color: var(--button-color-hover);*/
     background: var(--bg-color-alt);
+    
+    align-items: center;
+    
+
 }
 
 .Headmenu h1 {
@@ -32,11 +37,11 @@ body {
 /* Основные стили для маленьких кнопок */
 .Headmenu a div {
     display: inline-flex;
+    margin: 10px;
     align-items: center;
     justify-content: center;
     padding: 4px 12px; /* Уменьшенные отступы внутри кнопок */
-    margin: 13px; /* Отступы между кнопками */
-    border: 0.1vw solid var(--button-color); /* Тонкая рамка */
+    border: 1px solid var(--button-color); /* Тонкая рамка */
     border-radius: 5px; /* Более скругленные углы */
     border-color: var(--button-color);
     color: var(--button-color);
@@ -47,7 +52,7 @@ body {
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease; /* Плавный переход */
-    min-width: 70px; /* Минимальная ширина для консистентности */
+    min-width: 80px;
 }
 
 /* Стили при наведении на кнопку */
@@ -60,13 +65,12 @@ body {
     background: var(--button-bg-hover);
 }
 
-.Headmenu .Chates{
-    margin-left:4vw;
+.Headmenu .Chates, .Headmenu .LogOut {
+    margin-left: 20px; 
+    
+
 }
 
-.Headmenu .LogOut {
-    margin:2px;
-}
 
 
 
