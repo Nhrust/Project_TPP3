@@ -80,80 +80,116 @@
 			</div> <!-- .Info -->
 
 			<div class="Settings">
-				<h1>Тема</h1>
-				<hr class="Hline">
-				
-				<div class="BG_color_set">
-					<p>Цвет фона</p>
-					<p>
-						<select name="BG_color" class="BG_clr">
-							<option value="0">Красный</option>
-							<option value="1">Оранжевый</option>
-							<option value="2">Желтый</option>
-							<option value="3">Зеленый</option>
-							<option value="4">Голубой</option>
-							<option value="5">Синий</option>
-							<option value="6">Фиолетовый</option>
-							<option value="7">Розовый</option>
-							<option value="8">Коричневый</option>
-							<option value="9">Белый</option>
-							<option value="10">Серый</option>
-							<option selected value="11">Черный</option>
-						</select>
-						<input type="color" name="BG_color_custom" class="BG_clr_custom" value="#000000" title="Выберите цвет фона">
-					</p>
+				<div class="Themes_set">
+					<h1>Тема</h1>
+					<hr class="Hline">
+					
+					<div class="BG_color_set">
+						<p>Цвет фона</p>
+						<p>
+							<select name="BG_color" class="BG_clr">
+								<option value="0">Красный</option>
+								<option value="1">Оранжевый</option>
+								<option value="2">Желтый</option>
+								<option value="3">Зеленый</option>
+								<option value="4">Голубой</option>
+								<option value="5">Синий</option>
+								<option value="6">Фиолетовый</option>
+								<option value="7">Розовый</option>
+								<option value="8">Коричневый</option>
+								<option value="9">Белый</option>
+								<option value="10">Серый</option>
+								<option selected value="11">Черный</option>
+							</select>
+							<input type="color" name="BG_color_custom" class="BG_clr_custom" value="#000000" title="Выберите цвет фона">
+						</p>
+					</div>
+					
+					<div class="Form_color_set">
+						<p>Цвет оформления</p>
+						<p>
+							<select name="Form_color" class="F_clr">
+								<option value="0">Красный</option>
+								<option value="1">Оранжевый</option>
+								<option value="2">Желтый</option>
+								<option value="3">Зеленый</option>
+								<option value="4">Голубой</option>
+								<option value="5">Синий</option>
+								<option value="6">Фиолетовый</option>
+								<option value="7">Розовый</option>
+								<option value="8">Коричневый</option>
+								<option value="9">Белый</option>
+								<option selected value="10">Серый</option>
+								<option value="11">Черный</option>
+							</select>
+							<input type="color" name="Form_color_custom" class="F_clr_custom" value="#808080" title="Выберите цвет оформления">
+						</p>
+					</div>
+					
+					<div class="Text_color_set">
+						<p>Цвет текста</p>
+						<p>
+							<select name="Text_color" class="Text_clr">
+								<option value="0">Красный</option>
+								<option value="1">Оранжевый</option>
+								<option value="2">Желтый</option>
+								<option value="3">Зеленый</option>
+								<option value="4">Голубой</option>
+								<option value="5">Синий</option>
+								<option value="6">Фиолетовый</option>
+								<option value="7">Розовый</option>
+								<option value="8">Коричневый</option>
+								<option selected value="9">Белый</option>
+								<option value="10">Серый</option>
+								<option value="11">Черный</option>
+							</select>
+							<input type="color" name="Text_color_custom" class="Text_clr_custom" value="#FFFFFF" title="Выберите цвет текста">
+						</p>
+					</div>
+					
+					<div class="Themes">
+						<button class="Dark_Theme" onclick="DarkTheme()">Темная тема</button>
+						<button class="Light_Theme" onclick="LightTheme()">Светлая тема</button>
+					</div>
+					
+					<button class="Butone1" onclick="UpdateTheme()">Сохранить</button>
 				</div>
-				
-				<div class="Form_color_set">
-					<p>Цвет оформления</p>
-					<p>
-						<select name="Form_color" class="F_clr">
-							<option value="0">Красный</option>
-							<option value="1">Оранжевый</option>
-							<option value="2">Желтый</option>
-							<option value="3">Зеленый</option>
-							<option value="4">Голубой</option>
-							<option value="5">Синий</option>
-							<option value="6">Фиолетовый</option>
-							<option value="7">Розовый</option>
-							<option value="8">Коричневый</option>
-							<option value="9">Белый</option>
-							<option selected value="10">Серый</option>
-							<option value="11">Черный</option>
-						</select>
-						<input type="color" name="Form_color_custom" class="F_clr_custom" value="#808080" title="Выберите цвет оформления">
-					</p>
+				<div class="Castomisation">
+					<h1>Кастомизация</h1>
+					<hr class="Hline">
 				</div>
-				
-				<div class="Text_color_set">
-					<p>Цвет текста</p>
-					<p>
-						<select name="Text_color" class="Text_clr">
-							<option value="0">Красный</option>
-							<option value="1">Оранжевый</option>
-							<option value="2">Желтый</option>
-							<option value="3">Зеленый</option>
-							<option value="4">Голубой</option>
-							<option value="5">Синий</option>
-							<option value="6">Фиолетовый</option>
-							<option value="7">Розовый</option>
-							<option value="8">Коричневый</option>
-							<option selected value="9">Белый</option>
-							<option value="10">Серый</option>
-							<option value="11">Черный</option>
-						</select>
-						<input type="color" name="Text_color_custom" class="Text_clr_custom" value="#FFFFFF" title="Выберите цвет текста">
-					</p>
+				<div class="Chats_set">
+					<h1>Чат</h1>
+					<hr class="Hline">
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+					<h1>sdfsfd</h1>
+
 				</div>
-				
-				<div class="Themes">
-					<button class="Dark_Theme" onclick="DarkTheme()">Темная тема</button>
-					<button class="Light_Theme" onclick="LightTheme()">Светлая тема</button>
-				</div>
-				
-				<button class="Butone1" onclick="UpdateTheme()">Сохранить</button>
-				<h1>Чат</h1>
-				<hr class="Hline"><!--ЗДЕСЬ БАГ-->
 			</div> <!-- .Settings -->
 			
 

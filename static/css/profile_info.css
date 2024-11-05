@@ -2,10 +2,6 @@
 .vertical {
 	display: block;
 	width: max-content;
-	border: 1px solid var(--button-color);
-	border-radius: 5px;
-	padding: 1vw;
-	background-color: var(--bg-color-alt);
 }
 .vertical:nth-child(2) {
 	width: 100%;
@@ -13,12 +9,7 @@
 
 
 .horisontal {
-	display: flex;
-	border: 1px solid var(--button-color);
-	border-radius: 5px;
-	padding: 0.5vw;
-	gap: 1vw;
-	background-color: var(--button-bg);
+	display: flex; 
 }
 
 .Name {
@@ -39,7 +30,7 @@
 	margin: 1vw;
 	padding: 0.25vw;
 	margin-bottom: 0;
-	border: 2px solid var(--button-color);
+	border: 1px solid var(--button-color);
 	border-radius: 5px;
 	background-color: var(--bg-color-alt);
 	color: var(--button-color);
@@ -54,7 +45,7 @@
 	position: relative;
 	border-radius: 5px;
 	overflow: hidden;
-	border: 2px solid var(--button-color);
+	border: 1px solid var(--button-color);
 	background-color: var(--bg-color-alt);
 }
 
@@ -96,7 +87,7 @@
 	height: calc(100% - 3vw);
 	margin: 1vw;
 	margin-left: 0.5vw;
-	border: var(--button-color);
+	border: 1px solid var(--button-color);
 	border-radius: 5px;
 	padding: 0.5vw;
 	resize: none;
@@ -134,6 +125,18 @@ label:active {
 .age{
 	margin-top:1vw;
 	color: var(--button-color);
+}
+
+input[type="number"]{
+	width: 7vw;
+	margin: 0.5vw 0;
+	font-size: 1vw;
+	padding:0.25vw 0.5vw;
+	background-color: var(--button-bg);
+	border: 1px solid var(--button-color);
+	color: var(--button-color);
+	border-radius: 0.5vw;
+
 }
 
 .Sex .pol{
