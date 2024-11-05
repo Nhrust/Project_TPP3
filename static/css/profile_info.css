@@ -1,12 +1,11 @@
-
 .vertical {
 	display: block;
 	width: max-content;
 }
+
 .vertical:nth-child(2) {
 	width: 100%;
 }
-
 
 .horisontal {
 	display: flex; 
@@ -22,6 +21,7 @@
 	margin-bottom: 0;
 	border: 0;
 }
+
 .Name {
 	width: calc(100% - 2.5vw);
 	height: 2vw;
@@ -35,7 +35,6 @@
 	background-color: var(--bg-color-alt);
 	color: var(--button-color);
 }
-
 
 .Icon {
 	--size: 15vw;
@@ -75,8 +74,6 @@
 	justify-content: center; 
 }
 
-
-
 .Icon:hover .file_input {
 	opacity: 1;
 	background: rgba(173, 74, 74, 0.356);
@@ -106,7 +103,6 @@ input[type=radio]:checked + label {
 	border-radius: 5px;
 }
 
-
 label {
 	color: #fff;
 	padding: 0.5vw 1vw;
@@ -114,9 +110,11 @@ label {
 	cursor: pointer;
 	transition: color 0.3s ease, background-color 0.3s ease;
 }
+
 label:checked {
 	color: #f88;
 }
+
 label:active {
 	color: var(--button-bg-hover);
 }

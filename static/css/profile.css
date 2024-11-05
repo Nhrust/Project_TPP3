@@ -4,6 +4,7 @@ body {
     color: #E0E1DD; /* Светло-серый текст */
     font-family: 'Arial', sans-serif;
     padding: 3.5vh 2vw;
+    transition: all 0.3s ease;
 }
 
 
@@ -15,15 +16,12 @@ body {
     height: 15vh;
     border: none;
     border-radius: 1vw;
-    justify-content: center;
-   /* background: var(--bg-color-alt);
-    /*border-color: var(--button-color-hover);*/
-    /*color: var(--button-color-hover);*/
     background: var(--bg-color-alt);
-    
-    align-items: center;
-    
+    transition: all 0.3s ease;
+}
 
+.Headmenu a {
+    position: relative;
 }
 
 .Headmenu h1 {
@@ -31,49 +29,35 @@ body {
     margin: 3vh 1.75vw 1vh 1.75vw;
     font-size: 3.5vh;
     color: var(--button-color);     
-    
 }
 
-/* Основные стили для маленьких кнопок */
 .Headmenu a div {
-    display: inline-flex;
-    margin: 10px;
-    align-items: center;
-    justify-content: center;
-    padding: 4px 12px; /* Уменьшенные отступы внутри кнопок */
-    border: 1px solid var(--button-color); /* Тонкая рамка */
-    border-radius: 5px; /* Более скругленные углы */
-    border-color: var(--button-color);
-    color: var(--button-color);
-    /*background: var(--button-bg-hover);*/
-    background-color: var(--button-bg); /* Цвет фона */
-    /*color: #ccc; /* Цвет текста */
-    font-size: 12px; /* Уменьшенный размер текста */
-    text-align: center;
+    font-size: 1vw;
     cursor: pointer;
-    transition: all 0.3s ease; /* Плавный переход */
-    min-width: 80px;
+    text-align: center;
+
+    display: inline-block;
+    margin: 0.5vw 1vw;
+    padding: 0.3vw 0.5vw 0.2vw 0.5vw;
+    width: calc(7.5vw - 2px);
+
+    color: var(--button-color);
+    background: var(--button-bg);
+    border: 1px solid var(--button-color);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.Headmenu a div:nth-child(1) {
+    margin-right: 0;
 }
 
 /* Стили при наведении на кнопку */
 .Headmenu a div:hover {
-   /* background-color: var(--button-bg); /* Цвет фона при наведении */
-    /*color: #fff; /* Цвет текста при наведении */
-    /*border-color: var(--bg-color-alt); /* Цвет рамки при наведении */
     border-color: var(--button-color-hover);
     color: var(--button-color-hover);
     background: var(--button-bg-hover);
 }
-
-.Headmenu .Chates, .Headmenu .LogOut {
-    margin-left: 1.5vw; 
-    
-
-}
-
-
-
-
 
 .Menu {
     position: fixed;
@@ -83,6 +67,7 @@ body {
     
     border-radius: 5px;
     background: var(--bg-color-alt);
+    transition: all 0.3s ease;
 }
 
 .Menu item {
@@ -101,18 +86,22 @@ body {
     border-radius: 5px;
     transition: all 0.3s ease;
     cursor:pointer;
+
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none;    /* Firefox */
+    -ms-user-select: none;     /* IE10+ */
+    user-select: none;         /* Standard */
 }
+
 .Menu item:hover {
     border-color: var(--button-color-hover);
     color: var(--button-color-hover);
     background: var(--button-bg-hover);
 }
+
 .Menu item.SELECTED {
     color: color-mix(in srgb, var(--button-color), rgb(255, 0, 64) 25%) /* для теста */
 }
-
-
-
 
 .Views > div {
     display: none;
@@ -125,7 +114,9 @@ body {
     border-radius: 1vw;
     background: var(--bg-color-alt);
     
+    transition: all 0.3s ease;
 }
+
 .Views > div.active {
     display: block;
 }
