@@ -40,6 +40,7 @@ function LightTheme(){
     style.setProperty('--button-bg', wtcolors[1]);
     var style = document.documentElement.style;
     style.setProperty('--button-bg-hover', wtcolors[3]);
+    
 }
 
 function DarkTheme(){

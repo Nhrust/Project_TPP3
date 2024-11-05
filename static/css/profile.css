@@ -115,6 +115,23 @@ body {
     background: var(--bg-color-alt);
     
     transition: all 0.3s ease;
+    overflow-y: scroll;
+
+}
+
+
+::-webkit-scrollbar {
+    background-color: var(--bg-color-alt);
+    width:1vw;
+}
+
+::-webkit-scrollbar-thumb{
+    border: 1px solid var(--button-bg);
+    width: 2vw;
+    height:3vw;
+    border-radius: 2vw;
+    background-color: var(--button-bg);
+    
 }
 
 .Views > div.active {
