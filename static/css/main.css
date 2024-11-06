@@ -25,4 +25,12 @@ html {
     --button-bg-hover: rgba(255, 72, 72, 0.493);
     --button-color: #fff;
     --button-color-hover: #ddf;
+    --link-color: #37e8ff;
+    --link-color-used: #b03aff;
+    --self-text: #ff9c9c;
+    --other-text: #9b3232;
+    --border-color: #c92020;
+    --border-color-hover: #861616;
+    --message-send: #757575;
+    --message-checked: #0084ff;
 }
