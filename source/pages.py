@@ -1,11 +1,12 @@
 from flask import *
-from sql import *
-from classes import *
+
+from source.sql import *
+from source.classes import *
 
 
-def init(DEBUG: bool, app: Flask, base: SQL_base, accounts: AccountsManager, clients: ClientManager, chats: ChatManager):
+def init(app: Flask, base: Base, accounts: AccountsManager, clients: ClientManager, manager: Manager):
     
-    def get_account() -> tuple[str, Account]:	
+    def get_account() -> tuple[str, Account]:
         ip = request.remote_addr
         return ip, clients[ip]
 
@@ -19,9 +20,9 @@ def init(DEBUG: bool, app: Flask, base: SQL_base, accounts: AccountsManager, cli
             last_login = ""
         
         if log != None:
-            return render_template("login.html", show_logs=True, log=log, last_login=last_login, accs=accounts.get_all())
-        
-        return render_template("login.html", show_logs=False, log=log, last_login=last_login, accs=accounts.get_all())
+            return render_template("login.html", show_logs=True, log=log, last_login=last_login, accs=accounts._debug_get_all())
+        else:
+            return render_template("login.html", show_logs=False, log=log, last_login=last_login, accs=accounts._debug_get_all())
 
     @app.route("/signin")
     def signin():
@@ -49,10 +50,9 @@ def init(DEBUG: bool, app: Flask, base: SQL_base, accounts: AccountsManager, cli
         if account == None:
             return redirect("/login",code=302)
         
-        finded = chats.get_all_chats_for_user(account.index)
-        user_chats = [ChatPreview(base, account.index, i) for i in finded]
+        client_chats = manager.get_all_chats_for_user(account.ID)
         
-        return render_template("home.html", chats=user_chats, chat_opened=account.chat_opened, current_chat=account.get_opened_chat(base))
+        return render_template("home.html", accaunt=account, chats=client_chats)
 
     @app.route("/profile")
     def profile():
@@ -61,7 +61,7 @@ def init(DEBUG: bool, app: Flask, base: SQL_base, accounts: AccountsManager, cli
         if account == None:
             return redirect("/")
 
-        return render_template("profile.html", user=account)
+        return render_template("profile.html", account=account)
 
     @app.route("/admin")
     def admin():

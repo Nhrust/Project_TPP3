@@ -27,10 +27,10 @@
 				<form method="post" action="/edit_profile">
 					<div class="horisontal">
 						<div calss="vertical">
-							<input type="text" placeholder="Имя" name="name" value="{{user.name}}" class="Name">
+							<input type="text" placeholder="Имя" name="name" value="{{account.name}}" class="Name">
 							
 							<div class="Icon">
-								<img src="static/images/default_icon.png">
+								<img src="static/images/{{account.icon}}">
 								<label for="icon_file">
 									<div class="file_input">Выбрать файл</div>
 								</label>
@@ -38,24 +38,24 @@
 							</div>
 						</div>
 						<div class="vertical">
-							<textarea placeholder="О себе..." class="About">{{user.description}}</textarea>
+							<textarea placeholder="О себе..." class="About">{{account.about}}</textarea>
 						</div>
 					</div>
 					<h2 class="age">Возраст</h2>
-					<input type="number" name="age" placeholder="Возраст" value="{{user.age}}">
+					<input type="number" name="age" placeholder="Возраст" value="{{account.age}}">
 					
 					<div class="Sex">
 						<h2 class="pol">Пол</h2>
 						<radio>
-							<input type="radio" id="r0" name="gender" value="0" {% if user.gender == 0 %} checked {% endif %}/>
+							<input type="radio" id="r0" name="gender" value="0" {% if account.gender == 0 %} checked {% endif %}/>
 							<label for="r0">Не указано</label>
 						</radio>
 						<radio>
-							<input type="radio" id="r1" name="gender" value="1" {% if user.gender == 1 %} checked {% endif %}/>
+							<input type="radio" id="r1" name="gender" value="1" {% if account.gender == 1 %} checked {% endif %}/>
 							<label for="r1">Мужской</label>
 						</radio>
 						<radio>
-							<input type="radio" id="r2" name="gender" value="2" {% if user.gender == 2 %} checked {% endif %}/>
+							<input type="radio" id="r2" name="gender" value="2" {% if account.gender == 2 %} checked {% endif %}/>
 							<label for="r2">Женский</label>
 						</radio>
 					</div>

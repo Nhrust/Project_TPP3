@@ -45,16 +45,18 @@
                 <div class="chats"> <!-- имя класса chats не менять !!! -->
                     <h2>Чаты</h2>
                     {% for chat in chats %}
-                        <a href="/open_chat_with_user/{{ chat.receiver_id }}">
+                        {% if chat.exist %}
+                        <a href="/open_chat_with_user/{{ chat.user2.ID }}">
                             <div class="chat">
                                 <img class="icon">
-                                <p class="name">{{ chat.name }}</p>
+                                <p class="name">{{ chat.user2.name }}</p>
                                 <p class="status">status</p>
                                 {% if chat.show_last_message %}
-                                    <p class="last">{{ chat.last_message }}</p>
+                                    <p class="last">{{ chat.last_message.data }}</p>
                                 {% endif %}
                             </div>
                         </a>
+                        {% endif %}
                     {% endfor %}
                 </div> <!-- chats -->
             </div> <!-- left -->
@@ -62,10 +64,10 @@
         <div class="right">
             
             <div class="top">
-                {% if chat_opened and current_chat.valid %}
-                    <a href="/view_profile/{{current_chat.receiver_id}}"><div class="chat_topicleft">
+                {% if accaunt.chat_opened and accaunt.opened_chat.exist %}
+                    <a href="/view_profile/{{accaunt.opened_chat.user2.ID}}"><div class="chat_topicleft">
                         <div class="img_avatar"><img class="chat_avatar"></div>
-                        <h2 class="chat_name">{{current_chat.name}}</h2>
+                        <h2 class="chat_name">{{accaunt.opened_chat.user2.name}}</h2>
                         <p class="status">Не в сети</p>
                     </div></a>
                     <div class="chat_topicright">
@@ -94,7 +96,7 @@
             -->
 
 
-            {% if chat_opened %}
+            {% if accaunt.chat_opened %}
                 <div class="send">
                     <form class="send_form">
                         <input type="text" class="input">
@@ -107,12 +109,12 @@
     
     <script src="static/js/home.js"></script>
     <script>setup(
-        "{{'true' if chat_opened else 'false'}}",
-        "{{current_chat.id if chat_opened else -1}}",
+        "{{'true' if accaunt.chat_opened else 'false'}}",
+        "{{accaunt.opened_chat.id if accaunt.chat_opened else -1}}",
         "0",
-        "{{current_chat.last_message_id}}",
-        "{{current_chat.client_id}}")</script>
-    {% if chat_opened %}
-        <script>open_chat("{{ current_chat.id }}")</script>
+        "{{accaunt.opened_chat.last_message_id}}",
+        "{{accaunt.opened_chat.user1_ID}}")</script>
+    {% if accaunt.chat_opened %}
+        <script>open_chat("{{ accaunt.opened_chat.ID }}")</script>
     {% endif %}
 </html>
