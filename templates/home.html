@@ -6,6 +6,7 @@
         <link rel="stylesheet" type="text/css" href="static/css/main.css">
 		<link rel="stylesheet" type="text/css" href="static/css/home.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+        <script src="static/js/home.js"></script>
 	</head>
 	<body>
         <div class="left">
@@ -53,6 +54,8 @@
                                 <p class="status">status</p>
                                 {% if chat.show_last_message %}
                                     <p class="last">{{ chat.last_message.data }}</p>
+                                {% else %}
+                                    <p class="last empty">Empty</p>
                                 {% endif %}
                             </div>
                         </a>
@@ -64,10 +67,10 @@
         <div class="right">
             
             <div class="top">
-                {% if accaunt.chat_opened and accaunt.opened_chat.exist %}
-                    <a href="/view_profile/{{accaunt.opened_chat.user2.ID}}"><div class="chat_topicleft">
+                {% if account.chat_opened and account.opened_chat.exist %}
+                    <a href="/view_profile/{{account.opened_chat.user2.ID}}"><div class="chat_topicleft">
                         <div class="img_avatar"><img class="chat_avatar"></div>
-                        <h2 class="chat_name">{{accaunt.opened_chat.user2.name}}</h2>
+                        <h2 class="chat_name">{{account.opened_chat.user2.name}}</h2>
                         <p class="status">Не в сети</p>
                     </div></a>
                     <div class="chat_topicright">
@@ -77,44 +80,49 @@
                     </div>
                 {% endif %}
             </div> <!-- top -->
-            
-            <!-- Тут появляются:
-            
-            
-            <div class="main">
-                тут сообщения чата типо:
-                
-                <message>
-                    <text> text </text>
-                    <time> time </time>
-                    ...
-                </message>
-                
-                ...
-            </div>
-
-            -->
 
 
-            {% if accaunt.chat_opened %}
+            {% if account.chat_opened %}
+                <div class="main">
+                    {% for message in account.opened_chat.get_last_messages() %}
+                        <div class="message">
+                            <div class="box">
+                                {% if account.opened_chat.__class__.__name__ == "Group" %}
+                                    <p class="sender">Sender</p> <!-- TODO -->
+                                {% endif %}
+                                <div class="data">{{ message.data }}</div>
+                                <div class="info">
+                                    <p class="time">{{ message.time[0:2] + ":" + message.time[2:4] + ":" + message.time[4:6] }}</p>
+                                    <p class="symbol">?</p> <!-- TODO -->
+                                </div>
+                                <meta_ class="_ID">{{ message.ID }}</meta_>
+                                <meta_ class="_visible">{{ message.visible }}</meta_>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div> <!-- main -->
+
                 <div class="send">
                     <form class="send_form">
-                        <input type="text" class="input">
-                        <input type="submit" class="submit">
+                        <input type="text" class="send_input">
+                        <input type="submit" class="send_submit">
                     </form>
-                </div>
+                </div> <!-- send -->
+                <script>send_setup()</script>
             {% endif %}
         </div> <!-- right -->
     </body>
     
-    <script src="static/js/home.js"></script>
-    <script>setup(
-        "{{'true' if accaunt.chat_opened else 'false'}}",
-        "{{accaunt.opened_chat.id if accaunt.chat_opened else -1}}",
-        "0",
-        "{{accaunt.opened_chat.last_message_id}}",
-        "{{accaunt.opened_chat.user1_ID}}")</script>
-    {% if accaunt.chat_opened %}
-        <script>open_chat("{{ accaunt.opened_chat.ID }}")</script>
+    <script>
+        setup_find()
+        setup(
+            "{{'true' if account.chat_opened else 'false'}}",
+            "{{account.opened_chat.id if account.chat_opened else -1}}",
+            "0",
+            "{{account.opened_chat.last_message_id}}",
+            "{{account.opened_chat.user1_ID}}")
+    </script>
+    {% if account.chat_opened %}
+        <script>open_chat("{{ account.opened_chat.ID }}")</script>
     {% endif %}
 </html>

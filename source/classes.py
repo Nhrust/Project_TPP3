@@ -207,73 +207,93 @@ class Message:
 		self.sender = sender
 		self.data = data
 		self.time = time
-		self.deleted = deleted
+		self.visible = visible
 	
 	def pack(self) -> str:
-		return f"{self.ID},{self.sender},{self.time},{self.deleted},{len(self.data)},{self.data}"
+		return f"{self.ID},{self.sender},{self.time},{self.visible},{len(self.data)},{self.data}"
 
 	# not a method
-	def unpack(response: list):
+	def unpack(chat, response: list):
 		new = Message(None, None, None, None, None)
-		response = [ChatManager.Head.columns[i].unconvert(value) for i, value in enumerate(row)]
-		new.ID, new.sender, new.data, new.time, new.deleted = response
+		new.ID, new.sender, new.data, new.time, new.visible = response
 		return new
 
 
 
 
 class Chat:
-	def __init__(self, manager, ID: int, user1: int, user2: int, viewed_ID):
+	def __init__(self, manager, ID: int, user1: int, user2: int, viewed_ID) -> None:
 		self.manager = manager
 		self.ID = ID
 		self.user1_ID = viewed_ID
 		self.user2_ID = user1 if user1 != viewed_ID else user2
+		self.Head = TableHead( CHAT + str(self.ID), *(Message.Columns) )
 		
 		self.exist = False
 		if self.manager == None: return
 		with TableHandler(manager.base, AccountsManager.Head) as accaunts_handle, \
-			TableHandler(manager.base, TableHead( CHAT + str(self.ID), *(Message.Columns) )) as chat_handle:
+			TableHandler(manager.base, self.Head) as chat_handle:
+
 			self.user1 = Account.unpack(manager.base, accaunts_handle.get_row(self.user1_ID))
 			self.user2 = Account.unpack(manager.base, accaunts_handle.get_row(self.user2_ID))
 
 			last_message_ID = chat_handle._get_last_ID()
 			self.show_last_message = last_message_ID != None
 			if self.show_last_message:
-				self.last_message = Message(chat_handle.get_row(last_message_ID))
+				finded = chat_handle.get_row(last_message_ID)
+				self.last_message = Message(*finded)
 
 			self.exist = True
-
-		# finded_chats = base.table("chats").get("id", chat_id)
-		# if base.DEBUG: print(f"? ChatPreview ? {finded_chats = }")
-		
-		# if len(finded_chats) == 0:
-		# 	self.valid = False
-		# 	return
-		
-		# chat = finded_chats[0]
-		# self.valid = True
-		# self.receiver_id = chat[1] if chat[1] != client_id else chat[2]
-		# self.name = decode(base.table("users").get("id", self.receiver_id, "name")[0][0])
-		# self.last_message_id = base.(CHAT + str(self.id))
-		# self.icon = "default_icon.png"
 	
-	def get_message(self, ID: int):
-		pass
+	def get_message(self, ID: int) -> Message | None:
+		with TableHandler(self.manager.base, self.Head) as handle:
+			finded = handle.get_row(int(ID))
+			if finded == None:
+				return None
+			return Message.unpack(self, finded)
+	
+	def get_messages(self, start_ID: int, end_ID: int) -> list[Message,]:
+		start_ID, end_ID = min(start_ID, end_ID), max(start_ID, end_ID)
+
+		with TableHandler(self.manager.base, self.Head) as handle:
+			finded = handle.get_where(f"ID >= {start_ID} AND ID <= {end_ID}")
+
+			if len(finded) == 0:
+				return []
+			
+			return [Message.unpack(self, i) for i in finded]
+	
+	def get_last_messages(self):
+		with TableHandler(self.manager.base, self.Head) as handle:
+			last_ID = handle._get_last_ID()
+			
+			if last_ID == None:
+				return []
+			
+			finded = handle.get_where(f"ID >= 0 AND ID <= {last_ID}")
+			
+			if len(finded) == 0:
+				return []
+			
+			return [Message.unpack(self, i) for i in finded]
+	
+	def get_last_message_ID(self) -> int | None:
+		with TableHandler(self.manager.base, self.Head) as handle:
+			return handle._get_last_ID()
 
 
 
 
 class Group:
-	""""""
+	def __init__(self):
+		pass
 
 
 
 
 class Band:
-	Columns = [
-		Column("user",   int, "int",          Flag.Default),
-		Column("alias",  str, "varchar(256)", Flag.Encrypt),
-		Column("rights", int, "tinyint",      Flag.Default)]
+	def __init__(self):
+		pass
 
 
 
@@ -281,9 +301,9 @@ class Band:
 class Manager (debug_object):
 	ChatsTableName = TABLE + "chats"
 	ChatsHead = TableHead(ChatsTableName,
-		Column("ID",    int, "int identity(0,1)"),
-		Column("user1", int, "int"              ),
-		Column("user2", int, "int"              ))
+		Column("ID",      int, "int identity(0,1)", Flag.Default),
+		Column("user1",   int, "int",               Flag.Default),
+		Column("user2",   int, "int",               Flag.Default))
 	
 	GroupsTableName = TABLE + "groups"
 	GroupsHead = TableHead(GroupsTableName,
@@ -295,6 +315,9 @@ class Manager (debug_object):
 	BandsTableName = TABLE + "bands"
 	BandsHead = TableHead(BandsTableName,
 		Column("ID",      int, "int identity(0,1)", Flag.Default),
+		Column("user",    int, "int",               Flag.Default),
+		Column("alias",   str, "varchar(256)",      Flag.Encrypt),
+		Column("rights",  int, "tinyint",           Flag.Default),
 		Column("visible", int, "tinyint",           Flag.Default))
 	
 	chats:  int # количество существующих личных чатов

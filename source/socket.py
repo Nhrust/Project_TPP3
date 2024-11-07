@@ -43,9 +43,18 @@ def init(app: Flask, base: Base, accounts: AccountsManager, clients: ClientManag
 			debug_object.socket_send("set_chat_name", chat.user2.name)
 
 	@socketio.on('send_message')
-	def send_message(raw_message: str):
-	    pass
+	def send_message(raw_message: str, client_mesaage_ID: str):
+		debug_object.socket_receive("send_message", raw_message, client_mesaage_ID)
+
+		ip, account = get_account()
+		client_mesaage_ID = int(client_mesaage_ID)
+
+		with TableHandler(base, account.opened_chat.Head) as handle:
+			new_ID = handle.add_row(account.ID, raw_message, "HHMMSSDDMMYYYY", 0)
+			response = f"{client_mesaage_ID},{new_ID}"
+			socketio.emit("sended_message_sync", response)
+			debug_object.socket_send("sended_message_sync", response)
 
 	@socketio.on('get_message')
 	def get_message(ID: int):
-	    pass
+		pass

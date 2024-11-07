@@ -1,23 +1,39 @@
 const socket = io();
 
+
+
+
 var chat_opened = false;
 var opened_chat = -1;
 var chat_type = 0;
-var last_message_index = 0;
+var last_message_ID = 0;
 var self_id = 0;
-
-function setup(_chat_opened, _opened_chat, _chat_type, _last_message_index, _self_id) {
+function setup(_chat_opened, _opened_chat, _chat_type, _last_message_ID, _self_id) {
     chat_opened = Boolean(_chat_opened);
     opened_chat = Number(_opened_chat);
     chat_type = Number(_chat_type);
-    last_message_index = Number(_last_message_index);
+    last_message_ID = Number(_last_message_ID);
     self_id = Number(_self_id);
+}
+
+function setup_find() {
+    var FIND_FIELD = document.querySelector(".FIND_FIELD");
+    
+    document.querySelector(".find_form").onsubmit = function(event) {
+        event.preventDefault();
+        socket.emit('find_request', document.querySelector(".find_input").value);
+    }
+}
+
+function send_setup() {
+    document.querySelector(".send_form").onsubmit = function(event) {
+        event.preventDefault();
+        send_message();
+    }
 }
 
 
 
-
-const FIND_FIELD = document.querySelector(".FIND_FIELD");
 
 socket.on('find_response', (arg) => {
     var finded = document.querySelectorAll(".account");
@@ -61,21 +77,22 @@ socket.on('find_response', (arg) => {
     }
 })
 
-
-
-
 socket.on("set_chat_name", (arg) => {
     var chat_name = document.querySelector(".chat_name");
     chat_name.textContent = arg;
 })
 
-
-
-
-document.querySelector(".find_form").onsubmit = function(event) {
-    event.preventDefault();
-    socket.emit('find_request', document.querySelector(".find_input").value);
-}
+socket.on("sended_message_sync", (response) => {
+    response = response.split(",");
+    local_ID = String(response[0]);
+    server_ID = String(response[1]);
+    document.querySelectorAll("._ID").forEach(element => {
+        if (element.textContent == local_ID) {
+            element.textContent = server_ID;
+            console.log("sended_message_sync - Success");
+        }
+    });
+})
 
 
 
@@ -86,10 +103,10 @@ function send_message() {
     console.log(message);
     if (message != null) {
         if (message.length != 0) {
-            socket.emit("send_message", message);
+            last_message_ID += 1;
+            socket.emit("send_message", message, last_message_ID);
             console.log("sended");
-            last_message_index += 1;
-            appendMessage(last_message_index + 1, self_id, message, "203100", "0", 1);
+            appendMessage(last_message_ID, self_id, message, "203100", "0", 1);
             send_input.value = "";
         }
     }
@@ -98,10 +115,14 @@ function send_message() {
 
 
 
-const right = document.querySelector(".right");
-
 function open_chat(chat_id) {
+    const right = document.querySelector(".right");
+    
     opened_chat = Number(chat_id);
+
+    if (chat_opened && chat_id == opened_chat) {
+        return;
+    }
 
     document.querySelectorAll(".main").forEach(element => {
         element.parentNode.removeChild(element);
@@ -147,7 +168,7 @@ function open_chat(chat_id) {
 
 
 
-function appendMessage(an_index, a_sender, a_data, a_time, a_deleted, position) {
+function appendMessage(an_ID, a_sender, a_data, a_time, a_visible, position) {
     var main = document.querySelector(".main");
 
     const message = document.createElement("div");
@@ -186,15 +207,15 @@ function appendMessage(an_index, a_sender, a_data, a_time, a_deleted, position) 
             
             box.appendChild(info);
 
-            const _index = document.createElement("_meta_");
-            _index.classList.add("_index");
-            _index.textContent = an_index;
-            box.appendChild(_index);
+            const _ID = document.createElement("meta_");
+            _ID.classList.add("_ID");
+            _ID.textContent = String(an_ID);
+            box.appendChild(_ID);
 
-            const _deleted = document.createElement("_meta_");
-            _deleted.classList.add("_deleted");
-            _deleted.textContent = a_deleted;
-            box.appendChild(_deleted);
+            const _visible = document.createElement("meta_");
+            _visible.classList.add("_visible");
+            _visible.textContent = a_visible;
+            box.appendChild(_visible);
         
         message.appendChild(box);
 

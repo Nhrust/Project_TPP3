@@ -52,7 +52,7 @@ def init(app: Flask, base: Base, accounts: AccountsManager, clients: ClientManag
         
         client_chats = manager.get_all_chats_for_user(account.ID)
         
-        return render_template("home.html", accaunt=account, chats=client_chats)
+        return render_template("home.html", account=account, chats=client_chats)
 
     @app.route("/profile")
     def profile():

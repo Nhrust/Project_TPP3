@@ -294,8 +294,8 @@ class TableHandler (Handler):
 
 		return finded
 	
-	def get_row(self, ID: int) -> list:
-		"""Return single row by ID"""
+	def get_row(self, ID: int) -> list | None:
+		"""Return single row by ID, if not find - None"""
 		try:
 			return self.get_rows(ID)[0]
 		except:
