@@ -16,12 +16,7 @@ manager = Manager(base)
 app = Flask(__name__, static_folder="static")
 socketio = SocketIO(app, async_mode='threading')
 
-print(hash("admin"))
-
-print(accounts.check_login("admin"))
-print("#" * 50)
 if not accounts.check_login("admin"):
-	print("#" * 50)
 	admin = Account(base, "admin", 2902063403365090132)
 	admin.name = "Админ"
 	admin.update_on_base(base)

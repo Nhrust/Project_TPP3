@@ -40,7 +40,7 @@ def init(app: Flask, base: Base, accounts: AccountsManager, clients: ClientManag
 		with TableHandler(base, Manager.ChatsHead) as handle:
 			chat = Chat(manager, *( handle.get_row(chat_ID) ), account.ID)
 			socketio.emit("set_chat_name", chat.user2.name, room=request.sid)
-			debug_object.socket_send("set_chat_name", chat_name)
+			debug_object.socket_send("set_chat_name", chat.user2.name)
 
 	@socketio.on('send_message')
 	def send_message(raw_message: str):

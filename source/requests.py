@@ -47,8 +47,7 @@ def init(app: Flask, base: Base, accounts: AccountsManager, clients: ClientManag
 				return resp
 			
 			debug_object.error("Unexpected error in /auth request")
-			resp = make_response(redirect("/",code=302))
-			return resp
+			return redirect("/",code=302)
 		
 		return redirect("/login",code=302)
 	
@@ -72,7 +71,7 @@ def init(app: Flask, base: Base, accounts: AccountsManager, clients: ClientManag
 			
 			if len(login) < 4:
 				log.append("Login minimum length is 4")
-			elif not accounts.check_login(login):
+			elif accounts.check_login(login):
 				log.append("Login already exist")
 			
 			if password1 != password2:
@@ -86,7 +85,6 @@ def init(app: Flask, base: Base, accounts: AccountsManager, clients: ClientManag
 				resp.set_cookie("signin_log", str(log))
 				return resp
 			
-			if DEBUG: print(f"> accounts.add({login}, {password1})")
 			account = accounts.add(login, password1)
 			clients.add(request.remote_addr, account)
 
@@ -107,15 +105,16 @@ def init(app: Flask, base: Base, accounts: AccountsManager, clients: ClientManag
 	def edit_profile():
 		if request.method == "POST":
 			new_name = request.form["name"]
-			new_age = int(request.form["age"])
-			new_gender = int(request.form["gender"])
+			new_age = request.form["age"]
+			new_gender = request.form["gender"]
+			new_about = request.form["about"]
 			
 			ip, account = get_account()
 			
 			if account == None:
 				return redirect("/home")
 			
-			account.name, account.age, account.gender = new_name, new_age, new_gender
+			account.name, account.age, account.gender, account.about = new_name, new_age, new_gender, new_about
 			account.update_on_base(base)
 		return redirect("/profile")
 
