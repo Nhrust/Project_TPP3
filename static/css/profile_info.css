@@ -31,7 +31,7 @@
 	padding: 0.25vw;
 	margin-bottom: 0;
 	border: 1px solid var(--button-color);
-	border-radius: 5px;
+	border-radius: 0.5vw;
 	background-color: var(--bg-color-alt);
 	color: var(--button-color);
 }
@@ -42,7 +42,7 @@
 	height: var(--size);
 	margin: 1vw;
 	position: relative;
-	border-radius: 5px;
+	border-radius: 0.5vw;
 	overflow: hidden;
 	border: 1px solid var(--button-color);
 	background-color: var(--bg-color-alt);
@@ -89,7 +89,7 @@
 	margin: 1vw;
 	margin-left: 0.5vw;
 	border: 1px solid var(--button-color);
-	border-radius: 5px;
+	border-radius: 0.5vw;
 	padding: 0.5vw;
 	resize: none;
 	font-size: 1vw;
@@ -104,14 +104,14 @@ input[type=radio] {
 input[type=radio]:checked + label {
 	background:  var(--button-bg);
 	color: var(--button-color);
-	border-radius: 5px;
+	border-radius: 0.5vw;
 	
 }
 
 label {
 	color: #fff;
 	padding: 0.5vw 1vw;
-	border-radius: 5px;
+	border-radius: 0.5vw;
 	cursor: pointer;
 	transition: color 0.3s ease, background-color 0.3s ease;
 	font-size: 1vw;
@@ -158,7 +158,7 @@ input[type="submit"] {
 	width: 7vw;
 	height: 2.5vw;
 	border: 1px solid var(--button-color);
-	border-radius: 5px;
+	border-radius: 0.5vw;
 	background-color: var(--button-bg);
 	color: var(--text-color);
 	font-size: 1vw;

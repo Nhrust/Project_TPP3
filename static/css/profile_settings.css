@@ -34,7 +34,7 @@
 	width: 7vw;
 	height: 2.5vw;
 	border: 1px solid var(--button-color);
-	border-radius: 5px;
+	border-radius: 0.5vw;
 	background-color: var(--button-bg);
 	color: var(--button-color);
 	font-size: 1vw;

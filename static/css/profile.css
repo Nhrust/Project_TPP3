@@ -41,7 +41,7 @@ body {
     color: var(--button-color);
     background: var(--button-bg);
     border: 1px solid var(--button-color);
-    border-radius: 5px;
+    border-radius: 0.5vw;
     transition: all 0.3s ease;
 }
 
@@ -61,7 +61,7 @@ body {
     height: 74.5vh;
     top: 22vh;
     
-    border-radius: 5px;
+    border-radius: 0.5vw;
     background: var(--bg-color-alt);
     transition: all 0.3s ease;
 }
@@ -79,7 +79,7 @@ body {
     border: 0.1vw solid var(--button-color);
     color: var(--button-color);
     background: var(--button-bg);
-    border-radius: 5px;
+    border-radius: 0.5vw;
     transition: all 0.3s ease;
     cursor:pointer;
 
@@ -116,7 +116,7 @@ body {
 ::-webkit-scrollbar {
     background-color: var(--bg-color-alt);
     width:1vw;
-    border-radius: 5px;
+    border-radius: 0.5vw;
 }
 
 ::-webkit-scrollbar-thumb{
