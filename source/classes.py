@@ -1,10 +1,5 @@
-from random import randint
-from cryptography.fernet import Fernet
+from prefs import *
 
-from source.sql import *
-
-UserNotFind = "User not founded"
-WrongPass   = "Wrong password"
 
 SQL_BIGINT_MAX_VALUE = 9223372036854775806 # константа
 HASH_KEY = 7433494284023295923 # случайное число
@@ -97,20 +92,20 @@ class AccountsManager (debug_object):
 		"""if success - returns Account
 		if failed - error string"""
 		if len(str(password)) < 4:
-			return WrongPass
+			return UI_texts.WrongPass
 
 		with TableHandler(self.base, self.Head) as handle:
 			finded = handle.get_by("login", login)
 
 			if len(finded) == 0:
-				return UserNotFind
+				return UI_texts.UserNotFind
 			
 			for response in finded:
 				user_data = Account.unpack(self.base, response)
 				if hash(password) == user_data.password or password == user_data.password: # !!! DEBUG ##################################
 					return user_data
 			
-			return WrongPass
+			return UI_texts.WrongPass
 
 	def check_login(self, login: str) -> bool:
 		"""Возвращает существующий ли аккаунт с указанным login"""
@@ -263,7 +258,7 @@ class Chat:
 			
 			return [Message.unpack(self, i) for i in finded]
 	
-	def get_last_messages(self):
+	def get_last_messages(self) -> list[Message,]:
 		with TableHandler(self.manager.base, self.Head) as handle:
 			last_ID = handle._get_last_ID()
 			
@@ -373,3 +368,17 @@ class Manager (debug_object):
 				return Chat(self, new_chat_ID, userMIN, userMAX, user1)
 			else:
 				return Chat(self, *finded[0], user1)
+
+
+
+
+def get_account() -> Account:
+	ip = request.remote_addr
+	return clients[ip]
+
+
+
+
+accounts = AccountsManager(base)
+clients = ClientManager()
+manager = Manager(base)

@@ -356,12 +356,12 @@ input[type="text"], select, textarea{
 .right .main .message {
 	display: inline-block;
 	color: #ddd;
+	display: flex;
 	margin: 1vh 1.5vh;
 }
 
 .right .main #my.message {
 	color: var(--button-color);
-	display: flex;
 	justify-content: flex-end;
 }
 
@@ -390,8 +390,9 @@ input[type="text"], select, textarea{
 
 .right .main .message .info {
 	border: 1px dotted #0f0;
-	display: inline;
+	display: flex;
 	float: right;
+	margin: 0.25vw -0.5vw -0.25vw 1vw;
 }
 
 .right .main .message .info .time {

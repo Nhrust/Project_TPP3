@@ -17,8 +17,6 @@ function setup(_chat_opened, _opened_chat, _chat_type, _last_message_ID, _self_i
 }
 
 function setup_find() {
-    var FIND_FIELD = document.querySelector(".FIND_FIELD");
-    
     document.querySelector(".find_form").onsubmit = function(event) {
         event.preventDefault();
         socket.emit('find_request', document.querySelector(".find_input").value);
@@ -72,6 +70,7 @@ socket.on('find_response', (arg) => {
                 
                 link.appendChild(div);
 
+            var FIND_FIELD = document.querySelector(".FIND_FIELD");
             FIND_FIELD.after(link);
         });
     }
@@ -100,12 +99,10 @@ socket.on("sended_message_sync", (response) => {
 function send_message() {
     var send_input = document.querySelector(".send_input");
     var message = send_input.value;
-    console.log(message);
     if (message != null) {
         if (message.length != 0) {
             last_message_ID += 1;
             socket.emit("send_message", message, last_message_ID);
-            console.log("sended");
             appendMessage(last_message_ID, self_id, message, "203100", "0", 1);
             send_input.value = "";
         }
@@ -161,8 +158,6 @@ function open_chat(chat_id) {
     right.appendChild(send);
 
     socket.emit('get_chat_name', chat_id);
-    
-    socket.emit('get_message', '0');
 }
 
 

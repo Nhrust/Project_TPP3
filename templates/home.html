@@ -29,6 +29,7 @@
                             <input type="submit" class="submit" value="Найти">
                         </form>
                     </div>
+                    <script> setup_find() </script>
 
                     <!-- Тут появляются:
                     
@@ -85,7 +86,7 @@
             {% if account.chat_opened %}
                 <div class="main">
                     {% for message in account.opened_chat.get_last_messages() %}
-                        <div class="message">
+                        <div class="message" {% if message.sender == account.ID %} id="my" {% endif %}>
                             <div class="box">
                                 {% if account.opened_chat.__class__.__name__ == "Group" %}
                                     <p class="sender">Sender</p> <!-- TODO -->

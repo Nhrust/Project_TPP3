@@ -80,16 +80,16 @@ class debug_object (object):
 		print(f"{CValue} {LName(name)} = {result}")
 	
 	def out(*string):
-		if DEBUG: print(f"{COut} {" ".join(tuple(map(str, string)))}")
+		if DEBUG: print(f"{COut} {' '.join(tuple(map(str, string)))}")
 
 	def value(name, result):
 		if DEBUG: print(f"{CValue} {LName(name)} = {result}")
 		
 	def warning(*string):
-		if DEBUG: print(f"{CWarning} {" ".join(tuple(map(str, string)))}")
+		if DEBUG: print(f"{CWarning} {' '.join(tuple(map(str, string)))}")
 	
 	def error(*string):
-		print(f"{CError} {LError(" ".join(tuple(map(str, string))))}")
+		print(f"{CError} {LError(' '.join(tuple(map(str, string))))}")
 	
 	def sql(command):
 		if not DEBUG: return
@@ -102,13 +102,13 @@ class debug_object (object):
 		print(f"{CSQL} {command}")
 	
 	def sql_out(*string):
-		if DEBUG: print(f"{CSQLout} {LSQLout(" ".join(tuple(map(str, string))))}")
+		if DEBUG: print(f"{CSQLout} {LSQLout(' '.join(tuple(map(str, string))))}")
 	
 	def socket_receive(*string):
-		if DEBUG: print(f"{CIOreceive} {" ".join(tuple(map(str, string)))}")
+		if DEBUG: print(f"{CIOreceive} {' '.join(tuple(map(str, string)))}")
 	
 	def socket_send(*string):
-		if DEBUG: print(f"{CIOsend} {" ".join(tuple(map(str, string)))}")
+		if DEBUG: print(f"{CIOsend} {' '.join(tuple(map(str, string)))}")
 
 
 
@@ -171,10 +171,10 @@ class TableHead (object):
 		return None
 	
 	def get_column_names(self):
-		return f"({", ".join([i.name for i in self.columns[1:]])})"
+		return f"({', '.join([i.name for i in self.columns[1:]])})"
 	
 	def __repr__(self):
-		return f"{self.name} ({", ".join([str(i) for i in self.columns])})"
+		return f"{self.name} ({', '.join([str(i) for i in self.columns])})"
 
 
 
@@ -451,5 +451,5 @@ class Base (debug_object):
 		self.main_connection.commit()
 		self.tables = []
 		debug_object.value("tables", self._get_tables())
-		print(f"{CWarning} {LWarning("Database reset")}")
+		print(f"{CWarning} {LWarning('Database reset')}")
 		exit()
