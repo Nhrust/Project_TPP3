@@ -3,127 +3,128 @@
 	<head>
 		<title>Главная</title>
 		<meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="static/css/main.css">
+		<link rel="stylesheet" type="text/css" href="static/css/main.css">
 		<link rel="stylesheet" type="text/css" href="static/css/home.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
-        <script src="static/js/home.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+		<script src="static/js/home.js"></script>
+		<script>
+			setup(
+				"{{'true' if account.chat_opened else 'false'}}",
+				"{{account.opened_chat.id if account.chat_opened else -1}}",
+				"0",
+				"{{account.opened_chat.last_message_id}}",
+				"{{account.opened_chat.user1_ID}}")
+		</script>
 	</head>
 	<body>
-        <div class="left">
-            <div class="top">
-                <h1>Главная</h1>
-                <a href="/profile"><div class="profile">
-                    <div class="decor">
-                        <p>Профиль</p>
-                    </div>
-                </div></a>
-            </div>
+		<div class="left">
+			<div class="top">
+				<h1>Главная</h1>
+				<a href="/profile"><div class="profile">
+					<div class="decor">
+						<p>Профиль</p>
+					</div>
+				</div></a>
+			</div>
 
-            <div class="bottom">
-                <div class="find">
-                    <h2>Поиск пользователей</h2>
+			<div class="bottom">
+				<div class="find">
+					<h2>Поиск пользователей</h2>
+					<div class="FIND_FIELD"> <!-- имя класса FIND_FIELD не менять !!! -->
+						<form class="find_form">
+							<input type="text" name="find" class="find_input" placeholder="Поиск">
+							<input type="submit" class="submit" value="Найти">
+						</form>
+					</div>
+					<script> setup_find() </script>
+					
+					<!--
 
-                    <div class="FIND_FIELD"> <!-- имя класса FIND_FIELD не менять !!! -->
-                        <form class="find_form">
-                            <input type="text" name="find" class="find_input" placeholder="Поиск">
-                            <input type="submit" class="submit" value="Найти">
-                        </form>
-                    </div>
-                    <script> setup_find() </script>
+					<a>
+						<div class="account">
+							<img>
+							<p class="name"></p>
+							<p class="status"></p>
+							<a class="symbol"></p>
+						</div>
+					</a>
 
-                    <!-- Тут появляются:
-                    
-                    <div class="account">
-                        <img>
-                        <p class="name"></p>
-                        <p class="status"></p>
-                        <a class="link"></a>
-                    </div>
+					-->
 
-                    изменить можно в script.js -->
-                
-                </div> <!-- find -->
+					<!-- on find_response   -->
+				
+				</div> <!-- find -->
 
-                <div class="chats"> <!-- имя класса chats не менять !!! -->
-                    <h2>Чаты</h2>
-                    {% for chat in chats %}
-                        {% if chat.exist %}
-                        <a href="/open_chat_with_user/{{ chat.user2.ID }}">
-                            <div class="chat">
-                                <img class="icon">
-                                <p class="name">{{ chat.user2.name }}</p>
-                                <p class="status">status</p>
-                                {% if chat.show_last_message %}
-                                    <p class="last">{{ chat.last_message.data }}</p>
-                                {% else %}
-                                    <p class="last empty">Empty</p>
-                                {% endif %}
-                            </div>
-                        </a>
-                        {% endif %}
-                    {% endfor %}
-                </div> <!-- chats -->
-            </div> <!-- left -->
-        </div> <!-- bottom -->
-        <div class="right">
-            
-            <div class="top">
-                {% if account.chat_opened and account.opened_chat.exist %}
-                    <a href="/view_profile/{{account.opened_chat.user2.ID}}"><div class="chat_topicleft">
-                        <div class="img_avatar"><img class="chat_avatar"></div>
-                        <h2 class="chat_name">{{account.opened_chat.user2.name}}</h2>
-                        <p class="status">Не в сети</p>
-                    </div></a>
-                    <div class="chat_topicright">
-                        <div class="photo"><p>фото</p></div>
-                        <div class="video"><p>видео</p></div>
-                        <div class="files"><p>файлы</p></div>
-                    </div>
-                {% endif %}
-            </div> <!-- top -->
+				<div class="chats"> <!-- имя класса chats не менять !!! -->
+					<h2> Чаты </h2>
+					{% for chat in chats %}
+						{% if chat.exist %}
+							<a href="/open_chat_with_user/{{ chat.user2.ID }}">
+								<div class="chat">
+									<img class="icon">
+									<p class="name">{{ chat.user2.name }}</p>
+									<p class="status">status</p>
+									{% if chat.show_last_message %}
+										<p class="last">{{ chat.last_message.data }}</p>
+									{% else %}
+										<p class="last empty">Empty</p>
+									{% endif %}
+								</div>
+							</a>
+						{% endif %}
+					{% endfor %}
+				</div> <!-- chats -->
+			</div> <!-- left -->
+		</div> <!-- bottom -->
+		<div class="right">
+			
+			<div class="top">
+				{% if account.chat_opened %}
+					<a href="/view_profile/{{account.opened_chat.user2.ID}}">
+						<div class="chat_topicleft">
+							<div class="img_avatar">
+								<img class="chat_avatar" src="{{ account.opened_chat.user2.icon }}">
+							</div>
+							<h2 class="chat_name">{{account.opened_chat.user2.name}}</h2>
+							<p class="status">Не в сети</p>
+						</div>
+					</a>
+					<div class="chat_topicright">
+						<div class="photo"><p>фото</p></div>
+						<div class="video"><p>видео</p></div>
+						<div class="files"><p>файлы</p></div>
+					</div>
+				{% endif %}
+			</div> <!-- top -->
 
+			{% if account.chat_opened %}
+				<div class="main">
+					{% for message in account.opened_chat.get_last_messages() %}
+						<div class="message" {% if message.sender == account.ID %} id="my" {% endif %}>
+							<div class="box">
+								{% if account.opened_chat.__class__.__name__ == "Group" %}
+									<p class="sender">Sender</p> <!-- TODO -->
+								{% endif %}
+								<div class="data">{{ message.data }}</div>
+								<div class="info">
+									<p class="time">{{ message.time[0:2] + ":" + message.time[2:4] + ":" + message.time[4:6] }}</p>
+									<p class="symbol">?</p> <!-- TODO -->
+								</div>
+								<meta_ class="_ID">{{ message.ID }}</meta_>
+								<meta_ class="_visible">{{ message.visible }}</meta_>
+							</div>
+						</div>
+					{% endfor %}
+				</div> <!-- main -->
 
-            {% if account.chat_opened %}
-                <div class="main">
-                    {% for message in account.opened_chat.get_last_messages() %}
-                        <div class="message" {% if message.sender == account.ID %} id="my" {% endif %}>
-                            <div class="box">
-                                {% if account.opened_chat.__class__.__name__ == "Group" %}
-                                    <p class="sender">Sender</p> <!-- TODO -->
-                                {% endif %}
-                                <div class="data">{{ message.data }}</div>
-                                <div class="info">
-                                    <p class="time">{{ message.time[0:2] + ":" + message.time[2:4] + ":" + message.time[4:6] }}</p>
-                                    <p class="symbol">?</p> <!-- TODO -->
-                                </div>
-                                <meta_ class="_ID">{{ message.ID }}</meta_>
-                                <meta_ class="_visible">{{ message.visible }}</meta_>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div> <!-- main -->
-
-                <div class="send">
-                    <form class="send_form">
-                        <input type="text" class="send_input">
-                        <input type="submit" class="send_submit">
-                    </form>
-                </div> <!-- send -->
-                <script>send_setup()</script>
-            {% endif %}
-        </div> <!-- right -->
-    </body>
-    
-    <script>
-        setup_find()
-        setup(
-            "{{'true' if account.chat_opened else 'false'}}",
-            "{{account.opened_chat.id if account.chat_opened else -1}}",
-            "0",
-            "{{account.opened_chat.last_message_id}}",
-            "{{account.opened_chat.user1_ID}}")
-    </script>
-    {% if account.chat_opened %}
-        <script>open_chat("{{ account.opened_chat.ID }}")</script>
-    {% endif %}
+				<div class="send">
+					<form class="send_form">
+						<input type="text" class="send_input">
+						<input type="submit" class="send_submit">
+					</form>
+				</div> <!-- send -->
+				<script>send_setup()</script>
+			{% endif %}
+		</div> <!-- right -->
+	</body>
 </html>

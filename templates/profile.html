@@ -8,6 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="static/css/profile_info.css">
 		<link rel="stylesheet" type="text/css" href="static/css/profile_settings.css">
 		<link rel="stylesheet" type="text/css" href="static/css/profile_test.css">
+		<script src="static/js/profile.js"></script>
 	</head>
 	<body>
 		<div class="Headmenu">
@@ -16,21 +17,21 @@
 		</div> <!-- .Headmenu -->
 		
 		<div class="Menu">
-			<item class="Edit_profile SELECTED" onclick="Open('.Info', '.Edit_profile'   )">Редактировать профиль</item>
-			<item class="Site_settings"         onclick="Open('.Settings', '.Site_settings')">Настройки</item>
-			<item class="For_test"              onclick="Open('.Test', '.For_test'   )">Test</item>
+			<item class="Edit_profile selected_menu" onclick="Open('.Info',     '.Edit_profile' )">Редактировать профиль</item>
+			<item class="Site_settings"              onclick="Open('.Settings', '.Site_settings')">Настройки</item>
+			<item class="For_test"                   onclick="Open('.Test',     '.For_test'     )">Test</item>
 		</div> <!-- .Menu -->
 		
 		
 		<div class="Views">
-			<div class="Info active">
+			<div class="Info active_view">
 				<form method="post" action="/edit_profile">
 					<div class="horisontal">
 						<div calss="vertical">
 							<input type="text" placeholder="Имя" name="name" value="{{account.name}}" class="Name">
 							
 							<div class="Icon">
-								<img src="static/images/{{account.icon}}">
+								<img src="{{account.icon}}">
 								<label for="icon_file">
 									<div class="file_input">Выбрать файл</div>
 								</label>
@@ -154,6 +155,5 @@
 				<h1>Test</h1>
 			</div> <!-- .Test -->
 		</div> <!-- Views -->
-		<script src="static/js/profile.js"></script>
 	</body>
 </html>

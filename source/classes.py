@@ -25,7 +25,7 @@ class Account (debug_object):
 		self.age = 0
 		self.gender = 0
 		self.about = ''
-		self.icon = "default_icon.png"
+		self.icon = "static/Images/default_icon.png"
 		self.theme = ''
 		self.visible = 0
 		

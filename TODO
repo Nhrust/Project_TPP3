@@ -1,5 +1,6 @@
 Frontend:
 	home.html - Плохо отображаются чаты в списке
+	home.html - Нет стиля scrollbar у списка чатов слева
 	view.html - Нет стиля страницы
 	profile.html - scrollbar в описании к профилю
 	profile.html - необходимо прописат шрифты во все UI поля

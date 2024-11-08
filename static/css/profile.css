@@ -95,7 +95,7 @@ body {
     background: var(--button-bg-hover);
 }
 
-.Menu item.SELECTED {
+.Menu item.selected_menu {
     color: color-mix(in srgb, var(--button-color), rgb(255, 0, 64) 25%) /* для теста */
 }
 
@@ -132,6 +132,6 @@ body {
     transition: bg-color 0.3s ease; 
 }
 
-.Views > div.active {
+.Views > div.active_view {
     display: block;
 }
