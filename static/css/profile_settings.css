@@ -27,6 +27,14 @@
     font-size: 1vw;
 }
 
+.theme_value > p {
+    display: inline;
+}
+
+.theme_value > input {
+    display: inline;
+}
+
 .Butone1{
     display:block;
     position: relative;

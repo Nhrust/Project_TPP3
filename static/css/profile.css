@@ -96,7 +96,9 @@ body {
 }
 
 .Menu item.selected_menu {
-    color: color-mix(in srgb, var(--button-color), rgb(255, 0, 64) 25%) /* для теста */
+    background-color: var(--button-bg-hover);
+    color: var(--button-color-hover); /* для теста */
+    border-color: color-mix(var(--button-color) var(--button-color-hover) 50%);
 }
 
 .Views > div {

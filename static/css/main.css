@@ -17,14 +17,14 @@ html {
 }
 
 :root {
-    --bg-color: #000;
-    --bg-color-alt: #222;
-    --color: #fff;
-    --color-alt: #ddf;
-    --button-bg: #444;
-    --button-bg-hover: rgba(255, 72, 72, 0.493);
-    --button-color: #fff;
-    --button-color-hover: #ddf;
+    --bg-color: #000000;
+    --bg-color-alt: #222222;
+    --color: #ffffff;
+    --color-alt: #ddddff;
+    --button-bg: #444444;
+    --button-bg-hover: #ff4848;
+    --button-color: #ffffff;
+    --button-color-hover: #ddddff;
     --link-color: #37e8ff;
     --link-color-used: #b03aff;
     --self-text: #ff9c9c;

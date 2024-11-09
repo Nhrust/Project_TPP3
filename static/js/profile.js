@@ -1,3 +1,13 @@
+function CreateElement(type, Class=null) {
+	var element = document.createElement(type);
+	
+	if (Class != null) {
+		element.classList.add(Class);
+	}
+	
+	return element;
+}
+
 function Open(view_class, menu_class) {
     var active = document.querySelector(".active_view");
     var selected = document.querySelector(".selected_menu");
@@ -13,7 +23,7 @@ function Open(view_class, menu_class) {
 const props = [
     "--bg-color",     "--bg-color-alt",
     "--color",        "--color-alt",
-    "--button-color", "--button-color-alt",
+    "--button-color", "--button-color-hover",
     "--button-bg",    "--button-bg-hover",
     "--link-color",   "--link-color-used",
     "--self-text",    "--other-text",
@@ -33,18 +43,27 @@ const props_names = [
 ];
 
 const themes = {
-    "Light": ["white", "lightblue", "black", "grey", "#7e7e7e", "#2e2e2e", "#444444", "#777777", "yellow", "orange", "#7c7c7c", "#84dadd", "#bbc3c4", "#d0e3e6", "#ffffff", "#3fe5ff"]
+    "Light": ["white", "lightblue", "black", "grey", "#7e7e7e", "#2e2e2e", "#444444", "#777777", "yellow", "orange", "#7c7c7c", "#84dadd", "#bbc3c4", "#d0e3e6", "#ffffff", "#3fe5ff"],
+    "New": [
+        "#0f0f0f", "#1f1f1f",
+        "#ffffff", "#ffefdf",
+        "#ffdfbf", "#000000",
+        "#2f2f2f", "#ffdfbf",
+        "#000000", "#000000",
+        "#000000", "#000000",
+        "#000000", "#000000",
+        "#000000", "#000000",
+    ],
 }
 
 function UpdateTheme() {
-    var index1 = Number(document.querySelector(".BG_clr"  ).value);
-    var index2 = Number(document.querySelector(".F_clr"   ).value);
-    var index3 = Number(document.querySelector(".Text_clr").value);
-
     var style = document.documentElement.style;
-    style.setProperty('--bg-color', color[index1]);
-    style.setProperty('--bg-color-alt', color[index2]);
-    style.setProperty('--button-color', color[index3]);
+    var value;
+    
+    for (var i = 0; i < 16; i++) {
+        value = document.querySelector("#" + props[i] + " .color").value;
+        style.setProperty(props[i], value);
+    }
 }
 
 function Theme(theme_name) {
@@ -53,5 +72,24 @@ function Theme(theme_name) {
     
     for (var i = 0; i < 16; i++) {
         style.setProperty(props[i], theme_list[i]);
+        document.querySelector("#" + props[i] + " .color").value = theme_list[i];
+    }
+}
+
+function setup_theme_values() {
+    const butone = document.querySelector(".Butone1");
+    var style = window.getComputedStyle(document.documentElement);
+    
+    for (var i = 0; i < 16; i++) {
+        var elem = CreateElement("div", "theme_value");
+        elem.id = props[i];
+        var color = CreateElement("input", "color");
+        color.type = "color";
+        color.value = style.getPropertyValue(props[i]);
+        var name = CreateElement("p", "name");
+        name.textContent = props_names[i];
+        elem.appendChild(color);
+        elem.appendChild(name);
+        butone.before(elem);
     }
 }
