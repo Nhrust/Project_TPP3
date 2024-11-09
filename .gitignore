@@ -2,3 +2,6 @@ __pycache__/
 .vscode/
 data/
 Дорожная карта.ipynb
+.venv
+pip.pyz
+pyvenv.cfg
