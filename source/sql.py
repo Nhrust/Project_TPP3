@@ -1,4 +1,4 @@
-from typing import Any, Callable, Iterable
+from typing import Any, Callable, Iterable, Any, List
 
 from cryptography.fernet import Fernet
 import threading
@@ -64,7 +64,7 @@ class debug_object (object):
 	DEBUG = True
 	DEEP_DEBUG = False
 
-	def __getattribute__(self, name):
+	def __getattribute__(self, name) -> Any:
 		result = object.__getattribute__(self, name)
 		
 		if object.__getattribute__(self, "DEBUG") and callable(result) and name[:1] != "_" and name != "debug":
@@ -75,23 +75,23 @@ class debug_object (object):
 		
 		return result
 	
-	def debug(self, name):
+	def debug(self, name) -> None:
 		result = object.__getattribute__(self, name)
 		print(f"{CValue} {LName(name)} = {result}")
 	
-	def out(*string):
+	def out(*string) -> None:
 		if DEBUG: print(f"{COut} {' '.join(tuple(map(str, string)))}")
 
-	def value(name, result):
+	def value(name, result) -> None:
 		if DEBUG: print(f"{CValue} {LName(name)} = {result}")
 		
-	def warning(*string):
+	def warning(*string) -> None:
 		if DEBUG: print(f"{CWarning} {' '.join(tuple(map(str, string)))}")
 	
-	def error(*string):
+	def error(*string) -> None:
 		print(f"{CError} {LError(' '.join(tuple(map(str, string))))}")
 	
-	def sql(command):
+	def sql(command) -> None:
 		if not DEBUG: return
 		
 		for i in ["SELECT", "FROM", "ADD", "INSERT", "INTO", "VALUES", "WHERE", "UPDATE", "SET", "DELETE", "CREATE", "DROP", "TABLE", "DATABASE"]:
@@ -101,13 +101,13 @@ class debug_object (object):
 		
 		print(f"{CSQL} {command}")
 	
-	def sql_out(*string):
+	def sql_out(*string) -> None:
 		if DEBUG: print(f"{CSQLout} {LSQLout(' '.join(tuple(map(str, string))))}")
 	
-	def socket_receive(*string):
+	def socket_receive(*string) -> None:
 		if DEBUG: print(f"{CIOreceive} {' '.join(tuple(map(str, string)))}")
 	
-	def socket_send(*string):
+	def socket_send(*string) -> None:
 		if DEBUG: print(f"{CIOsend} {' '.join(tuple(map(str, string)))}")
 
 
@@ -122,13 +122,13 @@ class Column (object):
 	"""data_type:  int | str | bool
 	flag:  Default | Encode | Encrypt"""
 
-	def __init__(self, name: str, data_type: Callable, sql_type: str, flag=Flag.Default):
+	def __init__(self, name: str, data_type: Callable, sql_type: str, flag=Flag.Default) -> None:
 		self.name = name
 		self.data_type = data_type
 		self.sql_type = sql_type
 		self.flag = flag
 	
-	def unconvert(self, value: Any):
+	def unconvert(self, value: Any) -> Any:
 		if self.flag == Flag.Encode:
 			value = decode(value)
 		elif self.flag == Flag.Encrypt:
@@ -136,7 +136,7 @@ class Column (object):
 		
 		return self.data_type.__call__(value)
 	
-	def convert(self, value: Any):
+	def convert(self, value: Any) -> Any:
 		if self.flag == Flag.Encode:
 			value = encode(value)
 		elif self.flag == Flag.Encrypt:
@@ -147,33 +147,34 @@ class Column (object):
 			return f'{value}'
 		return _type.__call__(value)
 	
-	def __repr__(self):
+	def __repr__(self) -> str:
 		return f"{self.name} {self.sql_type}"
 
 
 
 
 class TableHead (object):
-	def __init__(self, name: str, *columns: Column):
+	def __init__(self, name: str, *columns: Column) -> None:
 		self.name = name
 		self.columns = columns
 	
-	def get_column(self, name):
+	def get_column(self, name) -> Column:
 		for col in self.columns:
 			if col.name == name:
 				return col
 		return None
 	
-	def get_column_index(self, name):
+	def get_column_index(self, name) -> Any:
+		"""-> int | None"""
 		for i, col in enumerate(self.columns):
 			if col.name == name:
 				return i
 		return None
 	
-	def get_column_names(self):
+	def get_column_names(self) -> str:
 		return f"({', '.join([i.name for i in self.columns[1:]])})"
 	
-	def __repr__(self):
+	def __repr__(self) -> str:
 		return f"{self.name} ({', '.join([str(i) for i in self.columns])})"
 
 
@@ -265,7 +266,7 @@ class TableHandler (Handler):
 	global DEBUG
 	DEBUG = DEBUG
 
-	def __init__(self, base, head: TableHead):
+	def __init__(self, base, head: TableHead) -> None:
 		super().__init__(base)
 		self.name = head.name
 		self.head = head
@@ -276,10 +277,11 @@ class TableHandler (Handler):
 			with BaseHandler(base) as handler:
 				handler.create_table(head)
 		
-	def _get_last_ID(self) -> int | None:
+	def _get_last_ID(self) -> Any:
+		"""-> int | None"""
 		return self._READ(f"SELECT max(ID) FROM {self.name}")[0][0]
 	
-	def get_rows(self, ID: int) -> list[list,]:
+	def get_rows(self, ID: int) -> List[List,]:
 		"""Return list of rows by ID"""
 		selector = f"SELECT * FROM {self.name} WHERE {self.head.columns[0].name} = {ID}"
 		debug_object.sql(selector)
@@ -294,14 +296,15 @@ class TableHandler (Handler):
 
 		return finded
 	
-	def get_row(self, ID: int) -> list | None:
-		"""Return single row by ID, if not find - None"""
+	def get_row(self, ID: int) -> Any:
+		"""Return single row by ID, if not find - None
+		-> List | None"""
 		try:
 			return self.get_rows(ID)[0]
 		except:
 			return None
 
-	def get_by(self, find_column: str, find_value: Any) -> list[list,]:
+	def get_by(self, find_column: str, find_value: Any) -> List[List,]:
 		"""Return row by column value"""
 		find_value = self.head.get_column(find_column).convert(find_value)
 		selector = f"SELECT * FROM {self.name} WHERE {find_column} = {find_value.__repr__()}"
@@ -317,7 +320,7 @@ class TableHandler (Handler):
 
 		return finded
 
-	def get_where(self, where) -> list[Any,]:
+	def get_where(self, where) -> List[Any,]:
 		"""SELECT * FROM ... WHERE {where}
 		Return row by selector"""
 		selector = f"SELECT * FROM {self.name} WHERE {where}"
@@ -360,7 +363,7 @@ class Base (debug_object):
 	cursor: pyodbc.Cursor
 	timeout = 2
 
-	def __init__(self, database: str, driver="SQL Server", login="", password=""):
+	def __init__(self, database: str, driver="SQL Server", login="", password="") -> None:
 		global DEBUG
 		self.DEBUG = DEBUG
 
@@ -381,7 +384,7 @@ class Base (debug_object):
 		self.cursor.execute("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE'")
 		self.tables = self._get_tables()
 	
-	def update_request(self):
+	def update_request(self) -> None:
 		self.connection_request = \
 			f"Driver={self.driver};" \
 			f"Server={self.server};" \
@@ -442,7 +445,7 @@ class Base (debug_object):
 		self.cursor.execute(f"SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE' AND TABLE_NAME LIKE '{key}%'")
 		return [table[2] for table in self.cursor.fetchall() if key in table[2]]
 	
-	def _drop_all_tables(self):
+	def _drop_all_tables(self) -> None:
 		self.cursor.execute("SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE'")
 		
 		for table in self.cursor.fetchall():
