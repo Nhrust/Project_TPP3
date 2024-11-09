@@ -86,10 +86,51 @@ socket.on("sended_message_sync", (response) => {
 	document.querySelectorAll("._ID").forEach(element => {
 		if (element.textContent == local_ID) {
 			element.textContent = server_ID;
-			console.log("sended_message_sync - Success");
 		}
+		element.parentNode.querySelector(".info .symbol").textContent = "+";
 	});
 })
+
+socket.on("get_messages_response", (response) => {
+	while (response.length != 0) {
+		var ID, sender, time, visible, data_length, data, index;
+
+		function find_next() {
+			for (var i = 0; i < response.length; i++) {
+				if (response[i] == ",") {
+					result = response.slice(0, i);
+					response = response.slice(i + 1);
+					return result;
+				}
+			}
+		}
+
+		ID          = Number(find_next(response));
+		sender      = Number(find_next(response));
+		time        = String(find_next(response));
+		visible     = Number(find_next(response));
+		data_length = Number(find_next(response));
+		data        = String(response.slice(0, data_length));
+		response = response.slice(data_length + 1);
+
+		var existed = null;
+		document.querySelectorAll("._ID").forEach(element => {
+			if (Number(element.textContent) == ID) {
+				message = element.parentNode.parentNode;
+				message.parentNode.removeChild(message);
+			}
+		})
+
+		appendMessage(ID, sender, data, time, visible);
+	}
+})
+
+
+
+
+function update() {
+	socket.emit("get_last_messages");
+}
 
 
 
@@ -102,7 +143,7 @@ function send_message() {
 		if (message.length != 0) {
 			last_message_ID += 1;
 			socket.emit("send_message", message, last_message_ID);
-			appendMessage(last_message_ID, self_id, message, "203100", "0", 1);
+			appendMessage(last_message_ID, self_id, message, null, "0", 1);
 			send_input.value = "";
 		}
 	}
@@ -144,17 +185,20 @@ function recreate_chat(chat_id) {
 		send.appendChild(form);
 	
 	right.appendChild(send);
+
+	socket.emit("get_last_messages");
 }
 
 
 
 
-function appendMessage(an_ID, a_sender, a_data, a_time, a_visible, position) {
+function appendMessage(an_ID, a_sender, a_data, a_time, a_visible) {
 	var main = document.querySelector(".main");
 
+	var position = (a_sender == self_id);
 	const message = document.createElement("div");
 	message.classList.add("message");
-	if (position == 1) {
+	if (position) {
 		message.id = "my";
 	}
 	
@@ -178,7 +222,12 @@ function appendMessage(an_ID, a_sender, a_data, a_time, a_visible, position) {
 
 				const time = document.createElement("p");
 				time.classList.add("time");
-				time.textContent = String(a_time).slice(0, 2) + ":" + String(a_time).slice(2, 4) + ":" + String(a_time).slice(4, 6);
+				if (a_time == null) {
+					time.textContent = "Сейчас";
+				}
+				else {
+					time.textContent = String(a_time).slice(0, 2) + ":" + String(a_time).slice(2, 4) + ":" + String(a_time).slice(4, 6);
+				}
 				info.appendChild(time)
 
 				const symbol = document.createElement("p");
@@ -190,6 +239,7 @@ function appendMessage(an_ID, a_sender, a_data, a_time, a_visible, position) {
 
 			const _ID = document.createElement("meta_");
 			_ID.classList.add("_ID");
+			_ID.id = String(an_ID);
 			_ID.textContent = String(an_ID);
 			box.appendChild(_ID);
 
@@ -199,6 +249,10 @@ function appendMessage(an_ID, a_sender, a_data, a_time, a_visible, position) {
 			box.appendChild(_visible);
 		
 		message.appendChild(box);
+
+	if (last_message_ID < an_ID) {
+		last_message_ID = an_ID;
+	}
 
 	main.appendChild(message);
 }

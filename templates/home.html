@@ -79,6 +79,7 @@
 		<div class="right">
 			
 			<div class="top">
+				<button onclick="update()">Update</button>
 				{% if account.chat_opened %}
 					<a href="/view_profile/{{account.opened_chat.user2.ID}}">
 						<div class="chat_topicleft">
@@ -108,7 +109,7 @@
 								<div class="data">{{ message.data }}</div>
 								<div class="info">
 									<p class="time">{{ message.time[0:2] + ":" + message.time[2:4] + ":" + message.time[4:6] }}</p>
-									<p class="symbol">?</p> <!-- TODO -->
+									<p class="symbol">+</p> <!-- TODO -->
 								</div>
 								<meta_ class="_ID">{{ message.ID }}</meta_>
 								<meta_ class="_visible">{{ message.visible }}</meta_>

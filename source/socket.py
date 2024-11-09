@@ -32,15 +32,15 @@ def get_chat_name(chat_ID: str):
 		debug_object.socket_send("set_chat_name", chat.user2.name)
 
 @socketio.on('send_message')
-def send_message(raw_message: str, client_mesaage_ID: str):
-	debug_object.socket_receive("send_message", raw_message, client_mesaage_ID)
+def send_message(raw_message: str, client_message_ID: str):
+	debug_object.socket_receive("send_message", raw_message, client_message_ID)
 
 	account = get_account()
-	client_mesaage_ID = int(client_mesaage_ID)
+	client_message_ID = int(client_message_ID)
 
 	with TableHandler(base, account.opened_chat.Head) as handle:
 		new_ID = handle.add_row(account.ID, raw_message, "HHMMSSDDMMYYYY", 0)
-		response = f"{client_mesaage_ID},{new_ID}"
+		response = f"{client_message_ID},{new_ID}"
 		socketio.emit("sended_message_sync", response, room=request.sid)
 		debug_object.socket_send("sended_message_sync", response)
 
@@ -49,8 +49,8 @@ def get_last_messages():
 	debug_object.socket_receive("get_last_messages")
 
 	account = get_account()
-	client_mesaage_ID = int(client_mesaage_ID)
 
 	finded = account.opened_chat.get_last_messages()
 	response = ";".join([i.pack() for i in finded])
-	debug_object.socket_send("get_messages_response", response, room=request.sid)
+	socketio.emit("get_messages_response", response, room=request.sid)
+	debug_object.socket_send("get_messages_response", response)
