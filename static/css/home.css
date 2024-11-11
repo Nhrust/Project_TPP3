@@ -36,7 +36,7 @@ h2 {
 }
 
 .left .top h1 {
-	position: absolute;
+	position: relative;
     left: 9vw;
 	top: 1.3vw;
 }
@@ -63,16 +63,18 @@ h2 {
 }
 
 .left .bottom .find .account {
-	border: 1px solid var(--color);
 	height: 3vw;
 	width: 19vw;
 	margin: 0.5vw;
+	border: 0.1vw solid var(--color);
+	border-radius:0.5vw;
 }
 
 .left .bottom .find .account img {
 	position: absolute;
 	width: 3vw;
 	aspect-ratio: 1;
+	border-radius: 0.5vw;
 }
 
 .left .bottom .find .account .name {
@@ -102,7 +104,7 @@ h2 {
 .left .bottom .chats {
 	width: 20vw;
 	min-height: 5vw;
-	border: 1px solid var(--color);
+	border: 0.1vw solid var(--color);
 	background-color: var(--bg-color-alt);
 }
 
@@ -111,7 +113,7 @@ h2 {
 }
 
 .left .bottom .chats .chat {
-	border: 1px solid var(--color);
+	border: 0.1vw solid var(--color);
 	height: 3vw;
 	width: 19vw;
 	margin: 0.5vw;
@@ -121,6 +123,7 @@ h2 {
 	position: absolute;
 	width: 3vw;
 	aspect-ratio: 1;
+	
 }
 
 .left .bottom .chats .chat .name {
@@ -145,13 +148,13 @@ h2 {
 	width: 5vw;
 	height: 3vw;
 	border: 1px solid #bbb;
-	border-radius: 10px;
+	border-radius: 0.5vw;
 	line-height: 3vw;
 	transition: 0.3s;
 }
 
 .left .top .profile:hover .decor {
-	border: 1px solid var(--button-color);
+	border: 0.1vw solid var(--button-color);
 	background-color: var(--button-bg-hover);
 }
 
@@ -171,13 +174,13 @@ h2 {
 	left: 20vw;
 	width: 80vw;
 	height: 100%;
-	border: 1px solid var(--color);
+	border: 0.1vw solid var(--color);
 }
 
 .right .top {
 	width: 80vw;
 	height: 5vw;
-	border: 1px solid var(--color);
+	border: 0.1vw solid var(--color);
 	background-color: var(--bg-color-alt);
 }
 
@@ -186,13 +189,13 @@ h2 {
 	bottom: 0;
 	width: 80vw;
 	height: 5vh; /* не менять */
-	border: 1px solid var(--color);
+	border: 0.1vw solid var(--color);
 }
 
 .find_form .submit{
 	width: 6vw;
 	height: 2.2vw;
-	border: 1px solid #bbb;
+	border: 0.1vw solid var(--color);
 	border-radius: 0.5vw;
 	background-color: transparent;
 	color:var(--button-color);
@@ -224,10 +227,10 @@ input[type="text"], select, textarea{
 	width: 6vw;
 	height: 4vh;
 	margin: 0.25vh;
-	border: 1px solid #bbb;
+	border: 0.1vw solid var(--button-color);
 	border-radius: 0.5vw;
 	background-color: transparent;
-	color:#bbb;
+	color: var(--button-color);
 }
 
 .send .send_input{
@@ -236,15 +239,15 @@ input[type="text"], select, textarea{
 	margin: 0.25vw;
 	margin-left:10%;
     display: inline-block;
-    border: 0.2vw solid rgb(103, 71, 133);
+    border: 0.2vw solid rgb(221, 0, 255);
     border-radius: 0.5vw;
     box-sizing: border-box;
     background-color: #343650;
-	color:#bbb;
+	color:var(--button-color);
 }
 
 .send_form .send_submit:hover {
-	border: 1px solid var(--button-color);
+	border: 0.1vw solid var(--button-color);
 	color: var(--button-color);
 }
 
@@ -264,10 +267,8 @@ input[type="text"], select, textarea{
 .right .top .img_avatar{
 	display: inline-block;
 	margin: calc(0.5vw - 1px);
-	
 	width: 4vw;
 	height: 4vw;
-
 	border: 1px solid #bbb;
 	border-radius: 1vw;
 }
@@ -279,19 +280,14 @@ input[type="text"], select, textarea{
 	border-radius: 1vw;
 }
 
-.right .top .chat_topicleft:hover .chat_name{
-	color: var(--button-color);
-}
 
-.right .top .chat_topicleft:hover .img_avatar{
-	border-color: var(--button-color);
-}
+
 
 .right .top .chat_topicleft{
 	position: absolute;
 	width:60vw;
 	height: 5vw;
-	border: 1px solid #f00;
+	border: 0.2vw solid #0f0;
 }
 
 .right .top .chat_topicright{
@@ -299,7 +295,7 @@ input[type="text"], select, textarea{
 	left: 60vw;
 	width: 20vw;
 	height: 5vw;
-	border: 1px solid #0ff;
+	border: 0.1vw solid #0ff;
 }
 .right .top .chat_topicleft:hover{
 	background: var(--button-bg-hover);
@@ -310,7 +306,7 @@ input[type="text"], select, textarea{
 	left: 55vw;
 	top:3.5vw;
 	font-size:1vw;
-	color:#bbb;
+	color: var(--button-color);
 }
 
 
@@ -365,13 +361,16 @@ input[type="text"], select, textarea{
 	height: 85vh;
 	flex-direction: column;
 	justify-content: flex-end;
+	overflow-y: auto
 }
 
 .right .main .message {
 	display: inline-block;
-	color: #ddd;
+	color: var(--button-color);
 	display: flex;
-	margin: 1vh 1.5vh;
+	
+
+
 }
 
 .right .main #my.message {
@@ -380,10 +379,13 @@ input[type="text"], select, textarea{
 }
 
 .right .main .message .box {
-	background: #3b3d62;
+	background: #3db862;
 	padding: 1vh 1.5vh;
+	margin-bottom:1vw;
 	max-width: 66%;
 	min-width: 33%;
+	border: 0.1vw solid #f0f;
+	border-radius: 0.5vw;
 }
 
 .right .main .message .sender {
@@ -398,12 +400,10 @@ input[type="text"], select, textarea{
 
 .right .main .message .data {
 	font-size: 2vh;
-	border: 1px dotted #f0f;
 	display: inline;
 }
 
 .right .main .message .info {
-	border: 1px dotted #0f0;
 	display: flex;
 	float: right;
 	margin: 0.25vw -0.5vw -0.25vw 1vw;
