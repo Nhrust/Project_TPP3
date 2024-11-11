@@ -114,6 +114,7 @@ h2 {
 
 .left .bottom .chats .chat {
 	border: 0.1vw solid var(--color);
+	border-radius:0.5vw;
 	height: 3vw;
 	width: 19vw;
 	margin: 0.5vw;
@@ -123,7 +124,7 @@ h2 {
 	position: absolute;
 	width: 3vw;
 	aspect-ratio: 1;
-	
+	border-radius: 0.5vw;
 }
 
 .left .bottom .chats .chat .name {
@@ -184,12 +185,12 @@ h2 {
 	background-color: var(--bg-color-alt);
 }
 
-.right .send {
-	position: absolute;
-	bottom: 0;
-	width: 80vw;
-	height: 5vh; /* не менять */
-	border: 0.1vw solid var(--color);
+.right .send{
+	position: fixed;
+     /* Поднимаем над панелью задач */
+    width: 80vw;
+    height: 10vh;
+    border: 0.1vw solid var(--color);
 }
 
 .find_form .submit{
@@ -198,7 +199,13 @@ h2 {
 	border: 0.1vw solid var(--color);
 	border-radius: 0.5vw;
 	background-color: transparent;
+	cursor: pointer;
 	color:var(--button-color);
+	transition: 0.3s ease, color 0.3s ease;
+}
+
+.find_form .submit:hover{
+	background: var(--button-bg-hover);
 }
 
 .text_message{
@@ -231,6 +238,7 @@ input[type="text"], select, textarea{
 	border-radius: 0.5vw;
 	background-color: transparent;
 	color: var(--button-color);
+	cursor: pointer;
 }
 
 .send .send_input{
@@ -239,10 +247,11 @@ input[type="text"], select, textarea{
 	margin: 0.25vw;
 	margin-left:10%;
     display: inline-block;
-    border: 0.2vw solid rgb(221, 0, 255);
+	font-size:1vw;
+    border: 0.15vw solid var(--button-color);
     border-radius: 0.5vw;
     box-sizing: border-box;
-    background-color: #343650;
+    background-color: var(--button-bg);
 	color:var(--button-color);
 }
 
@@ -287,7 +296,6 @@ input[type="text"], select, textarea{
 	position: absolute;
 	width:60vw;
 	height: 5vw;
-	border: 0.2vw solid #0f0;
 }
 
 .right .top .chat_topicright{
@@ -295,7 +303,7 @@ input[type="text"], select, textarea{
 	left: 60vw;
 	width: 20vw;
 	height: 5vw;
-	border: 0.1vw solid #0ff;
+	border: 0.1vw solid var(--color);
 }
 .right .top .chat_topicleft:hover{
 	background: var(--button-bg-hover);
@@ -355,13 +363,7 @@ input[type="text"], select, textarea{
 .right .top .files:hover{
 	border-color:var(--button-color);
 }
-.right .send{
-	position: fixed;
-     /* Поднимаем над панелью задач */
-    width: 80vw;
-    height: 8vh;
-    border: 0.1vw solid var(--color);
-}
+
 .right .main {
 	display: flex;
 	height: 80vh;
@@ -371,6 +373,7 @@ input[type="text"], select, textarea{
 }
 
 .right .main .message {
+	padding:0.5vw;
 	display: inline-block;
 	color: var(--button-color);
 	display: flex;
@@ -385,12 +388,12 @@ input[type="text"], select, textarea{
 }
 
 .right .main .message .box {
-	background: #3db862;
+	background: var(--button-bg);
 	padding: 1vh 1.5vh;
 	margin-bottom:1vw;
-	max-width: 66%;
+	max-width: 66%;	
 	min-width: 33%;
-	border: 0.1vw solid #f0f;
+	border: 0.1vw solid var(--self-text);
 	border-radius: 0.5vw;
 }
 
