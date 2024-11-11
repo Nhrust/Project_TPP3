@@ -71,3 +71,12 @@ def get_last_messages():
 	response = ";".join([i.pack() for i in finded])
 	socketio.emit("get_messages_response", response, room=request.sid)
 	debug_object.socket_send("get_messages_response", response)
+
+@socketio.on('save_theme')
+def save_theme(packed_theme: str):
+	debug_object.socket_receive("save_theme")
+
+	account = get_account()
+	
+	account.theme = packed_theme.ljust(96, "0") + account.theme[96:]
+	account.update_on_base(base)

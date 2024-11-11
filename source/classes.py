@@ -26,7 +26,7 @@ class Account (debug_object):
 		self.gender = 0
 		self.about = ''
 		self.icon = "static/Images/default_icon.png"
-		self.theme = ''
+		self.theme = "ffffffbfdfff0000007f7f7f0000002f2f2f3f3f3f7f7f7fbfbf00ff9f0f7f7f7f84daddbbc3c4d0e3e6ffffff3fe5ff" + "0" * 96
 		self.visible = 0
 		
 		if not sql_sync: return
