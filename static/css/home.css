@@ -85,7 +85,7 @@ h2 {
 .left .bottom .find .account .status {
 	font-size: 0.8vw;
 	position: absolute;
-	margin: 1.8vw 0.5vw 0.5vw 3.5vw;
+	margin: 1.8vw 0.5vw 0.5vw 3.5vw; 
 	color: #bbb;
 }
 
@@ -248,28 +248,37 @@ input[type="text"], select, textarea{
 	color: var(--button-color);
 }
 
+.right .top .krasota{
+	display: inline-block;
+	
+}
+
 .right .top .chat_name{
-	display: inline;
-	position: absolute;
-	left:7vw;
-	top:1.2vw;
+	display: block;
+	
+	
 	font-size: 2vw;
 	color:#bbb;
 }
+
 .right .top .img_avatar{
+	display: inline-block;
 	margin: calc(0.5vw - 1px);
-	left: 2vw;
-	top:0.5vw;
+	
 	width: 4vw;
 	height: 4vw;
+
 	border: 1px solid #bbb;
 	border-radius: 1vw;
 }
+
 .right .top .img_avatar img{
 	width: 100%;
 	height: 100%;
+	position: relative;
 	border-radius: 1vw;
 }
+
 .right .top .chat_topicleft:hover .chat_name{
 	color: var(--button-color);
 }
@@ -279,7 +288,7 @@ input[type="text"], select, textarea{
 }
 
 .right .top .chat_topicleft{
-	position:absolute;
+	position: absolute;
 	width:60vw;
 	height: 5vw;
 	border: 1px solid #f00;
@@ -292,18 +301,19 @@ input[type="text"], select, textarea{
 	height: 5vw;
 	border: 1px solid #0ff;
 }
+.right .top .chat_topicleft:hover{
+	background: var(--button-bg-hover);
+}
 
 .right .top .status{
-	position:absolute;
+	display: block;
 	left: 55vw;
 	top:3.5vw;
 	font-size:1vw;
 	color:#bbb;
 }
 
-.right .top .chat_topicleft:hover .status{
-	color:var(--button-color);
-}
+
 
 .right .top .photo{
 	position: absolute;

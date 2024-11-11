@@ -1,5 +1,7 @@
 
-
+h1 {
+	font-size: 2vw;
+}
 .Settings h1{
     color: var(--button-color);
 }

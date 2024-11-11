@@ -1,3 +1,6 @@
+h2 {
+	font-size: 2vw;
+}
 .vertical {
 	display: block;
 	width: max-content;
