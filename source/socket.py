@@ -1,6 +1,16 @@
 from source.classes import *
 
 
+@socketio.on('login')
+def io_login():
+	debug_object.socket_receive("login")
+	account = get_account()
+	clients.add_sid(account.ID, request.sid)
+
+@socketio.on('logout')
+def io_logout():
+	debug_object.socket_receive("logout")
+
 @socketio.on('find_request')
 def find_request(_request: str):
 	debug_object.socket_receive("find_request", _request)
@@ -40,6 +50,13 @@ def send_message(raw_message: str, client_message_ID: str):
 
 	with TableHandler(base, account.opened_chat.Head) as handle:
 		new_ID = handle.add_row(account.ID, raw_message, "HHMMSSDDMMYYYY", 0)
+		
+		reciver = clients.get_sid(account.opened_chat.user2.ID)
+		if reciver != None:
+			response = Message(*handle.get_row(new_ID)).pack()
+			socketio.emit("get_messages_response", response, room=reciver)
+			debug_object.socket_send("sended_message_sync", response)
+		
 		response = f"{client_message_ID},{new_ID}"
 		socketio.emit("sended_message_sync", response, room=request.sid)
 		debug_object.socket_send("sended_message_sync", response)

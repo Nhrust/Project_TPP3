@@ -1,6 +1,9 @@
 const socket = io();
 
 
+socket.emit("login");
+
+
 function CreateElement(type, Class=null) {
 	var element = document.createElement(type);
 	

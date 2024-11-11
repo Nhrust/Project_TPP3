@@ -163,10 +163,14 @@ class AccountsManager (debug_object):
 class ClientManager:
 	def __init__(self):
 		self.clients = dict()
+		self.sids = dict()
 
-	def add(self, ip: int, account: Account) -> None:
+	def add(self, ip: str, account: Account) -> None:
 		"""Добавляет нового клиента"""
 		self.clients[ip] = account
+	
+	def add_sid(self, ID: int, sid: str) -> None:
+		self.sids[ID] = sid
 
 	def remove(self, ip: int) -> None:
 		"""Удаляет клиента с указанным ip (адресом)"""
@@ -179,6 +183,12 @@ class ClientManager:
 		"""Возвращает экземпляр Account по ip"""
 		try:
 			return self.clients[ip]
+		except:
+			return None
+	
+	def get_sid(self, ID: int) -> str:
+		try:
+			return self.sids[ID]
 		except:
 			return None
 
