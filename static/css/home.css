@@ -355,10 +355,16 @@ input[type="text"], select, textarea{
 .right .top .files:hover{
 	border-color:var(--button-color);
 }
-
+.right .send{
+	position: fixed;
+     /* Поднимаем над панелью задач */
+    width: 80vw;
+    height: 8vh;
+    border: 0.1vw solid var(--color);
+}
 .right .main {
 	display: flex;
-	height: 85vh;
+	height: 80vh;
 	flex-direction: column;
 	justify-content: flex-end;
 	overflow-y: auto
