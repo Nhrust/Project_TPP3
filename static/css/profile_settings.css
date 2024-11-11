@@ -65,6 +65,7 @@
 }
 
 .Themes .Light_Theme{
+    margin: 0.5vw 0.5vw;
     width:8vw;
     height:2.5vw;
     text-align: center;
@@ -74,6 +75,115 @@
     border-radius: 0.5vw;
     font-size: 1vw;
     background-color: lightblue;
+}   
+
+.Themes .Dark_Theme{
+    margin: 0.5vw 0.5vw;
+    width:8vw;
+    height:2.5vw;
+    text-align: center;
+    cursor: pointer;
+    line-height: 2vw;
+    border: 0.1vw solid rgb(255, 0, 0);
+    border-radius: 0.5vw;
+    font-size: 1vw;
+    color: #fff;
+    background-color: rgb(0, 0, 0);
+}   
+
+.Themes .Monochrome_Theme{
+    margin: 0.5vw 0.5vw;
+    width:8vw;
+    height:2.5vw;
+    text-align: center;
+    cursor: pointer;
+    line-height: 2vw;
+    border: 0.1vw solid rgb(0, 0, 0);
+    border-radius: 0.5vw;
+    font-size: 1vw;
+    color: black;
+    background-color: rgb(255, 255, 255);
+}   
+
+.Themes .Mint_Theme{
+    margin: 0.5vw 0.5vw;
+    width:8vw;
+    height:2.5vw;
+    text-align: center;
+    cursor: pointer;
+    line-height: 2vw;
+    border: 0.1vw solid rgb(38, 104, 70);
+    border-radius: 0.5vw;
+    font-size: 1vw;
+    background-color: rgb(98, 235, 162);
+}   
+
+.Themes .RedAndBlack_Theme{
+    margin: 0.5vw 0.5vw;
+    width:8vw;
+    height:2.5vw;
+    text-align: center;
+    cursor: pointer;
+    line-height: 2vw;
+    border: 0.1vw solid rgb(0, 0, 0);
+    border-radius: 0.5vw;
+    font-size: 1vw;
+    color: red;
+    background-color: rgb(0, 0, 0);
+}   
+
+.Themes .Pink_Theme{
+    margin: 0.5vw 0.5vw;
+    width:8vw;
+    height:2.5vw;
+    text-align: center;
+    cursor: pointer;
+    line-height: 2vw;
+    border: 0.1vw solid rgb(159, 42, 97);
+    border-radius: 0.5vw;
+    font-size: 1vw;
+    background-color: rgb(224, 13, 136);
+}   
+
+.Themes .ScyFi_Theme{
+    margin: 0.5vw 0.5vw;
+    width:8vw;
+    height:2.5vw;
+    text-align: center;
+    cursor: pointer;
+    line-height: 2vw;
+    border: 0.1vw solid blue;
+    border-radius: 0.5vw;
+    font-size: 1vw;
+    background-color: rgb(14, 46, 83);
+}   
+
+.Themes .Neon_Theme{
+    margin: 0.5vw 0.5vw;
+    width:8vw;
+    height:2.5vw;
+    text-align: center;
+    cursor: pointer;
+    line-height: 2vw;
+    border: 0.1vw solid rgb(221, 0, 255);
+    border-radius: 0.5vw;
+    font-size: 1vw;
+    color: #00eeff;
+    background-color: rgb(5, 1, 64);
+}   
+
+.Themes .Minimalism_Theme{
+    margin: 0.5vw 0.5vw;
+    width:8vw;
+    height:2.5vw;
+    text-align: center;
+    cursor: pointer;
+    line-height: 2vw;
+    border: 0.1vw solid rgb(149, 149, 149);
+    border-radius: 0.5vw;
+    font-size: 1vw;
+    color: #bcbcbc;
+    background-color: rgb(255, 255, 255);
 }   
 
 .Hline{
