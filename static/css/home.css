@@ -4,17 +4,19 @@ CHAT_ID {
 }
 
 body {
-    background-color: #000000; /* Темно-синий фон */
-    color: #E0E1DD; /* Светло-серый текст */
+    background-color: var(--bg-color);
+    color: var(--color);
     font-family: 'Arial', sans-serif;
 }
 
 h1 {
 	font-size: 2vw;
+	color: var(--color-alt);
 }
 
 h2 {
 	font-size: 1vw;
+	color: var(--color-alt);
 }
 
 .left {
@@ -142,13 +144,14 @@ h2 {
 }
 
 .left .top .profile .decor {
+	background: var(--button-bg);
+	border: 1px solid var(--buton-color);
 	position: absolute;
 	text-align: center;
 	left:2vw;
 	top: 1vw;
 	width: 5vw;
 	height: 3vw;
-	border: 1px solid #bbb;
 	border-radius: 0.5vw;
 	line-height: 3vw;
 	transition: 0.3s;
@@ -159,11 +162,14 @@ h2 {
 	background-color: var(--button-bg-hover);
 }
 
-.left .top .profile p {
+.left .top a {
+	color: var(--buton-color);
+}
+
+.left .top a .profile .decor p {
 	position: absolute;
 	left: 0.3vw;
 	font-size: 1vw;
-	color: #bbb;
 }
 
 .left .top .profile:hover p {
@@ -265,12 +271,10 @@ input[type="text"], select, textarea{
 	
 }
 
-.right .top .chat_name{
+.right .top .chat_name {
 	display: block;
-	
-	
 	font-size: 2vw;
-	color:#bbb;
+	background: var(--buton-bg);
 }
 
 .right .top .img_avatar{
@@ -373,13 +377,10 @@ input[type="text"], select, textarea{
 }
 
 .right .main .message {
-	padding:0.5vw;
+	padding: 0.25vw;
 	display: inline-block;
 	color: var(--button-color);
 	display: flex;
-	
-
-
 }
 
 .right .main #my.message {
@@ -387,16 +388,24 @@ input[type="text"], select, textarea{
 	justify-content: flex-end;
 }
 
+
 .right .main .message .box {
-	background: var(--button-bg);
-	padding: 1vh 1.5vh;
-	margin-bottom:1vw;
+	background: var(--self-text);
+	padding: 0.9vh 1.5vh 0.7vh 1.5vh;
+	margin: 0vw 1vw;
 	max-width: 66%;	
 	min-width: 33%;
-	border: 0.1vw solid var(--self-text);
-	border-radius: 0.5vw;
+	color: var(--color);
+	border-radius: 1vw;
+	border-bottom-left-radius: 0;
 }
 
+.right .main .message#my .box {
+	background: var(--other-text);
+	color: var(--color);
+	border-radius: 1vw;
+	border-bottom-right-radius: 0;
+}
 .right .main .message .sender {
 	font-size: 2vh;
 	margin: -0.25vh 0 0.5vh -0.5vh;
@@ -408,18 +417,21 @@ input[type="text"], select, textarea{
 }
 
 .right .main .message .data {
-	font-size: 2vh;
+	font-size: 1vw;
 	display: inline;
 }
 
 .right .main .message .info {
+	font-size: 0.5vw;
+	font-family: monospace;
 	display: flex;
 	float: right;
-	margin: 0.25vw -0.5vw -0.25vw 1vw;
+	margin: 0.75vw -0.25vw -0.25vw 0;
 }
 
 .right .main .message .info .time {
 	display: inline;
+	font-family: 'Times New Roman';
 }
 
 .right .main .message .info .symbol {

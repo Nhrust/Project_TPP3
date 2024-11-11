@@ -1,11 +1,4 @@
 
-h1 {
-	font-size: 2vw;
-}
-.Settings h1{
-    color: var(--button-color);
-}
-
 .BG_color_set{
     margin-top:2vw;
     font-size: 1vw;
@@ -93,7 +86,7 @@ h1 {
     background-color: rgb(0, 0, 0);
 }   
 
-.Themes .Monochrome_Theme{
+.Themes .Contrast_Theme{
     margin: 0.5vw 0.5vw;
     width:8vw;
     height:2.5vw;
@@ -200,6 +193,14 @@ h1 {
 .Castomisation{
     margin-top:5vw;
     font-size: 1vw;
+}
+
+.Castomisation .theme_value {
+    display: block;
+}
+
+.Castomisation .theme_value .name {
+    color: var(--color);
 }
 
 .Chats_set{

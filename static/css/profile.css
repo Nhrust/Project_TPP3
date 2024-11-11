@@ -1,4 +1,9 @@
 /* Основные стили страницы */
+h1 {
+	font-size: 2vw;
+    color: var(--color-alt);
+}
+
 body {
     background-color: var(--bg-color);
     color: #E0E1DD; /* Светло-серый текст */
@@ -25,7 +30,6 @@ body {
     text-align: center;
     margin: 3vh 1.75vw 1vh 1.75vw;
     font-size: 3.5vh;
-    color: var(--button-color);     
 }
 
 .Headmenu a div {
