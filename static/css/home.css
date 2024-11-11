@@ -257,7 +257,7 @@ input[type="text"], select, textarea{
 	color:#bbb;
 }
 .right .top .img_avatar{
-	position: absolute;
+	margin: calc(0.5vw - 1px);
 	left: 2vw;
 	top:0.5vw;
 	width: 4vw;
@@ -265,7 +265,11 @@ input[type="text"], select, textarea{
 	border: 1px solid #bbb;
 	border-radius: 1vw;
 }
-
+.right .top .img_avatar img{
+	width: 100%;
+	height: 100%;
+	border-radius: 1vw;
+}
 .right .top .chat_topicleft:hover .chat_name{
 	color: var(--button-color);
 }
