@@ -79,15 +79,16 @@
 		<div class="right">
 			
 			<div class="top">
-				<button onclick="update()">Update</button>
 				{% if account.chat_opened %}
 					<a href="/view_profile/{{account.opened_chat.user2.ID}}">
 						<div class="chat_topicleft">
 							<div class="img_avatar">
 								<img class="chat_avatar" src="{{ account.opened_chat.user2.icon }}">
 							</div>
-							<h2 class="chat_name">{{account.opened_chat.user2.name}}</h2>
-							<p class="status">Не в сети</p>
+							<div class="krasota">
+								<h2 class="chat_name">{{account.opened_chat.user2.name}}</h2>
+								<p class="status">Не в сети</p>
+							</div>
 						</div>
 					</a>
 					<div class="chat_topicright">
