@@ -6,6 +6,10 @@ form {
     align-content: center;
 }
 
+body{
+    background: var(--bg-color);
+}
+
 .fast_login {
     width: 10vw;
     padding: 5vw;
