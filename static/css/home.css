@@ -374,7 +374,7 @@ h2 {
 	padding: 0.5vw 0;
 	flex-direction: column;
 	justify-content: flex-end;
-	height: 100%;
+	overflow-y: auto;
 }
 
 .right .main .message {

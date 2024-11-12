@@ -3,7 +3,7 @@
 }
 
 h1{
-    font-size: 2vw;
+    font-size: 100vw;
 }
 
 form{
@@ -13,7 +13,7 @@ form{
 .profile_info{
     width: 10vw;
     padding: 5vw;
-    position: absolute;
+    position: relative;
     left: 5vw;
     top: 15vw;
     text-align: center;
