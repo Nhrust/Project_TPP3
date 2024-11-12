@@ -31,7 +31,7 @@ def signin():
 		if len(log) != 0:
 			return render_template("signin.html", show_logs=True, last_login=last_login, log=log)
 	
-	return render_template("signin.html")
+	return render_template("signin.html", account=account)
 
 @app.route("/home", methods=["GET", "POST"])
 def home():

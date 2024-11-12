@@ -19,20 +19,20 @@ html {
 }
 
 :root {
-    --bg-color: #000000;
-    --bg-color-alt: #222222;
-    --color: #ffffff;
-    --color-alt: #ddddff;
-    --button-bg: #444444;
-    --button-bg-hover: #ff4848;
-    --button-color: #ffffff;
-    --button-color-hover: #ddddff;
-    --link-color: #37e8ff;
-    --link-color-used: #b03aff;
-    --self-text: #ff9c9c;
-    --other-text: #9b3232;
-    --border-color: #c92020;
-    --border-color-hover: #861616;
-    --message-send: #757575;
-    --message-checked: #0084ff;
+    --bg-color: #dddddd;
+    --bg-color-alt: #bbbbbb;
+    --color: #1f1f1f;
+    --color-alt: #3f3f3f;
+    --button-bg: #555555;
+    --button-bg-hover: #777777;
+    --button-color: #999999;
+    --button-color-hover: #dddddd;
+    --link-color: #0f263d;
+    --link-color-used: #2d1e3d;
+    --self-text: #999999;
+    --other-text: #aaaaaa;
+    --border-color: #000000;
+    --border-color-hover: #000000;
+    --message-send: #000000;
+    --message-checked: #000000;
 }
