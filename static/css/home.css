@@ -25,7 +25,9 @@ h2 {
 	left: 0;
 	width: 20vw;
 	height: 100%;
-	border: 1px solid var(--color);
+	border: 0 solid var(--color);
+	border-width: 0 1px 0 0;
+	z-index: 1;
 	background-color: var(--bg-color-alt);
 }
 
@@ -33,7 +35,9 @@ h2 {
 	position: absolute;
 	width: 20vw;
 	height: 5vw;
-	border: 1px solid var(--color);
+	border: 0 solid var(--color);
+	border-width: 0 0 1px 0;
+	z-index: 2;
 	background-color: var(--bg-color-alt);
 }
 
@@ -43,6 +47,41 @@ h2 {
 	top: 1.3vw;
 }
 
+.left .top .profile .decor {
+	background: var(--button-bg);
+	position: absolute;
+	text-align: center;
+	left: 2vw;
+	top: 1vw;
+	width: 5vw;
+	height: 3vw;
+	border: 1px solid var(--button-color);
+	border-radius: 0.5vw;
+	line-height: 3vw;
+	transition: 0.3s;
+}
+
+.left .top .profile:hover .decor {
+	border: 1px solid var(--button-color-hover);
+	background-color: var(--button-bg-hover);
+}
+
+.left .top a {
+	color: var(--buton-color);
+}
+
+.left .top a .profile .decor p {
+	position: absolute;
+	left: 0.3vw;
+	font-size: 1vw;
+}
+
+.left .top .profile:hover p {
+	color: var(--button-color);
+}
+
+
+
 .left .bottom {
 	position: absolute;
 	top: 5vw;
@@ -50,18 +89,58 @@ h2 {
 	height: calc(100vh - 5vw);
 	overflow-x: hidden;
 	overflow-y: auto;
-	border: 1px solid var(--color);
 }
 
 .left .bottom .find {
 	position: relative;
 	width: 20vw;
 	min-height: 5vw;
-	border: 1px solid var(--color);
+	border: 0 solid var(--border-color);
+	border-width: 0 0 1px 0;
 }
 
 .left .bottom .find h2 {
 	margin: 0.5vw 1vw;
+}
+
+.left .bottom .find .find_form .find_input {
+    display: inline;
+	font-size: 0.75vw;
+	font-family: system-ui;
+	width: 11vw;
+	height: 1.5vw;
+	padding: 0 0.5vw;
+
+	margin-left: 1vw;
+    margin-top: 0.2vw;
+    
+	border: 1px solid var(--color);
+    border-radius: 0.5vw;
+
+	color: var(--color);
+    background: var(--button-bg);
+}
+
+.left .bottom .find .find_form .submit {
+    display: inline;
+	font-size: 0.75vw;
+	width: 5vw;
+	height: calc(1.5vw + 2px);
+	padding: 0 1vw;
+	
+	cursor: pointer;
+	margin-left: 0.5vw;
+	
+	border: 1px solid var(--color);
+	border-radius: 0.5vw;
+	
+	color: var(--button-color);
+	background: var(--button-bg);
+	transition: 0.3s ease, color 0.3s ease;
+}
+
+.left .bottom .find .find_form .submit:hover {
+	background: var(--button-bg-hover);
 }
 
 .left .bottom .find .account {
@@ -103,11 +182,12 @@ h2 {
 	color: var(--button-color);
 }
 
+
+
 .left .bottom .chats {
 	width: 20vw;
 	min-height: 5vw;
-	border: 0.1vw solid var(--color);
-	background-color: var(--bg-color-alt);
+	background: var(--bg-color-alt);
 }
 
 .left .bottom .chats h2 {
@@ -140,133 +220,29 @@ h2 {
 	font-size: 0.8vw;
 	position: absolute;
 	margin: 1.8vw 0.5vw 0.5vw 3.5vw;
-	color: #bbb;
+	color: var(--buton-color-hover);
 }
 
-.left .top .profile .decor {
-	background: var(--button-bg);
-	border: 1px solid var(--buton-color);
-	position: absolute;
-	text-align: center;
-	left:2vw;
-	top: 1vw;
-	width: 5vw;
-	height: 3vw;
-	border-radius: 0.5vw;
-	line-height: 3vw;
-	transition: 0.3s;
-}
 
-.left .top .profile:hover .decor {
-	border: 0.1vw solid var(--button-color);
-	background-color: var(--button-bg-hover);
-}
-
-.left .top a {
-	color: var(--buton-color);
-}
-
-.left .top a .profile .decor p {
-	position: absolute;
-	left: 0.3vw;
-	font-size: 1vw;
-}
-
-.left .top .profile:hover p {
-	color: var(--button-color);
-}
 
 .right {
 	position: absolute;
 	left: 20vw;
 	width: 80vw;
 	height: 100%;
-	border: 0.1vw solid var(--color);
+	z-index: 0;
 }
 
 .right .top {
+	z-index: 1;
 	width: 80vw;
 	height: 5vw;
-	border: 0.1vw solid var(--color);
+	border: 0 solid var(--color);
+	border-width: 0 0 1px 0;
 	background-color: var(--bg-color-alt);
 }
 
-.right .send{
-	position: fixed;
-     /* Поднимаем над панелью задач */
-    width: 80vw;
-    height: 10vh;
-    border: 0.1vw solid var(--color);
-}
-
-.find_form .submit{
-	width: 6vw;
-	height: 2.2vw;
-	border: 0.1vw solid var(--color);
-	border-radius: 0.5vw;
-	background-color: transparent;
-	cursor: pointer;
-	color:var(--button-color);
-	transition: 0.3s ease, color 0.3s ease;
-}
-
-.find_form .submit:hover{
-	background: var(--button-bg-hover);
-}
-
-.text_message{
-	position:fixed;
-	background:rgb(72, 9, 131);
-	width: 80vw;
-	height:3.5vw;
-	top:93.5%;
-}
-
-input[type="text"], select, textarea{
-	width: 10vw;
-	height: 1vw;
-    padding: 1vw;
-	margin-left:1vw;
-    margin-top:0.2vw;
-    display: inline-block;
-    border: 0.1vw solid var(--buton-color);
-    border-radius: 0.5vw;
-    box-sizing: border-box;
-    background-color: var(--button-bg);
-	color:var(--button-color);
-}
-
-.send_form .send_submit{
-	width: 6vw;
-	height: 4vh;
-	margin: 0.25vh;
-	border: 0.1vw solid var(--button-color);
-	border-radius: 0.5vw;
-	background-color: transparent;
-	color: var(--button-color);
-	cursor: pointer;
-}
-
-.send .send_input{
-    width: 50vw;
-    padding: 1vw;
-	margin: 0.25vw;
-	margin-left:10%;
-    display: inline-block;
-	font-size:1vw;
-    border: 0.15vw solid var(--button-color);
-    border-radius: 0.5vw;
-    box-sizing: border-box;
-    background-color: var(--button-bg);
-	color:var(--button-color);
-}
-
-.send_form .send_submit:hover {
-	border: 0.1vw solid var(--button-color);
-	color: var(--button-color);
-}
-
-.right .top .krasota{
+.right .top .krasota {
 	display: inline-block;
 	
 }
@@ -277,7 +253,7 @@ input[type="text"], select, textarea{
 	background: var(--buton-bg);
 }
 
-.right .top .img_avatar{
+.right .top .img_avatar {
 	display: inline-block;
 	margin: calc(0.5vw - 1px);
 	width: 4vw;
@@ -286,44 +262,42 @@ input[type="text"], select, textarea{
 	border-radius: 1vw;
 }
 
-.right .top .img_avatar img{
+.right .top .img_avatar img {
 	width: 100%;
 	height: 100%;
 	position: relative;
 	border-radius: 1vw;
 }
 
-
-
-
-.right .top .chat_topicleft{
+.right .top .chat_topicleft {
 	position: absolute;
 	width:60vw;
 	height: 5vw;
+	border: 0 solid var(--color);
+	border-width: 0 1px 0 0;
 }
 
-.right .top .chat_topicright{
+.right .top .chat_topicright {
 	position: absolute;
 	left: 60vw;
 	width: 20vw;
 	height: 5vw;
-	border: 0.1vw solid var(--color);
+	border: 0 solid var(--color);
+	border-width: 0 0 1px 0;
 }
-.right .top .chat_topicleft:hover{
+.right .top .chat_topicleft:hover {
 	background: var(--button-bg-hover);
 }
 
-.right .top .status{
+.right .top .status {
 	display: block;
 	left: 55vw;
-	top:3.5vw;
-	font-size:1vw;
+	top: 3.5vw;
+	font-size: 1vw;
 	color: var(--button-color);
 }
 
-
-
-.right .top .photo{
+.right .top .photo {
 	position: absolute;
 	padding: 1vw;
 	top:1vw;
@@ -334,14 +308,14 @@ input[type="text"], select, textarea{
 	border-radius: 1vw;
 }
 
-.right .top .photo:hover{
+.right .top .photo:hover {
 	border-color:var(--button-color);
 }
 
-.right .top .video{
+.right .top .video {
 	position: absolute;
 	padding: 1vw;
-	top:1vw;
+	top: 1vw;
 	left: 8vw;
 	width: 2vw;
 	height: 1vw;
@@ -349,14 +323,14 @@ input[type="text"], select, textarea{
 	border-radius: 1vw;
 }
 
-.right .top .video:hover{
+.right .top .video:hover {
 	border-color:var(--button-color);
 }
 
-.right .top .files{
+.right .top .files {
 	position: absolute;
 	padding: 1vw;
-	top:1vw;
+	top: 1vw;
 	left: 13vw;
 	width: 2vw;
 	height: 1vw;
@@ -364,30 +338,36 @@ input[type="text"], select, textarea{
 	border-radius: 1vw;
 }
 
-.right .top .files:hover{
+.right .top .files:hover {
 	border-color:var(--button-color);
 }
 
-.right .main {
+
+
+.right .main2 {
+	display: block;
+	height: calc(100vh - 8vw);
+	overflow-y: scroll;
+}
+
+.right .main2 .main {
 	display: flex;
-	height: 80vh;
+	padding: 0.5vw 0;
 	flex-direction: column;
 	justify-content: flex-end;
-	overflow-y: auto
+	height: 100%;
 }
 
 .right .main .message {
-	padding: 0.25vw;
-	display: inline-block;
-	color: var(--button-color);
 	display: flex;
+	padding: 0.25vw;
+	color: var(--button-color);
 }
 
 .right .main #my.message {
 	color: var(--button-color);
 	justify-content: flex-end;
 }
-
 
 .right .main .message .box {
 	background: var(--self-text);
@@ -406,9 +386,10 @@ input[type="text"], select, textarea{
 	border-radius: 1vw;
 	border-bottom-right-radius: 0;
 }
+
 .right .main .message .sender {
-	font-size: 2vh;
-	margin: -0.25vh 0 0.5vh -0.5vh;
+	font-size: 1vw;
+	margin: -0.25vw 0 0.5vw -0.5vw;
 	font-weight: bold;
 }
 
@@ -438,6 +419,55 @@ input[type="text"], select, textarea{
 	display: inline;
 }
 
-meta_ {
+.right .main .message meta_ {
 	display: none;
+}
+
+
+
+.right .send {
+	/* position: fixed; */
+     /* Поднимаем над панелью задач */
+    width: 80vw;
+	height: 3vw;
+    border: 0 solid var(--color);
+	border-width: 1px 0 0 0;
+	background: var(--bg-color-alt);
+}
+
+.right .send .send_form .send_input {
+	height: 2vw;
+    width: 50vw;
+
+	margin: calc(0.5vw - 1px);
+	margin-left: 10%;
+    padding: 0 0.5vw;
+
+	display: inline;
+	font-size: 1vw;
+    border: 1px solid var(--button-color);
+    border-radius: 0.5vw;
+	
+	color:var(--color);
+    background-color: var(--button-bg);
+}
+
+.right .send .send_form .send_submit {
+	height: 2vw;
+	width: 6vw;
+
+	margin: calc(0.5vw - 1px);
+
+	display: inline;
+	font-size: 1vw;
+	border: 1px solid var(--button-color);
+	border-radius: 0.5vw;
+
+	color: var(--button-color);
+	cursor: pointer;
+}
+
+.right .send .send_form .send_submit:hover {
+	border: 0.1vw solid var(--button-color);
+	color: var(--button-color);
 }
