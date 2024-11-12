@@ -220,7 +220,26 @@ h2 {
 	font-size: 0.8vw;
 	position: absolute;
 	margin: 1.8vw 0.5vw 0.5vw 3.5vw;
-	color: var(--buton-color-hover);
+	color: #bbb;
+}
+
+.left .top .profile .decor {
+	background: var(--button-bg);
+	border: 0.1vw solid var(--button-color);
+	position: absolute;
+	text-align: center;
+	left:2vw;
+	top: 1vw;
+	width: 5vw;
+	height: 3vw;
+	border-radius: 0.5vw;
+	line-height: 3vw;
+	transition: 0.3s;
+}
+
+.left .top .profile:hover .decor {
+	border: 0.1vw solid var(--button-color);
+	background-color: var(--button-bg-hover);
 }
 
 

@@ -1,0 +1,22 @@
+.profile_view{
+    background-color: var(--bg-color);
+}
+
+h1{
+    font-size: 2vw;
+}
+
+form{
+    align-content: center;
+}
+
+.profile_info{
+    width: 10vw;
+    padding: 5vw;
+    position: absolute;
+    left: 5vw;
+    top: 15vw;
+    text-align: center;
+    background: var(--bg-color-alt);
+    border-radius: 1vw;
+}
