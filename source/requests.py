@@ -110,9 +110,10 @@ def edit_profile():
 
 @app.route("/view_profile<ID>")
 def view_profile(ID: str):
+	account = get_account()
 	with TableHandler(base, AccountsManager.Head) as handle:
-		account = Account.unpack(base, handle.get_row(int(ID)))
-		return render_template("view.html", account=account)
+		account2 = Account.unpack(base, handle.get_row(int(ID)))
+		return render_template("view.html", account=account, account2=account2)
 
 @app.route("/open_chat_with_user/<find_account_ID>")
 def open_chat_with_user(find_account_ID: str):

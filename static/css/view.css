@@ -41,13 +41,15 @@ h1{
 
 p{
     font-size:1.5vw;
+    color: var(--button-color);
 }
 
 a{
     text-decoration: none;
+    color: var(--button-color);
 }
 
-.texting{
+.Back{
     display: block;
     
     width: calc(13vw - 0.1vw);
@@ -65,7 +67,7 @@ a{
     cursor:pointer;
 }
 
-.texting:hover{
+.Back:hover{
     border-color: var(--button-color-hover);
     color: var(--button-color-hover);
     background: var(--button-bg-hover);

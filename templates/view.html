@@ -12,7 +12,7 @@
 	<body>
 		<div class="profile_view">
 			<div class="icon">
-				<img src="{{account.icon}}">
+				<img src="{{account2.icon}}">
 			</div>
 			<h1>{{ account.name }}</h1>
 			<p>Возраст: {{ account.age }}</p>
@@ -20,9 +20,7 @@
 			<div class="Description">
 				<p>О сoбеседнике: {{ account.description }}</p>
 			</div>
-			<div class="texting">
-				<a href="/open_chat_with_user/{{ account.ID }}">Назад</a>
-			</div>
+			<a href="/open_chat_with_user/{{ account2.ID }}" class="Back">Назад</a>
 		</div>
 	</body>
 </html>
