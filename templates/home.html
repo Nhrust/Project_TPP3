@@ -82,7 +82,7 @@
 			
 			<div class="top">
 				{% if account.chat_opened %}
-					<a href="/view_profile/{{account.opened_chat.user2.ID}}">
+					<a href="/view_profile{{account.opened_chat.user2.ID}}">
 						<div class="chat_topicleft">
 							<div class="img_avatar">
 								<img class="chat_avatar" src="{{ account.opened_chat.user2.icon }}">

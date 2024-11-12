@@ -108,7 +108,7 @@ def edit_profile():
 		account.update_on_base(base)
 	return redirect("/profile")
 
-@app.route("/view_profile/<ID>")
+@app.route("/view_profile<ID>")
 def view_profile(ID: str):
 	with TableHandler(base, AccountsManager.Head) as handle:
 		account = Account.unpack(base, handle.get_row(int(ID)))

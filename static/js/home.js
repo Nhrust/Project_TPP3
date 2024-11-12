@@ -69,7 +69,7 @@ socket.on('find_response', (arg) => {
 			div.appendChild(symbol);
 
 			const link = CreateElement("a");
-			link.href = "/view_profile/" + values[2];
+			link.href = "/view_profile" + values[2];
 			link.title = "View profile";
 			link.appendChild(div);
 			document.querySelector(".FIND_FIELD").after(link);
