@@ -373,7 +373,7 @@ input[type="text"], select, textarea{
 	height: 80vh;
 	flex-direction: column;
 	justify-content: flex-end;
-	overflow-y: auto
+	overflow-y: auto;
 }
 
 .right .main .message {
