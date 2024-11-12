@@ -145,7 +145,7 @@ h2 {
 
 .left .top .profile .decor {
 	background: var(--button-bg);
-	border: 1px solid var(--buton-color);
+	border: 0.1vw solid var(--button-color);
 	position: absolute;
 	text-align: center;
 	left:2vw;
