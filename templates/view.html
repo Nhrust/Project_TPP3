@@ -11,12 +11,17 @@
 	</head>
 	<body>
 		<div class="profile_view">
-			<div class="profile_info">
-				<h1>{{ account.name }}</h1>
-				<p>{{ account.age }}</p>
-				<p>{{ account.gender }}</p>
-				<p>{{ account.description }}</p>
-				<a href="/open_chat_with_user/{{ account.ID }}">Написать сообщение</a>
+			<div class="icon">
+				<img src="{{account.icon}}">
+			</div>
+			<h1>{{ account.name }}</h1>
+			<p>Возраст: {{ account.age }}</p>
+			<p>Пол: {{"Не указан" if account.gender == 0 else ("Мужской" if account.gender == 1 else "Женский") }}</p>
+			<div class="Description">
+				<p>О сoбеседнике: {{ account.description }}</p>
+			</div>
+			<div class="texting">
+				<a href="/open_chat_with_user/{{ account.ID }}">Назад</a>
 			</div>
 		</div>
 	</body>
