@@ -2,37 +2,82 @@ h1{
     margin-left:30vw;
 }
 
-p{
-    color: var(--color);
-}
-
 h2{
     color: var(--color);
+    margin-left:28vw;
+    margin-top:3vw;
 }
 
-.DevelopersAndSomeInfo{
-    width: 30vw;
-    padding: 5vw;
-    position: relative;
-    left: 15vw;
-    top: 2vw;
-    text-align: center;
-    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
-    backdrop-filter: blur(10px);
-    box-shadow: 0 5px 25px rgba(0,0,0,0.3);
-    border: 0.2vw solid rgba(255,255,255,0.3);
-    border-radius: 1vw;
+.Sponsorstvo{
+    color: var(--color);
+    margin-left:28vw;
+    margin-top:12vw;
 }
 
-.PD{
-    width:15vw;
-    height:2vw;
-    text-align: center;
-    line-height: 2vw;
+.DevelopInfo{
+    position: fixed;
+    width: 69vw;
+    height: 74.5vh;
+    top:6vw;
+    border-radius: 0.5vw;
     background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
     backdrop-filter: blur(10px);
     box-shadow: 0 3px 20px rgba(0,0,0,0.3);
     border: 0.1vw solid var(--bg-color-alt);
-    color: var(--button-color);
+}
+
+.DevelopDecor {
+    position: relative;
+    display: inline-block;
+    width: 15vw;
+    height: 2vw;
+    font-size: 1vw;
+    margin: 5vw 1vw;
     border-radius: 0.5vw;
+    text-align: center;
+    line-height: 1.75vw;	
+    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
+    border: 0.1vw solid var(--bg-color-alt);
+    font-weight: bold;
+    cursor: pointer;
+    border: 0;
+    transition: 0.3s;
+}
+
+.DevelopDecor::after {
+    content: attr(data-text);
+    position: relative;
+    width: 15vw;
+    height: auto;
+    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
+    border: 0.1vw solid var(--bg-color-alt);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.DevelopDecor:hover{
+    background-color: var(--button-bg-hover);
+    color: var(--button-color-hover);
+    border-color: color-mix(var(--button-color) var(--button-color-hover) 50%);
+}
+
+.DevelopDecor:hover::after {
+    opacity: 1;
+}
+
+.Spon{
+    text-align: center;
+    margin-top:9vw;
+}
+
+.P2{
+    margin-top:2vw;
 }
