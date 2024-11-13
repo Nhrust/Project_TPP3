@@ -1,1 +1,38 @@
-/* ПЕРЕИМЕНОВАТЬ */
+h1{
+    margin-left:30vw;
+}
+
+p{
+    color: var(--color);
+}
+
+h2{
+    color: var(--color);
+}
+
+.DevelopersAndSomeInfo{
+    width: 30vw;
+    padding: 5vw;
+    position: relative;
+    left: 15vw;
+    top: 2vw;
+    text-align: center;
+    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+    border: 0.2vw solid rgba(255,255,255,0.3);
+    border-radius: 1vw;
+}
+
+.PD{
+    width:15vw;
+    height:2vw;
+    text-align: center;
+    line-height: 2vw;
+    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
+    border: 0.1vw solid var(--bg-color-alt);
+    color: var(--button-color);
+    border-radius: 0.5vw;
+}

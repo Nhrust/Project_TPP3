@@ -56,8 +56,12 @@ h2 {
 	top: 1vw;
 	width: 5vw;
 	height: 3vw;
-	border: 1px solid var(--button-color);
-	border-radius: 0.5vw;
+	background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
+    border: 0.1vw solid var(--bg-color-alt);
+    color: var(--button-color);
+    border-radius: 0.5vw;
 	line-height: 3vw;
 	transition: 0.3s;
 }
@@ -325,12 +329,20 @@ h2 {
 	left: 3vw;
 	width: 2vw;
 	height: 1vw;
-	border: 1px solid #bbb;
-	border-radius: 1vw;
+	text-align: center;
+	background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
+    border: 0.1vw solid var(--bg-color-alt);
+    color: var(--button-color);
+    border-radius: 0.5vw;
+	cursor: pointer;
+	transition: 0.3s;
 }
 
 .right .top .photo:hover {
-	border-color:var(--button-color);
+	border: 1px solid var(--button-color-hover);
+	background-color: var(--button-bg-hover);
 }
 
 .right .top .video {
@@ -340,12 +352,20 @@ h2 {
 	left: 8vw;
 	width: 2vw;
 	height: 1vw;
-	border: 1px solid #bbb;
-	border-radius: 1vw;
+	text-align: center;
+	background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
+    border: 0.1vw solid var(--bg-color-alt);
+    color: var(--button-color);
+    border-radius: 0.5vw;
+	cursor: pointer;
+	transition: 0.3s;
 }
 
 .right .top .video:hover {
-	border-color:var(--button-color);
+	border: 1px solid var(--button-color-hover);
+	background-color: var(--button-bg-hover);
 }
 
 .right .top .files {
@@ -355,12 +375,20 @@ h2 {
 	left: 13vw;
 	width: 2vw;
 	height: 1vw;
-	border: 1px solid #bbb;
-	border-radius: 1vw;
+	text-align: center;
+	background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
+    border: 0.1vw solid var(--bg-color-alt);
+    color: var(--button-color);
+    border-radius: 0.5vw;
+	cursor: pointer;
+	transition: 0.3s;
 }
 
 .right .top .files:hover {
-	border-color:var(--button-color);
+	border: 1px solid var(--button-color-hover);
+	background-color: var(--button-bg-hover);
 }
 
 
@@ -481,14 +509,17 @@ h2 {
 
 	display: inline;
 	font-size: 1vw;
-	border: 1px solid var(--button-color);
-	border-radius: 0.5vw;
-
-	color: var(--button-color);
+	background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
+    border: 0.1vw solid var(--bg-color-alt);
+    color: var(--button-color);
+    border-radius: 0.5vw;
 	cursor: pointer;
+	transition: 0.3s;
 }
 
 .right .send .send_form .send_submit:hover {
-	border: 0.1vw solid var(--button-color);
-	color: var(--button-color);
+	border: 1px solid var(--button-color-hover);
+	background-color: var(--button-bg-hover);
 }

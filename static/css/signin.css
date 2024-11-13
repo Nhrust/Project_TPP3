@@ -1,3 +1,16 @@
+body {
+    background: #dadada;
+    box-shadow: 0 -200px 100px -120px #81b0bb inset;
+    animation: background 15s infinite alternate;
+}
+  
+@keyframes background {
+    50% {
+        background: #81b0bb;
+        box-shadow: 0 -200px 100px -120px #dadada inset;
+    }
+}
+
 h1 {
     font-size: 2vw;
 }
@@ -13,7 +26,10 @@ form {
     left: 30vw;
     top: 15vw;
     text-align: center;
-    background: var(--bg-color-alt);
+    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+    border: 0.2vw solid rgba(255,255,255,0.3);
     border-radius: 1vw;
 }
 
@@ -37,8 +53,10 @@ form {
     font-size: 1vw;
     margin: 0.5vw;
     border-radius: 0.5vw;	
-    background: var(--button-bg);
-    color: var(--button-color);
+    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
+    border: 0.1vw solid var(--bg-color-alt);
     cursor: pointer;
     font-weight: bold;
     border: 0;
@@ -47,7 +65,6 @@ form {
 .submit:hover{
     transition:0.2s;
     color: var(--button-color-hover);
-    background: var(--button-bg-hover);
 }
 
 .log {
@@ -80,14 +97,14 @@ a {
     text-align: center;
     font-weight: bold;
     line-height: 1.5vw;
-    border:1px solid var(--button-bg);
-    background-color: var(--button-bg);
-    color: var(--button-color);
+    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
+    border: 0.1vw solid var(--bg-color-alt);
     border-radius: 0.5vw;
 }
 
 .BAckToLogin:hover{
     transition:0.2s;
     color: var(--button-color-hover);
-    background: var(--button-bg-hover);
 }

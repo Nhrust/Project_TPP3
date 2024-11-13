@@ -18,7 +18,10 @@ body {
     height: 15vh;
     border: none;
     border-radius: 1vw;
-    background: var(--bg-color-alt);
+    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
+    border: 0.1vw solid var(--bg-color-alt);
     transition: all 0.3s ease;
 }
 
@@ -43,8 +46,10 @@ body {
     width: calc(7.5vw - 2px);
 
     color: var(--button-color);
-    background: var(--button-bg);
-    border: 1px solid var(--button-color);
+    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
+    border: 0.1vw solid var(--bg-color-alt);
     border-radius: 0.5vw;
     transition: all 0.3s ease;
 }
@@ -66,7 +71,10 @@ body {
     top: 22vh;
     
     border-radius: 0.5vw;
-    background: var(--bg-color-alt);
+    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
+    border: 0.1vw solid var(--bg-color-alt);
     transition: all 0.3s ease;
 }
 
@@ -80,9 +88,11 @@ body {
     line-height: 2vw;
     text-align: center;
     
-    border: 0.1vw solid var(--button-color);
+    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
+    border: 0.1vw solid var(--bg-color-alt);
     color: var(--button-color);
-    background: var(--button-bg);
     border-radius: 0.5vw;
     transition: all 0.3s ease;
     cursor:pointer;
@@ -114,7 +124,10 @@ body {
     padding: 3.5vh 2vw;
     border: none;
     border-radius: 1vw;
-    background: var(--bg-color-alt);
+    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
+    border: 0.1vw solid var(--bg-color-alt);
     transition: all 0.3s ease;
     overflow-y: scroll;
 }

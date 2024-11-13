@@ -1,4 +1,3 @@
-
 .BG_color_set{
     margin-top:2vw;
     font-size: 1vw;
@@ -40,6 +39,7 @@
 	border-radius: 0.5vw;
 	background-color: var(--button-bg);
 	color: var(--button-color);
+	box-shadow: 0 3px 25px rgba(0,0,0,0.5);
 	font-size: 1vw;
 	cursor: pointer;
 	transition: 0.3s ease, color 0.3s ease;
