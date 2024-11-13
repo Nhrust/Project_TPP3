@@ -7,9 +7,17 @@ form {
 }
 
 body {
-    background-image: linear-gradient(#dadada, #81b0bb);
-  }
+    background: #dadada;
+    box-shadow: 0 -200px 100px -120px #81b0bb inset;
+    animation: background 30s infinite alternate;
+}
   
+@keyframes background {
+    50% {
+        background: #81b0bb;
+        box-shadow: 0 -200px 100px -120px #dadada inset;
+    }
+}
 
 .fast_login {
     width: 10vw;
