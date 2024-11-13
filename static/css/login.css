@@ -9,7 +9,7 @@ form {
 body {
     background: #dadada;
     box-shadow: 0 -200px 100px -120px #81b0bb inset;
-    animation: background 30s infinite alternate;
+    animation: background 15s infinite alternate;
 }
   
 @keyframes background {

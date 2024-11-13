@@ -26,6 +26,7 @@ h2 {
 	width: 20vw;
 	height: 100%;
 	border: 0 solid var(--color);
+	box-shadow: 0 35px 75px rgba(0,0,0,0.4);
 	border-width: 0 1px 0 0;
 	z-index: 1;
 	background-color: var(--bg-color-alt);
@@ -95,7 +96,7 @@ h2 {
 	position: relative;
 	width: 20vw;
 	min-height: 5vw;
-	border: 0 solid var(--border-color);
+	border: 0 solid var(--color);
 	border-width: 0 0 1px 0;
 }
 
@@ -257,6 +258,7 @@ h2 {
 	width: 80vw;
 	height: 5vw;
 	border: 0 solid var(--color);
+	box-shadow: 0 35px 25px rgba(0,0,0,0.2);
 	border-width: 0 0 1px 0;
 	background-color: var(--bg-color-alt);
 }
