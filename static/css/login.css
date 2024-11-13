@@ -6,9 +6,10 @@ form {
     align-content: center;
 }
 
-body{
-    background: var(--bg-color);
-}
+body {
+    background-image: linear-gradient(#2E9AFF, #F498AD);
+  }
+  
 
 .fast_login {
     width: 10vw;
@@ -17,7 +18,10 @@ body{
     left: 5vw;
     top: 15vw;
     text-align: center;
-    background: var(--bg-color-alt);
+    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+    border: 0.1vw solid rgba(255,255,255,0.3);
     border-radius: 1vw;
 }
 
@@ -38,7 +42,10 @@ body{
     left: 30vw;
     top: 15vw;
     text-align: center;
-    background: var(--bg-color-alt);
+    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+    border: 0.1vw solid rgba(255,255,255,0.3);
     border-radius: 1vw;
 }
 
@@ -58,8 +65,10 @@ body{
     font-size: 1vw;
     margin: 0.5vw;
     border-radius: 0.5vw;	
-    background: var(--button-bg);
-    color: var(--button-color);
+    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+    border: 0.1vw solid rgba(255,255,255,0.3);
     font-weight: bold;
     cursor: pointer;
     border: 0;
@@ -68,7 +77,6 @@ body{
 .submit:hover{
     transition:0.2s;
     color: var(--button-color-hover);
-    background: var(--button-bg-hover);
 }
 
 .log {
@@ -93,16 +101,16 @@ body{
     font-weight: bold;
     line-height:1.5vw;
     cursor: pointer;
-    border:1px solid var(--button-bg);
-    background-color: var(--button-bg);
-    color: var(--button-color);
+    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+    border: 0.1vw solid rgba(255,255,255,0.3);
     border-radius: 0.5vw;
 }
 
 .SingIn:hover{
     transition:0.2s;
     color: var(--button-color-hover);
-    background: var(--button-bg-hover);
 }
 
 a {
