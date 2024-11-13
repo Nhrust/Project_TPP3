@@ -67,8 +67,7 @@ body {
     border-radius: 0.5vw;	
     background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
     backdrop-filter: blur(10px);
-    box-shadow: 0 5px 25px rgba(0,0,0,0.3);
-    border: 0.1vw solid rgba(255,255,255,0.3);
+    border: 0.1vw solid var(--bg-color-alt);
     font-weight: bold;
     cursor: pointer;
     border: 0;
@@ -103,7 +102,6 @@ body {
     cursor: pointer;
     background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
     backdrop-filter: blur(10px);
-    box-shadow: 0 5px 25px rgba(0,0,0,0.3);
     border: 0.1vw solid rgba(255,255,255,0.3);
     border-radius: 0.5vw;
 }
