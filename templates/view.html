@@ -18,7 +18,7 @@
 			<p>Возраст: {{ account2.age }}</p>
 			<p>Пол: {{"Не указан" if account2.gender == 0 else ("Мужской" if account2.gender == 1 else "Женский") }}</p>
 			<div class="Description">
-				<p>О сoбеседнике: {{ account2.description }}</p>
+				<p>О сoбеседнике: {{ account2.about }}</p>
 			</div>
 			<a href="/open_chat_with_user/{{ account2.ID }}" class="Back">Написать</a>
 		</div>
