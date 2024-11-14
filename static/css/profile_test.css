@@ -20,8 +20,7 @@ h1{
     height: 74.5vh;
     top:6vw;
     border-radius: 0.5vw;
-    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
-    backdrop-filter: blur(10px);
+    background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.01));
     box-shadow: 0 3px 20px rgba(0,0,0,0.3);
     border: 0.1vw solid var(--bg-color-alt);
 }

@@ -18,7 +18,7 @@ body {
     height: 15vh;
     border: none;
     border-radius: 1vw;
-    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    background: linear-gradient(90deg, var(--bg-color-alt), var(--bg-color));
     backdrop-filter: blur(10px);
     box-shadow: 0 3px 20px rgba(0,0,0,0.3);
     border: 0.1vw solid var(--bg-color-alt);
@@ -71,7 +71,7 @@ body {
     top: 22vh;
     
     border-radius: 0.5vw;
-    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    background: linear-gradient(90deg, var(--bg-color-alt), var(--bg-color));
     backdrop-filter: blur(10px);
     box-shadow: 0 3px 20px rgba(0,0,0,0.3);
     border: 0.1vw solid var(--bg-color-alt);
@@ -124,7 +124,7 @@ body {
     padding: 3.5vh 2vw;
     border: none;
     border-radius: 1vw;
-    background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    background: linear-gradient(90deg, var(--bg-color), var(--bg-color-alt));
     backdrop-filter: blur(10px);
     box-shadow: 0 3px 20px rgba(0,0,0,0.3);
     border: 0.1vw solid var(--bg-color-alt);
