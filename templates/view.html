@@ -14,11 +14,11 @@
 			<div class="icon">
 				<img src="{{account2.icon}}">
 			</div>
-			<h1>{{ account.name }}</h1>
-			<p>Возраст: {{ account.age }}</p>
-			<p>Пол: {{"Не указан" if account.gender == 0 else ("Мужской" if account.gender == 1 else "Женский") }}</p>
+			<h1>{{ account2.name }}</h1>
+			<p>Возраст: {{ account2.age }}</p>
+			<p>Пол: {{"Не указан" if account2.gender == 0 else ("Мужской" if account2.gender == 1 else "Женский") }}</p>
 			<div class="Description">
-				<p>О сoбеседнике: {{ account.description }}</p>
+				<p>О сoбеседнике: {{ account2.description }}</p>
 			</div>
 			<a href="/open_chat_with_user/{{ account2.ID }}" class="Back">Написать</a>
 		</div>
