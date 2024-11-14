@@ -100,7 +100,6 @@
 					</div>
 				{% endif %}
 			</div> <!-- top -->
-
 			{% if account.chat_opened %}
 				<div class="main2"><div class="main">
 					{% for message in account.opened_chat.get_last_messages() %}
@@ -128,6 +127,8 @@
 					</form>
 				</div> <!-- send -->
 				<script>send_setup()</script>
+			{% else %}
+				<p class="NoChatText">Выберите кому вы хотите написать</p>
 			{% endif %}
 		</div> <!-- right -->
 	</body>

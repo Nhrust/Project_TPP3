@@ -26,7 +26,7 @@ h2 {
 	width: 20vw;
 	height: 100%;
 	border: 0 solid var(--color);
-	background: linear-gradient(90deg, var(--bg-color), var(--bg-color-alt));
+	background: linear-gradient(90deg, var(--bg-color-alt), var(--bg-color));
     backdrop-filter: blur(10px);
 	border-width: 0 1px 0 0;
 	z-index: 1;
@@ -37,7 +37,7 @@ h2 {
 	position: absolute;
 	width: 20vw;
 	height: 5vw;
-	background: linear-gradient(90deg, var(--bg-color), var(--bg-color-alt));
+	background: linear-gradient(90deg, var(--bg-color-alt), var(--bg-color));
     backdrop-filter: blur(10px);
 	border: 0 solid var(--color);
 	border-width: 0 0 1px 0;
@@ -526,4 +526,32 @@ h2 {
 .right .send .send_form .send_submit:hover {
 	border: 1px solid var(--button-color-hover);
 	background-color: var(--button-bg-hover);
+}
+
+.NoChatText{
+	margin-top: 23vw;
+	margin-left: 34vw;
+	color: var(--color);
+}
+
+.NoChatText::after{
+	overflow: hidden;
+	display: inline-block;
+	vertical-align: bottom;
+	-webkit-animation: ellipsis steps(4, end) 900ms infinite;
+	animation: ellipsis step(4, end) 900ms infinite;
+	content: "\2026";
+	width: 0px;
+}
+
+@keyframes ellipses {
+	to {
+		width: 40px;
+	}
+}
+
+@-webkit-keyframes ellipsis {
+	to {
+		width: 40px;
+	}
 }
