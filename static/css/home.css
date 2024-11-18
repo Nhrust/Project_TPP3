@@ -331,6 +331,12 @@ h2 {
 	color: var(--button-color);
 }
 
+.right .top .chat_topicright div img {
+    width: 24px; 
+    height: 24px; 
+	fill: var(--bg-color-alt);
+}
+
 .right .top .photo {
 	position: absolute;
 	padding: 1vw;
