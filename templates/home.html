@@ -94,15 +94,26 @@
 						</div>
 					</a>
 					<div class="chat_topicright">
-						<div class="photo">
-							<img src="static\Images\Фото.svg" alt="Photo Icon">
-						</div>
-						<div class="video">
-							<img src="static\Images\Видео.svg" alt="Video Icon">
-						</div>
-						<div class="files">
-							<img src="static\Images\Файл.svg" alt="Files Icon">
-						</div>
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="photo">
+
+								<rect x="3" y="6" width="18" height="15" rx="3" ry="3" stroke="var(--icon-color, currentColor)" fill="none" stroke-width="2"/>
+								<circle cx="12" cy="13" r="4" stroke="var(--icon-color, currentColor)" fill="none" stroke-width="2"/>
+								<circle cx="19" cy="8" r="1" fill="var(--icon-color, currentColor)"/>
+								<rect x="8" y="2" width="8" height="3" rx="1" ry="1" stroke="var(--icon-color, currentColor)" fill="none" stroke-width="2"/>
+							</svg>
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="video">
+								<rect x="2" y="5" width="16" height="14" rx="2" ry="2" stroke="var(--icon-color, currentColor)" fill="none" stroke-width="2"/>
+								<circle cx="14" cy="12" r="3" stroke="var(--icon-color, currentColor)" fill="none" stroke-width="2"/>
+								<rect x="19" y="8" width="3" height="8" rx="1" ry="1" fill="var(--icon-color, currentColor)"/>
+							</svg>
+							
+							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" class="files">
+								<path d="M6 2 H16 L20 6 V20 H6 Z" stroke="var(--icon-color, currentColor)" fill="none" stroke-width="2"/>
+								<line x1="8" y1="8" x2="16" y2="8" stroke="var(--icon-color, currentColor)" stroke-width="2"/>
+								<line x1="8" y1="12" x2="14" y2="12" stroke="var(--icon-color, currentColor)" stroke-width="2"/>
+								<line x1="8" y1="16" x2="12" y2="16" stroke="var(--icon-color, currentColor)" stroke-width="2"/>
+							</svg>
+							
 					</div>
 						
 				{% endif %}

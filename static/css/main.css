@@ -35,4 +35,12 @@ html {
     --border-color-hover: #000000;
     --message-send: #000000;
     --message-checked: #000000;
+    --icon-color: red;
 }
+
+  
+  .hhh {
+    fill: var(--icon-color, currentColor);
+    stroke: var(--icon-color, currentColor);
+  }
+  

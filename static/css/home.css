@@ -331,16 +331,25 @@ h2 {
 	color: var(--button-color);
 }
 
-.right .top .chat_topicright div img {
-    width: 24px; 
-    height: 24px; 
-	fill: var(--bg-color-alt);
+.right .top .chat_topicright .photo{
+	width: 24px !important;
+	height: 24px !important;
+}
+
+.right .top .chat_topicright .video{
+	width: 24px !important;
+	height: 24px !important;
+}
+
+.right .top .chat_topicright .files{
+	width: 24px !important;
+	height: 24px !important;
 }
 
 .right .top .photo {
 	position: absolute;
 	padding: 1vw;
-	top:1vw;
+	top:0.5vw;
 	left: 3vw;
 	width: 2vw;
 	height: 1vw;
@@ -363,7 +372,7 @@ h2 {
 .right .top .video {
 	position: absolute;
 	padding: 1vw;
-	top: 1vw;
+	top: 0.5vw;
 	left: 8vw;
 	width: 2vw;
 	height: 1vw;
@@ -386,7 +395,7 @@ h2 {
 .right .top .files {
 	position: absolute;
 	padding: 1vw;
-	top: 1vw;
+	top: 0.5vw;
 	left: 13vw;
 	width: 2.5vw;
 	height: 1vw;
