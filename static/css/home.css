@@ -335,15 +335,12 @@ h2 {
 	width: 24px;
 	height: 24px;
 }
-.right .top .chat_topicright .photo rect,
-.right .top .chat_topicright .photo circle {
+.right .top .chat_topicright .photo{
     transition: 0.3s ease;
-    stroke: var(--icon-color, currentColor);
-    fill: none; 
+    fill: var(--icon-color, currentColor); 
 }
-.right .top .chat_topicright .photo:hover rect,
-.right .top .chat_topicright .photo:hover circle {
-    stroke: var(--icon-hover-color, currentColor);
+.right .top .chat_topicright .photo:hover {
+    fill: var(--icon-hover-color, currentColor);
 }
 
 .right .top .chat_topicright .video{
