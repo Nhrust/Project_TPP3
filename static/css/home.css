@@ -332,18 +332,48 @@ h2 {
 }
 
 .right .top .chat_topicright .photo{
-	width: 24px !important;
-	height: 24px !important;
+	width: 24px;
+	height: 24px;
+}
+.right .top .chat_topicright .photo rect,
+.right .top .chat_topicright .photo circle {
+    transition: 0.3s ease;
+    stroke: var(--icon-color, currentColor);
+    fill: none; 
+}
+.right .top .chat_topicright .photo:hover rect,
+.right .top .chat_topicright .photo:hover circle {
+    stroke: var(--icon-hover-color, currentColor);
 }
 
 .right .top .chat_topicright .video{
-	width: 24px !important;
-	height: 24px !important;
+	width: 24px;
+	height: 24px;
+}
+.right .top .chat_topicright .video rect,
+.right .top .chat_topicright .video circle {
+    transition: 0.3s ease;
+    stroke: var(--icon-color, currentColor);
+    fill: none; 
+}
+.right .top .chat_topicright .video:hover rect,
+.right .top .chat_topicright .video:hover circle {
+    stroke: var(--icon-hover-color, currentColor);
 }
 
 .right .top .chat_topicright .files{
-	width: 24px !important;
-	height: 24px !important;
+	width: 24px;
+	height: 24px;
+}
+.right .top .chat_topicright .files line,
+.right .top .chat_topicright .files path {
+    transition: 0.3s ease;
+    stroke: var(--icon-color, currentColor);
+    fill: none; 
+}
+.right .top .chat_topicright .files:hover line,
+.right .top .chat_topicright .files:hover path {
+    stroke: var(--icon-hover-color, currentColor);
 }
 
 .right .top .photo {
@@ -518,8 +548,6 @@ h2 {
 
 
 .right .send {
-	/* position: fixed; */
-     /* Поднимаем над панелью задач */
     width: 80vw;
 	height: 3vw;
     border: 0 solid var(--color);
@@ -547,9 +575,7 @@ h2 {
 .right .send .send_form .send_submit {
 	height: 2vw;
 	width: 6vw;
-
 	margin: calc(0.5vw - 1px);
-
 	display: inline;
 	font-size: 1vw;
 	background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
