@@ -347,29 +347,26 @@ h2 {
 	width: 24px;
 	height: 24px;
 }
-.right .top .chat_topicright .video rect,
-.right .top .chat_topicright .video circle {
+.right .top .chat_topicright .video{
     transition: 0.3s ease;
     stroke: var(--icon-color, currentColor);
-    fill: none; 
+    fill: var(--icon-color, currentColor); 
 }
-.right .top .chat_topicright .video:hover rect,
-.right .top .chat_topicright .video:hover circle {
+.right .top .chat_topicright .video:hover{
     stroke: var(--icon-hover-color, currentColor);
+	fill: var(--icon-hover-color, currentColor); 
 }
 
 .right .top .chat_topicright .files{
 	width: 24px;
 	height: 24px;
 }
-.right .top .chat_topicright .files line,
-.right .top .chat_topicright .files path {
+.right .top .chat_topicright .files{
     transition: 0.3s ease;
     stroke: var(--icon-color, currentColor);
-    fill: none; 
+	fill:none;
 }
-.right .top .chat_topicright .files:hover line,
-.right .top .chat_topicright .files:hover path {
+.right .top .chat_topicright .files:hover{
     stroke: var(--icon-hover-color, currentColor);
 }
 
