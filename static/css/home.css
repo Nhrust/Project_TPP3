@@ -129,7 +129,7 @@ h2 {
     background: var(--button-bg);
 }
 
-.left .bottom .find .find_form .submit {
+.left .bottom .find .find_form .find_button {
     display: inline;
 	font-size: 0.75vw;
 	width: 5vw;
@@ -147,8 +147,17 @@ h2 {
 	transition: 0.3s ease, color 0.3s ease;
 }
 
-.left .bottom .find .find_form .submit:hover {
+.left .bottom .find .find_form .find_button:hover {
 	background: var(--button-bg-hover);
+}
+
+.left .bottom .find .find_form .find_button input {
+	display: none;
+}
+
+.left .bottom .find .find_form .find_svg {
+	width: 1em;
+	height: 1em;
 }
 
 .left .bottom .find .account {
@@ -549,43 +558,37 @@ h2 {
 	background: var(--bg-color-alt);
 }
 
-.right .send .send_form .send_input {
-	height: 2vw;
-    width: 50vw;
-
-	margin: calc(0.5vw - 1px);
-	margin-left: 10%;
-    padding: 0 0.5vw;
-
+.right .send .text_input {
 	display: inline;
-	font-size: 1vw;
-    border: 1px solid var(--button-color);
-    border-radius: 0.5vw;
-	
-	color:var(--color);
-    background-color: var(--button-bg);
 }
 
-.right .send .send_form .send_submit {
-	height: 2vw;
-	width: 6vw;
-	margin: calc(0.5vw - 1px);
-	display: inline;
-	font-size: 1vw;
-	background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
-    backdrop-filter: blur(10px);
-    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
-    border: 0.1vw solid var(--bg-color-alt);
-    color: var(--button-color);
-    border-radius: 0.5vw;
+.right .send .add_svg {
+	width: 1em;
+	height: 1em;
 	cursor: pointer;
-	transition: 0.3s;
 }
 
-.right .send .send_form .send_submit:hover {
-	border: 1px solid var(--button-color-hover);
-	background-color: var(--button-bg-hover);
+.right .submit_input {
+	display: none;
 }
+
+.right .send .send_button {
+	display: inline;
+	cursor: pointer;
+	font-size: 12px;
+	line-height: 2em;
+	height: 2em;
+}
+
+.right .send .send_button label {
+	cursor: pointer;
+}
+
+.right .send .send_button .send_svg {
+	width: 1em;
+	height: 1em;
+}
+
 
 .NoChatText{
 	margin-top: 23vw;
@@ -610,7 +613,7 @@ h2 {
 }
 
 @-webkit-keyframes ellipsis {
-	to {
+	100% {
 		width: 40px;
 	}
 }

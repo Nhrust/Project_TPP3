@@ -35,7 +35,9 @@ function setup_find() {
 }
 
 function send_setup() {
+	console.log("work");
 	document.querySelector(".send_form").onsubmit = function(event) {
+		console.log("sus");
 		event.preventDefault();
 		send_message();
 	}
@@ -139,7 +141,7 @@ function update() {
 
 
 function send_message() {
-	var send_input = document.querySelector(".send_input");
+	var send_input = document.querySelector(".text_input");
 	var message = send_input.value;
 	
 	if (message != null) {
@@ -150,46 +152,6 @@ function send_message() {
 			send_input.value = "";
 		}
 	}
-}
-
-
-
-
-function recreate_chat(chat_id) {
-	const right = document.querySelector(".right");
-
-	document.querySelectorAll(".main").forEach(element => {
-		element.parentNode.removeChild(element);
-	})
-	document.querySelectorAll(".send").forEach(element => {
-		element.parentNode.removeChild(element);
-	})
-	
-	const main = CreateElement("div", "main");
-	right.appendChild(main);
-
-	const send = CreateElement("div", "send");
-		
-		const form = CreateElement("form", "send_form");
-		form.onsubmit = function(event) {
-			event.preventDefault();
-			send_message();
-		}
-			
-			const input = CreateElement("input", "send_input");
-			input.type = "text";
-			form.appendChild(input);
-
-			const submit = CreateElement("input", "send_submit");
-			submit.type = "submit";
-			submit.value = "Отправить";
-			form.appendChild(submit);
-		
-		send.appendChild(form);
-	
-	right.appendChild(send);
-
-	socket.emit("get_last_messages");
 }
 
 
