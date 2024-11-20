@@ -151,7 +151,7 @@ h2 {
 	background: var(--button-bg-hover);
 }
 
-.left .bottom .find .find_form .find_button input {
+.left .bottom .find .find_form input {
 	display: none;
 }
 
