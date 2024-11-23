@@ -131,17 +131,12 @@ h2 {
 
 .left .bottom .find .find_form .find_button {
     display: inline;
-	font-size: 0.75vw;
-	width: 5vw;
-	height: calc(1.5vw + 2px);
-	padding: 0 1vw;
-	
+	font-size: 1.5vw;
+	padding: 1px 5px;
 	cursor: pointer;
 	margin-left: 0.5vw;
-	
 	border: 1px solid var(--color);
-	border-radius: 0.5vw;
-	
+	border-radius: 1vw;
 	color: var(--button-color);
 	background: var(--button-bg);
 	transition: 0.3s ease, color 0.3s ease;
@@ -156,8 +151,21 @@ h2 {
 }
 
 .left .bottom .find .find_form .find_svg {
-	width: 1em;
-	height: 1em;
+	display: inline;
+	width: 15px;
+	height: 15px;
+	padding-inline: 2px 2px;
+	transition: 0.3s ease;
+    fill: var(--icon-color, currentColor); 
+	stroke: var(--icon-color, currentColor);
+
+
+}
+
+.left .bottom .find .find_form .find_svg:hover {
+	
+	stroke: var(--icon-hover-color, currentColor);
+    fill: var(--icon-hover-color, currentColor); 
 }
 
 .left .bottom .find .account {
@@ -612,8 +620,8 @@ h2 {
 	}
 }
 
-@-webkit-keyframes ellipsis {
+/* @-webkit-keyframes ellipsis {
 	100% {
 		width: 40px;
 	}
-}
+} */
