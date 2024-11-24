@@ -568,6 +568,20 @@ h2 {
 
 .right .send .text_input {
 	display: inline;
+	font-size: 0.75vw;
+	font-family: system-ui;
+	width: 11vw;
+	height: 1.5vw;
+	padding: 0 0.5vw;
+
+	margin-left: 1vw;
+    margin-top: 0.2vw;
+    
+	border: 1px solid var(--color);
+    border-radius: 0.5vw;
+
+	color: var(--color);
+    background: var(--button-bg);
 }
 
 .right .send .add_svg {
@@ -578,6 +592,15 @@ h2 {
 
 .right .submit_input {
 	display: none;
+	font-size: 1.5vw;
+	padding: 1px 5px;
+	cursor: pointer;
+	margin-left: 0.5vw;
+	border: 1px solid var(--color);
+	border-radius: 1vw;
+	color: var(--button-color);
+	background: var(--button-bg);
+	transition: 0.3s ease, color 0.3s ease;
 }
 
 .right .send .send_button {
