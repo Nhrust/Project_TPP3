@@ -1,5 +1,25 @@
 body{
     background-color: var(--bg-color);
+    overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+    background-color: var(--bg-color-alt);
+    width:1vw;
+    border-radius: 0.5vw;
+}
+
+::-webkit-scrollbar-thumb{
+    border: 1px solid var(--button-bg);
+    width: 2vw;
+    height:3vw;
+    border-radius: 2vw;
+    background-color: var(--button-bg);  
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background-color: var(--button-bg-hover);
+    transition: bg-color 0.3s ease; 
 }
 
 .profile_view {
