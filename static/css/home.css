@@ -563,15 +563,15 @@ h2 {
 }
 
 .right .send .text_input {
-	display: inline;
+	position: relative;
 	font-size: 0.75vw;
 	font-family: system-ui;
-	width: 11vw;
-	height: 1.5vw;
+	width: 60vw;
+	height: 2.5vw;
 	padding: 0 0.5vw;
 
-	margin-left: 1vw;
-    margin-top: 0.2vw;
+	margin-left: 1.5vw;
+
     
 	border: 1px solid var(--color);
     border-radius: 0.5vw;
@@ -581,9 +581,26 @@ h2 {
 }
 
 .right .send .add_svg {
-	width: 1em;
-	height: 1em;
+	position: relative;
+	width: 4em;
+	height: 2em;
+	top: 0.5vw;
 	cursor: pointer;
+	margin-left:2vw;
+	background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
+    border: 0.1vw solid var(--bg-color-alt);
+    color: var(--button-color);
+    border-radius: 0.5vw;
+	fill: var(--icon-color, currentColor); 
+	transition: 0.3s ease;
+}
+
+.right .send .add_svg:hover {
+	fill: var(--icon-hover-color, currentColor);
+	border: 1px solid var(--button-color-hover);
+	background-color: var(--button-bg-hover);
 }
 
 .right .submit_input {
@@ -612,10 +629,27 @@ h2 {
 }
 
 .right .send .send_button .send_svg {
-	width: 1em;
-	height: 1em;
+	position: relative;
+	width: 4em;
+	height: 2.5em;
+	top: 0.5vw;
+	cursor: pointer;
+	margin-left:1.5vw;
+	background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
+    border: 0.1vw solid var(--bg-color-alt);
+    color: var(--button-color);
+    border-radius: 0.5vw;
+	fill: var(--icon-color, currentColor); 
+	transition: 0.3s ease;
 }
 
+.right .send .send_button .send_svg:hover{
+	fill: var(--icon-hover-color, currentColor);
+	border: 1px solid var(--button-color-hover);
+	background-color: var(--button-bg-hover);
+}
 
 .NoChatText{
 	margin-top: 23vw;
