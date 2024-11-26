@@ -129,33 +129,28 @@ h2 {
     background: var(--button-bg);
 }
 
-.left .bottom .find .find_form .find_button {
-    display: inline;
-	font-size: 1.5vw;
-	padding: 1px 5px;
-	cursor: pointer;
-	margin-left: 0.5vw;
-	border: 1px solid var(--color);
-	border-radius: 1vw;
-	color: var(--button-color);
-	background: var(--button-bg);
-	transition: 0.3s ease, color 0.3s ease;
-}
-
-.left .bottom .find .find_form .find_button:hover {
-	background: var(--button-bg-hover);
-}
 
 .left .bottom .find .find_form input {
 	display: none;
 }
 
 .left .bottom .find .find_form .find_svg {
-	display: inline;
-	width: 15px;
-	height: 15px;
-	padding-inline: 2px 2px;
-	transition: 0.3s ease;
+	position: relative;
+	font-size: 1.5vw;	
+	margin-left: 0.5vw;
+	padding: 0.3vw;
+	top: 0.5vw;
+	width: 28px;
+	height: 20px;
+	text-align: center;
+	background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
+    border: 0.1vw solid var(--bg-color-alt);
+    color: var(--button-color);
+    border-radius: 0.5vw;
+	cursor: pointer;
+	transition: 0.3s;
     fill: var(--icon-color, currentColor); 
 	stroke: var(--icon-color, currentColor);
 
@@ -163,7 +158,8 @@ h2 {
 }
 
 .left .bottom .find .find_form .find_svg:hover {
-	
+	background: var(--button-bg-hover);
+	border: 1px solid var(--button-color-hover);
 	stroke: var(--icon-hover-color, currentColor);
     fill: var(--icon-hover-color, currentColor); 
 }
@@ -595,9 +591,9 @@ h2 {
 	font-size: 1.5vw;
 	padding: 1px 5px;
 	cursor: pointer;
-	margin-left: 0.5vw;
+	margin-left: 1vw;
 	border: 1px solid var(--color);
-	border-radius: 1vw;
+	border-radius: 0.1vw;
 	color: var(--button-color);
 	background: var(--button-bg);
 	transition: 0.3s ease, color 0.3s ease;
