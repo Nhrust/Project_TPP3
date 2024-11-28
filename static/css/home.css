@@ -689,29 +689,59 @@ h2 {
 }
 
 .NoChatText{
-	margin-top: 23vw;
-	margin-left: 34vw;
+	text-align: center;
+	padding: 20%;
+}
+
+h3 {
 	color: var(--color);
-}
+	margin: 0;
+	font: .8em verdana;
+	text-transform: uppercase;
+	letter-spacing: .1em;
+  }
 
-.NoChatText::after{
-	overflow: hidden;
+.NoChatText span {
 	display: inline-block;
-	vertical-align: bottom;
-	-webkit-animation: ellipsis steps(4, end) 900ms infinite;
-	animation: ellipsis step(4, end) 900ms infinite;
-	content: "\2026";
-	width: 0px;
-}
+	vertical-align: middle;
+	width: .6em;
+	height: .6em;
+	margin: 0.8vw;
+	background: var(--button-bg);
+	border-radius: .6em;
+	animation: NoChatText 1s infinite alternate;
+  }
 
-@keyframes ellipses {
-	to {
-		width: 40px;
+  .NoChatText span:nth-of-type(2) {
+	background: var(--other-text);
+	animation-delay: 0.2s;
+  }
+  .NoChatText span:nth-of-type(3) {
+	background: var(--button-bg);
+	animation-delay: 0.4s;
+  }
+  .NoChatText span:nth-of-type(4) {
+	background: var(--button-bg-hover);
+	animation-delay: 0.6s;
+  }
+  .NoChatText span:nth-of-type(5) {
+	background: var(--button-color);
+	animation-delay: 0.8s;
+  }
+  .NoChatText span:nth-of-type(6) {
+	background: var(--color-alt);
+	animation-delay: 1.0s;
+  }
+  .NoChatText span:nth-of-type(7) {
+	background: var(--button-color-hover);
+	animation-delay: 1.2s;
+  }
+  
+  @keyframes NoChatText {
+	0% {
+	  opacity: 0;
 	}
-}
-
-/* @-webkit-keyframes ellipsis {
 	100% {
-		width: 40px;
+	  opacity: 1;
 	}
-} */
+  }
