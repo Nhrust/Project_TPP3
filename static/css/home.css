@@ -118,6 +118,7 @@ h2 {
 	width: 11vw;
 	height: 1.5vw;
 	padding: 0 0.5vw;
+	
 
 	margin-left: 1vw;
     margin-top: 0.2vw;
@@ -152,7 +153,7 @@ h2 {
 	cursor: pointer;
 	transition: 0.3s;
     fill: var(--icon-color, currentColor); 
-	stroke: var(--icon-color, currentColor);
+
 
 
 }
@@ -160,7 +161,6 @@ h2 {
 .left .bottom .find .find_form .find_svg:hover {
 	background: var(--button-bg-hover);
 	border: 1px solid var(--button-color-hover);
-	stroke: var(--icon-hover-color, currentColor);
     fill: var(--icon-hover-color, currentColor); 
 }
 
@@ -362,11 +362,9 @@ h2 {
 }
 .right .top .chat_topicright .video{
     transition: 0.3s ease;
-    stroke: var(--icon-color, currentColor);
     fill: var(--icon-color, currentColor); 
 }
 .right .top .chat_topicright .video:hover{
-    stroke: var(--icon-hover-color, currentColor);
 	fill: var(--icon-hover-color, currentColor); 
 }
 
@@ -376,11 +374,32 @@ h2 {
 }
 .right .top .chat_topicright .files{
     transition: 0.3s ease;
-    stroke: var(--icon-color, currentColor);
-	fill:none;
+	fill:var(--icon-color);
+
 }
 .right .top .chat_topicright .files:hover{
-    stroke: var(--icon-hover-color, currentColor);
+    transition: 0.3s ease;
+    opacity:0;
+}
+
+.right .top .chat_topicright .fileshover{
+	position:absolute;
+	width: 24px;
+	height: 24px;
+	padding: 1vw;
+	top: 0.5vw;
+	left: 13vw;
+	cursor:pointer;
+
+}
+
+.right .top .chat_topicright .fileshover{
+    transition: 0.3s ease;
+    opacity: 0;
+}
+.right .top .chat_topicright .fileshover:hover{
+	opacity: 1;
+	fill: var(--icon-hover-color, currentColor); 
 }
 
 .right .top .photo {
@@ -447,11 +466,35 @@ h2 {
 	transition: 0.3s;
 }
 
+
 .right .top .files:hover {
 	border: 1px solid var(--button-color-hover);
 	background-color: var(--button-bg-hover);
 }
 
+.right .top .fileshover {
+	position: absolute;
+	padding: 1vw;
+	top: 0.5vw;
+	left: 13vw;
+	width: 2vw;
+	height: 1vw;
+	text-align: center;
+	background: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 3px 20px rgba(0,0,0,0.3);
+    border: 0.1vw solid var(--bg-color-alt);
+    color: var(--button-color);
+    border-radius: 0.5vw;
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+
+.right .top .fileshover:hover {
+	border: 1px solid var(--button-color-hover);
+	background-color: var(--button-bg-hover);
+}
 
 
 .right .main2 {
